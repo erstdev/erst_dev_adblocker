@@ -1,0 +1,56 @@
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 16px;
+    min-width: 260px;
+    background: #1e1e1e;
+    color: #eee;
+}
+
+.header {
+    margin-bottom: 14px;
+}
+
+h1 {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 600;
+    color: #4ade80;
+}
+
+.version {
+    font-size: 10px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #2a2a2a;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+    flex-shrink: 0;
+}
+
+.status-text {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.note {
+    font-size: 11px;
+    color: #666;
+    font-style: italic;
+    line-height: 1.4;
+}

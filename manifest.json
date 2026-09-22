@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "erst_dev_adblocker",
+  "version": "0.3",
+  "description": "Блокировщик рекламы",
+  "permissions": [
+    "declarativeNetRequest",
+    "scripting",
+    "storage",
+    "webNavigation",
+    "tabs"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background/service_worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "erst_dev_adblocker",
+    "default_popup": "popup/popup.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ads_ruleset",
+        "enabled": true,
+        "path": "rules/ads.json"
+      }
+    ]
+  }
+}

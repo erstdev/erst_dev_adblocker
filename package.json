@@ -1,0 +1,13 @@
+{
+  "name": "erst_dev_adblocker",
+  "version": "1.0.0",
+  "description": "Учебный блокировщик рекламы",
+  "private": true,
+  "scripts": {
+    "convert": "node tools/convert.js"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.3.0",
+    "@types/node": "^26.6.2"
+  }
+}

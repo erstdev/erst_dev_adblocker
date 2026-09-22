@@ -1,0 +1,26 @@
+/* ============================================================
+   Ручные косметические правила.
+   НЕ ПЕРЕЗАПИСЫВАЮТСЯ конвертером.
+   Добавляй сюда правила, которых нет в EasyList / RU AdList.
+   ============================================================ */
+
+/* AdFox (Яндекс) — все контейнеры (внутренние и внешние) */
+[data-role^="fox-tail"],
+[data-role^="fox::"],
+div.fox-tail,
+div[class*="fox-tail"] {
+    display: none !important;
+}
+
+/* Яндекс.Директ / РСЯ */
+div[id^="yandex_ad"],
+div[id^="yandex_rtb"],
+div[class^="yandex_ad"] {
+    display: none !important;
+}
+
+/* Google Publisher Tag */
+div[id^="div-gpt-ad"],
+div[id^="gpt-passback"] {
+    display: none !important;
+}

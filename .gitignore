@@ -1,0 +1,20 @@
+# Node
+node_modules/
+package-lock.json
+
+# Скачанные списки (большие, регенерируются)
+lists/
+
+# Сгенерированные файлы (генерируются конвертером)
+rules/ads.json
+content/cosmetic.css
+
+# IDE
+.idea/
+.vscode/
+*.log
+.DS_Store
+
+# Сборки
+dist/
+*.zip
