@@ -3,7 +3,10 @@
 
    Запуск:  node tools/convert.js
    Вход:    lists/*.txt
-   Выход:   rules/ads.json, content/cosmetic.css
+   Выход:   rules/ads.json
+            rules/exceptions.json
+            content/cosmetic.css
+            rules/cosmetic-map.json
    ============================================================ */
 
 const fs = require("fs");
@@ -19,23 +22,23 @@ const INPUT_FILES = [
 ];
 
 const OUT_RULES = "rules/ads.json";
+const OUT_EXCEPTIONS = "rules/exceptions.json";
 const OUT_CSS = "content/cosmetic.css";
+const OUT_COSMETIC_MAP = "rules/cosmetic-map.json";
 
 const MAX_DNR_RULES = 30000;
 
-// Квоты по этапам (сумма = 30000)
+// Квоты (сумма блокирующих + исключений = 30000)
 const QUOTA_STAGE_2 = 5000;
 const QUOTA_STAGE_3 = 15000;
-const QUOTA_STAGE_1 = 10000;
+const QUOTA_STAGE_1 = 8500;   // уменьшили с 10000 — освободили 1500 под исключения
+const QUOTA_EXCEPTIONS = 1500;
 
-// Все типы ресурсов для блокировки.
-// main_frame НЕ включён: иначе пользователь не сможет перейти на сайт.
 const ALL_RESOURCE_TYPES = [
     "script", "image", "xmlhttprequest", "sub_frame",
     "media", "font", "ping", "other", "stylesheet", "websocket"
 ];
 
-// Соответствие EasyList → DNR resourceTypes
 const RESOURCE_TYPE_MAP = {
     "script": "script",
     "image": "image",
@@ -49,18 +52,9 @@ const RESOURCE_TYPE_MAP = {
     "other": "other"
 };
 
-// Модификаторы, которые мы НЕ поддерживаем — правило с ними пропускаем
 const UNSUPPORTED_MODIFIERS = new Set([
-    "document",
-    "popup",
-    "replace",
-    "csp",
-    "rewrite",
-    "redirect",
-    "removeparam",
-    "generichide",
-    "elemhide",
-    "empty"
+    "document", "popup", "replace", "csp", "rewrite",
+    "redirect", "removeparam", "generichide", "elemhide", "empty"
 ]);
 
 // ============================================================
@@ -315,7 +309,70 @@ function pathRulesToDnr(rules, startId) {
 }
 
 // ============================================================
-// Этап 4: косметические правила → CSS
+// Этап 5: исключения (@@) → allow-правила
+// ============================================================
+
+function selectExceptionRules(exceptionRules) {
+    const unique = [...new Set(exceptionRules)];
+    console.log(`\n[stage 5] exceptions (before dedup): ${exceptionRules.length}`);
+    console.log(`[stage 5] exceptions (after dedup):  ${unique.length}`);
+    return unique;
+}
+
+function exceptionRulesToDnr(rules, startId) {
+    const dnrRules = [];
+    let ruleId = startId;
+    let skipped = 0;
+    let skippedNonAscii = 0;
+
+    for (const easyRule of rules) {
+        // Убираем префикс @@
+        let body = easyRule.slice(2);
+
+        // Разбираем $ модификаторы, если есть
+        let modPart = "";
+        const dollarIndex = body.lastIndexOf("$");
+        if (dollarIndex !== -1) {
+            modPart = body.slice(dollarIndex + 1);
+            body = body.slice(0, dollarIndex);
+        }
+
+        if (!isAsciiOnly(body)) {
+            skippedNonAscii++;
+            continue;
+        }
+
+        const condition = { urlFilter: body };
+
+        if (modPart) {
+            const parsed = parseModifiers(modPart);
+            if (parsed.unsupported) {
+                skipped++;
+                continue;
+            }
+            if (parsed.thirdParty !== null) {
+                condition.domainType = parsed.thirdParty ? "thirdParty" : "firstParty";
+            }
+            if (parsed.resourceTypes.length > 0) {
+                condition.resourceTypes = parsed.resourceTypes;
+            }
+        }
+
+        // priority 2 — выше блокирующих (у них 1), чтобы allow побеждал
+        dnrRules.push({
+            id: ruleId++,
+            priority: 2,
+            action: { type: "allow" },
+            condition
+        });
+    }
+
+    console.log(`[stage 5] converted: ${dnrRules.length}, skipped: ${skipped}, non-ascii: ${skippedNonAscii}`);
+    return dnrRules;
+}
+
+// ============================================================
+// Этап 4: косметические правила → CSS + domain map
 // ============================================================
 
 function selectCosmeticRules(cosmeticRules) {
@@ -326,17 +383,8 @@ function selectCosmeticRules(cosmeticRules) {
 }
 
 function cosmeticRulesToCss(rules) {
-    // Каждое правило в формате:
-    //   ##.ad-banner              (общее)
-    //   example.com##.ad-banner   (для конкретного сайта)
-    //   ###AC_ad                  (## + селектор "#AC_ad")
-    //
-    // Общие (##)  → в CSS напрямую.
-    // Для сайта   → пропускаем пока (нужен content script с доменной логикой).
-    // #@#         → пропускаем (исключения).
-
     const generalSelectors = [];
-    let skippedDomainSpecific = 0;
+    const domainMap = {};
     let skippedExceptions = 0;
     let skippedInvalid = 0;
 
@@ -355,11 +403,6 @@ function cosmeticRulesToCss(rules) {
         const domainPart = rule.slice(0, hashIndex);
         const selectorPart = rule.slice(hashIndex + 2).trim();
 
-        if (domainPart !== "") {
-            skippedDomainSpecific++;
-            continue;
-        }
-
         if (!selectorPart) {
             skippedInvalid++;
             continue;
@@ -370,16 +413,28 @@ function cosmeticRulesToCss(rules) {
             continue;
         }
 
-        generalSelectors.push(selectorPart);
+        if (domainPart === "") {
+            generalSelectors.push(selectorPart);
+            continue;
+        }
+
+        const domains = domainPart.split(",").map((d) => d.trim()).filter(Boolean);
+        for (const domain of domains) {
+            if (domain.startsWith("~")) continue;
+            if (!isAsciiOnly(domain)) continue;
+
+            if (!domainMap[domain]) domainMap[domain] = new Set();
+            domainMap[domain].add(selectorPart);
+        }
     }
 
-    console.log(`[stage 4] general selectors:     ${generalSelectors.length}`);
-    console.log(`[stage 4] skipped domain-specific: ${skippedDomainSpecific}`);
+    console.log(`[stage 4] general selectors:       ${generalSelectors.length}`);
+    console.log(`[stage 4] domain-specific domains: ${Object.keys(domainMap).length}`);
     console.log(`[stage 4] skipped exceptions:      ${skippedExceptions}`);
     console.log(`[stage 4] skipped invalid:         ${skippedInvalid}`);
 
-    const unique = [...new Set(generalSelectors)];
-    console.log(`[stage 4] unique selectors:        ${unique.length}`);
+    const uniqueGeneral = [...new Set(generalSelectors)];
+    console.log(`[stage 4] unique general selectors: ${uniqueGeneral.length}`);
 
     const cssLines = [];
     cssLines.push("/* ============================================================");
@@ -388,11 +443,23 @@ function cosmeticRulesToCss(rules) {
     cssLines.push("   ============================================================ */");
     cssLines.push("");
 
-    for (const sel of unique) {
+    for (const sel of uniqueGeneral) {
         cssLines.push(`${sel} { display: none !important; }`);
     }
 
-    return cssLines.join("\n");
+    const domainMapPlain = {};
+    let totalDomainSelectors = 0;
+    for (const [domain, selectors] of Object.entries(domainMap)) {
+        domainMapPlain[domain] = [...selectors];
+        totalDomainSelectors += selectors.size;
+    }
+
+    console.log(`[stage 4] total domain selectors:  ${totalDomainSelectors}`);
+
+    return {
+        cssText: cssLines.join("\n"),
+        domainMap: domainMapPlain
+    };
 }
 
 // ============================================================
@@ -404,7 +471,10 @@ function writeJson(relPath, data) {
     const dir = path.dirname(fullPath);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(fullPath, JSON.stringify(data, null, 2));
-    console.log(`[write] ${data.length} items → ${relPath}`);
+    const size = Array.isArray(data)
+        ? `${data.length} items`
+        : `${Object.keys(data).length} keys`;
+    console.log(`[write] ${size} → ${relPath}`);
 }
 
 function writeCss(relPath, cssText) {
@@ -439,32 +509,45 @@ function main() {
     const pathDnr = pathRulesToDnr(pathRules, 1);
     console.log(`[stage 3] generated DNR rules: ${pathDnr.length}`);
 
-    // === Квоты по этапам ===
+    // === Этап 5: исключения ===
+    const exceptions = selectExceptionRules(classified.exceptions);
+    const exceptionDnr = exceptionRulesToDnr(exceptions, 1);
+    console.log(`[stage 5] generated DNR rules: ${exceptionDnr.length}`);
+
+    // === Квоты ===
     console.log(`\n[quota] stage 2: ${QUOTA_STAGE_2}`);
     console.log(`[quota] stage 3: ${QUOTA_STAGE_3}`);
     console.log(`[quota] stage 1: ${QUOTA_STAGE_1}`);
+    console.log(`[quota] exceptions: ${QUOTA_EXCEPTIONS}`);
 
     const capped2 = capRules(modifierDnr, QUOTA_STAGE_2);
     const capped3 = capRules(pathDnr, QUOTA_STAGE_3);
     const capped1 = capRules(simpleDnr, QUOTA_STAGE_1);
+    const cappedExc = capRules(exceptionDnr, QUOTA_EXCEPTIONS);
 
     let dnrRules = capped2.concat(capped3).concat(capped1);
 
-    if (dnrRules.length > MAX_DNR_RULES) {
-        console.log(`[limit] WARNING: ${dnrRules.length} > ${MAX_DNR_RULES}, cutting`);
-        dnrRules = dnrRules.slice(0, MAX_DNR_RULES);
+    if (dnrRules.length + cappedExc.length > MAX_DNR_RULES) {
+        const budget = MAX_DNR_RULES - cappedExc.length;
+        console.log(`[limit] WARNING: block+allow > ${MAX_DNR_RULES}, cutting blocks to ${budget}`);
+        dnrRules = dnrRules.slice(0, budget);
     }
 
-    console.log(`[limit] total: ${dnrRules.length} (max: ${MAX_DNR_RULES})`);
+    console.log(`\n[limit] blocking rules: ${dnrRules.length}`);
+    console.log(`[limit] exception rules: ${cappedExc.length}`);
+    console.log(`[limit] total: ${dnrRules.length + cappedExc.length} (max: ${MAX_DNR_RULES})`);
 
     dnrRules = dnrRules.map((rule, i) => ({ ...rule, id: i + 1 }));
+    const reindexedExc = cappedExc.map((rule, i) => ({ ...rule, id: i + 1 }));
 
     writeJson(OUT_RULES, dnrRules);
+    writeJson(OUT_EXCEPTIONS, reindexedExc);
 
-    // === Этап 4: косметика → CSS ===
+    // === Этап 4: косметика ===
     const cosmetic = selectCosmeticRules(classified.cosmetic);
-    const cssText = cosmeticRulesToCss(cosmetic);
+    const { cssText, domainMap } = cosmeticRulesToCss(cosmetic);
     writeCss(OUT_CSS, cssText);
+    writeJson(OUT_COSMETIC_MAP, domainMap);
 }
 
 main();

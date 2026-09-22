@@ -25,6 +25,11 @@
         "id": "ads_ruleset",
         "enabled": true,
         "path": "rules/ads.json"
+      },
+      {
+        "id": "exceptions_ruleset",
+        "enabled": true,
+        "path": "rules/exceptions.json"
       }
     ]
   }
