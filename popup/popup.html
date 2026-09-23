@@ -8,17 +8,23 @@
 <body>
 <div class="header">
     <h1>erst_dev_adblocker</h1>
-    <div class="version">v0.5 — dev build</div>
+    <div class="version">v0.6 — dev build</div>
 </div>
 
-<div class="status">
-    <div class="status-dot"></div>
-    <div class="status-text">Расширение активно</div>
+<label class="toggle">
+    <input type="checkbox" id="enabled-toggle">
+    <span class="toggle-label">Расширение включено</span>
+</label>
+
+<div class="section">
+    <div class="section-title">Белый список</div>
+    <div id="whitelist-empty" class="empty">Список пуст</div>
+    <ul id="whitelist" class="whitelist"></ul>
+    <button id="add-current" class="btn-add">+ Добавить текущий сайт</button>
 </div>
 
 <div class="note">
-    Счётчик временно недоступен — ограничения MV3 API.
-    Вернётся вместе с собственным движком правил.
+    На сайтах из белого списка реклама не блокируется.
 </div>
 
 <script type="module" src="popup.js"></script>

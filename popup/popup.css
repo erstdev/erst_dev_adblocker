@@ -2,14 +2,12 @@ body {
     font-family: system-ui, -apple-system, sans-serif;
     margin: 0;
     padding: 16px;
-    min-width: 260px;
+    min-width: 280px;
     background: #1e1e1e;
     color: #eee;
 }
 
-.header {
-    margin-bottom: 14px;
-}
+.header { margin-bottom: 14px; }
 
 h1 {
     font-size: 14px;
@@ -24,33 +22,106 @@ h1 {
     margin-top: 2px;
 }
 
-.status {
+/* Toggle */
+.toggle {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px;
+    padding: 10px 12px;
     background: #2a2a2a;
     border-radius: 6px;
-    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 14px;
 }
 
-.status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 8px #4ade80;
-    flex-shrink: 0;
+.toggle input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #4ade80;
+    cursor: pointer;
 }
 
-.status-text {
+.toggle-label {
     font-size: 13px;
     font-weight: 500;
 }
 
-.note {
+/* Section */
+.section {
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.empty {
     font-size: 11px;
     color: #666;
     font-style: italic;
+    padding: 8px 0;
+}
+
+.whitelist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px 0;
+}
+
+.whitelist li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.whitelist li button {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.whitelist li button:hover { color: #ff4d4d; }
+
+.btn-add {
+    width: 100%;
+    padding: 8px;
+    background: #2a2a2a;
+    color: #4ade80;
+    border: 1px dashed #444;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-add:hover {
+    background: #333;
+    border-color: #4ade80;
+}
+
+.btn-add:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.note {
+    font-size: 10px;
+    color: #666;
+    font-style: italic;
+    margin-top: 12px;
     line-height: 1.4;
 }

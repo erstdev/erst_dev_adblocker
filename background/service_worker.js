@@ -1,5 +1,9 @@
 import { MSG, isValidMessageType } from "../shared/messages.js";
-
+import {
+    getEnabled, setEnabled,
+    getWhitelist, addToWhitelist, removeFromWhitelist,
+    isWhitelisted
+} from "../shared/storage.js";
 
 const COSMETIC_CSS = [
     "content/cosmetic.css",
@@ -16,11 +20,17 @@ chrome.webNavigation.onCommitted.addListener(
         if (details.frameId !== 0) return;
 
         try {
+            const enabled = await getEnabled();
+            if (!enabled) return;
+
+            const whitelisted = await isWhitelisted(details.url);
+            if (whitelisted) return;
+
             await chrome.scripting.insertCSS({
                 target: { tabId: details.tabId },
                 files: COSMETIC_CSS
             });
-            void updateBadge(details.tabId);
+            updateBadge(details.tabId, "ON", "#4ade80");
         } catch (e) {
             console.error("[erst_dev_adblocker] insertCSS failed:", e);
         }
@@ -29,31 +39,50 @@ chrome.webNavigation.onCommitted.addListener(
 );
 
 /* ============================================================
-   Badge на иконке.
-
-   Показываем "ON" зелёным фоном, когда расширение активно
-   на вкладке. Позже заменим на реальный счётчик.
+   Badge
    ============================================================ */
-async function updateBadge(tabId) {
+async function updateBadge(tabId, text, color) {
     try {
-        await chrome.action.setBadgeText({ tabId, text: "ON" });
-        await chrome.action.setBadgeBackgroundColor({ tabId, color: "#4ade80" });
+        await chrome.action.setBadgeText({ tabId, text });
+        await chrome.action.setBadgeBackgroundColor({ tabId, color });
     } catch (e) {
-        // На служебных страницах (chrome://) badge не ставится — это нормально
+        // служебные страницы — badge не ставится
     }
 }
 
-// При переключении на вкладку — показываем badge и на ней
+async function refreshBadgeForTab(tabId) {
+    const enabled = await getEnabled();
+    if (!enabled) {
+        await updateBadge(tabId, "OFF", "#888");
+        return;
+    }
+    try {
+        const tab = await chrome.tabs.get(tabId);
+        if (!tab || !tab.url) return;
+        const whitelisted = await isWhitelisted(tab.url);
+        if (whitelisted) {
+            await updateBadge(tabId, "—", "#888");
+        } else {
+            await updateBadge(tabId, "ON", "#4ade80");
+        }
+    } catch (e) {
+        // ignore
+    }
+}
+
 chrome.tabs.onActivated.addListener(({ tabId }) => {
-    void updateBadge(tabId);
+    refreshBadgeForTab(tabId);
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === "complete" && tab.url) {
+        refreshBadgeForTab(tabId);
+    }
 });
 
 /* ============================================================
-   Загрузка карты domain-specific селекторов.
-   Грузим ОДИН раз при старте, держим в памяти service worker.
-   При засыпании — перезагрузим при следующем запросе.
+   Карта domain-specific селекторов
    ============================================================ */
-
 let cosmeticMapCache = null;
 
 async function loadCosmeticMap() {
@@ -67,54 +96,96 @@ async function loadCosmeticMap() {
 
 function extractDomain(url) {
     try {
-        const u = new URL(url);
-        return u.hostname;
+        return new URL(url).hostname;
     } catch {
         return null;
     }
 }
 
 function findSelectorsForDomain(map, hostname) {
-    // Правила в карте — по доменам вида "rbc.ru", "www.rbc.ru", "example.com".
-    // Пробуем точное совпадение и по родительским доменам.
     const parts = hostname.split(".");
     const candidates = [];
     for (let i = 0; i < parts.length; i++) {
         candidates.push(parts.slice(i).join("."));
     }
-
     const result = new Set();
     for (const c of candidates) {
         const list = map[c];
-        if (list) {
-            for (const s of list) result.add(s);
-        }
+        if (list) for (const s of list) result.add(s);
     }
     return [...result];
 }
 
+/* ============================================================
+   Общение с popup и content script
+   ============================================================ */
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (!msg || !isValidMessageType(msg.type)) {
         console.warn("[erst_dev_adblocker] unknown message:", msg);
         return;
     }
 
-    if (msg.type === MSG.CS_GET_DOMAIN_SELECTORS) {
-        (async () => {
-            try {
-                const map = await loadCosmeticMap();
-                const hostname = extractDomain(msg.url);
-                if (!hostname) {
-                    sendResponse({ selectors: [] });
+    (async () => {
+        try {
+            switch (msg.type) {
+                case MSG.CS_GET_DOMAIN_SELECTORS: {
+                    const enabled = await getEnabled();
+                    if (!enabled) { sendResponse({ selectors: [] }); return; }
+
+                    const whitelisted = await isWhitelisted(msg.url);
+                    if (whitelisted) { sendResponse({ selectors: [] }); return; }
+
+                    const map = await loadCosmeticMap();
+                    const hostname = extractDomain(msg.url);
+                    if (!hostname) { sendResponse({ selectors: [] }); return; }
+
+                    const selectors = findSelectorsForDomain(map, hostname);
+                    sendResponse({ selectors });
                     return;
                 }
-                const selectors = findSelectorsForDomain(map, hostname);
-                sendResponse({ selectors });
-            } catch (e) {
-                console.error("[erst_dev_adblocker] getDomainSelectors failed:", e);
-                sendResponse({ selectors: [] });
+
+                case MSG.POPUP_GET_STATE: {
+                    const enabled = await getEnabled();
+                    const whitelist = await getWhitelist();
+                    let currentDomain = null;
+                    if (msg.url) currentDomain = extractDomain(msg.url);
+                    sendResponse({ enabled, whitelist, currentDomain });
+                    return;
+                }
+
+                case MSG.POPUP_SET_ENABLED: {
+                    await setEnabled(msg.value);
+                    // Обновить badge на активной вкладке
+                    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+                    if (tab) refreshBadgeForTab(tab.id);
+                    sendResponse({ ok: true });
+                    return;
+                }
+
+                case MSG.POPUP_WHITELIST_ADD: {
+                    const list = await addToWhitelist(msg.domain);
+                    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+                    if (tab) refreshBadgeForTab(tab.id);
+                    sendResponse({ ok: true, whitelist: list });
+                    return;
+                }
+
+                case MSG.POPUP_WHITELIST_REMOVE: {
+                    const list = await removeFromWhitelist(msg.domain);
+                    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+                    if (tab) refreshBadgeForTab(tab.id);
+                    sendResponse({ ok: true, whitelist: list });
+                    return;
+                }
+
+                default:
+                    sendResponse(null);
             }
-        })();
-        return true;
-    }
+        } catch (e) {
+            console.error("[erst_dev_adblocker] message handler failed:", e);
+            sendResponse(null);
+        }
+    })();
+
+    return true;
 });
