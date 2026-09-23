@@ -43,6 +43,11 @@
         "id": "exceptions_ruleset",
         "enabled": false,
         "path": "rules/exceptions.json"
+      },
+      {
+        "id": "manual_ruleset",
+        "enabled": false,
+        "path": "rules/manual.json"
       }
     ]
   }

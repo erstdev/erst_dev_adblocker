@@ -1,5 +1,6 @@
 /* ============================================================
-   Content script: domain-specific косметика + SPA + MutationObserver.
+   Content script: domain-specific косметика + SPA + MutationObserver
+   + авто-скип рекламы + скрытие блоков с меткой "Реклама".
 
    Задачи:
    1. Запросить у service worker селекторы для текущего домена.
@@ -8,12 +9,35 @@
       селекторы для нового URL.
    4. MutationObserver — следить за новыми элементами и скрывать те,
       что подходят под известные селекторы.
+   5. Авто-скип кнопок "Пропустить рекламу" (VK, YouTube, др.).
+   6. Text-based hiding — скрывать блоки с текстом "Реклама" / "Промо" /
+      "Спонсор".
    ============================================================ */
 
 (() => {
     const STYLE_ID = "erst-domain-cosmetic";
     const MSG_TYPE = "cs→sw:getDomainSelectors";
     const DEBUG = false;
+
+    // Селекторы кнопок "Пропустить рекламу" для авто-скипа
+    const SKIP_SELECTORS = [
+        '[data-testid="ad-skip-button"]',    // VK Video
+        '.ytp-ad-skip-button',               // YouTube (старый)
+        '.ytp-skip-ad-button',               // YouTube (новый)
+        '.ytp-ad-skip-button-modern',        // YouTube (modern)
+        '[class*="skip-ad"]',                // generic
+    ];
+
+    // Текстовые маркеры рекламы (в нижнем регистре)
+    const AD_TEXT_MARKERS = [
+        "реклама",
+        "промо",
+        "спонсор",
+        "рекламный",
+        "партнёрский материал",
+        "advertisement",
+        "sponsored",
+    ];
 
     let currentSelectors = [];
     let currentUrl = "";
@@ -75,14 +99,13 @@
     }
 
     // --------------------------------------------------------
-    // 4. MutationObserver — ловим динамически добавленные элементы
+    // 4. MutationObserver — динамические элементы
     // --------------------------------------------------------
     function startObserver() {
         if (currentSelectors.length === 0) return;
 
         const observer = new MutationObserver((mutations) => {
             if (currentSelectors.length === 0) return;
-
             const combinedSelector = currentSelectors.join(",");
 
             for (const mutation of mutations) {
@@ -115,7 +138,79 @@
     }
 
     // --------------------------------------------------------
-    // 5. Слежение за SPA-навигацией
+    // 5. Авто-скип рекламы (VK, YouTube, др.)
+    // --------------------------------------------------------
+    function trySkip() {
+        for (const sel of SKIP_SELECTORS) {
+            try {
+                const btn = document.querySelector(sel);
+                if (btn && !btn.disabled) {
+                    btn.click();
+                    log(`ad skipped: ${sel}`);
+                    return;
+                }
+            } catch (e) {
+                // ignore invalid selector
+            }
+        }
+    }
+
+    function startAutoSkip() {
+        setInterval(trySkip, 1000);
+    }
+
+    // --------------------------------------------------------
+    // 6. Скрытие блоков с текстом "Реклама" / "Промо" / "Спонсор"
+    // --------------------------------------------------------
+    function hideAdMarkers() {
+        if (!document.body) return;
+
+        // Ищем только "листовые" span/div с коротким текстом-маркером
+        const candidates = document.querySelectorAll("span, div, a");
+        for (const el of candidates) {
+            // Пропускаем уже скрытые
+            if (el.style.display === "none") continue;
+
+            // Проверяем только прямые текстовые узлы
+            for (const node of el.childNodes) {
+                if (node.nodeType !== Node.TEXT_NODE) continue;
+                const text = (node.textContent || "").trim().toLowerCase();
+                if (text.length === 0 || text.length > 30) continue;
+
+                if (AD_TEXT_MARKERS.includes(text)) {
+                    // Поднимаемся к "карточке" — 3 уровня вверх
+                    let target = el;
+                    for (let i = 0; i < 3 && target.parentElement; i++) {
+                        target = target.parentElement;
+                    }
+                    target.style.setProperty("display", "none", "important");
+                    log(`hid ad marker block: "${text}"`);
+                    break;
+                }
+            }
+        }
+    }
+
+    function startAdMarkerHiding() {
+        // Первый проход — после загрузки
+        const run = () => {
+            try { hideAdMarkers(); } catch (e) {
+                console.error("[erst_dev_adblocker] hideAdMarkers failed:", e);
+            }
+        };
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", run, { once: true });
+        } else {
+            run();
+        }
+
+        // Периодически — на случай динамической подгрузки
+        setInterval(run, 2000);
+    }
+
+    // --------------------------------------------------------
+    // 7. Слежение за SPA-навигацией
     // --------------------------------------------------------
     function watchUrlChanges() {
         const notify = () => refreshForUrl(window.location.href);
@@ -125,11 +220,11 @@
 
         history.pushState = function (...args) {
             originalPush.apply(this, args);
-            void notify();
+            notify();
         };
         history.replaceState = function (...args) {
             originalReplace.apply(this, args);
-            void notify();
+            notify();
         };
 
         window.addEventListener("popstate", notify);
@@ -139,7 +234,7 @@
         setInterval(() => {
             if (window.location.href !== lastHref) {
                 lastHref = window.location.href;
-                void notify();
+                notify();
             }
         }, 1000);
     }
@@ -150,6 +245,8 @@
     (async () => {
         await refreshForUrl(window.location.href);
         watchUrlChanges();
+        startAutoSkip();
+        startAdMarkerHiding();
 
         if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", startObserver, { once: true });

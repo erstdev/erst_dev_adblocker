@@ -4,7 +4,7 @@
    Добавляй сюда правила, которых нет в EasyList / RU AdList.
    ============================================================ */
 
-/* AdFox (Яндекс) — все контейнеры (внутренние и внешние) */
+/* ---------- AdFox (Яндекс) ---------- */
 [data-role^="fox-tail"],
 [data-role^="fox::"],
 div.fox-tail,
@@ -12,30 +12,59 @@ div[class*="fox-tail"] {
     display: none !important;
 }
 
-/* Яндекс.Директ / РСЯ */
+/* ---------- Яндекс.Директ / РСЯ ---------- */
 div[id^="yandex_ad"],
 div[id^="yandex_rtb"],
-div[class^="yandex_ad"] {
+div[class^="yandex_ad"],
+[id^="ya_partner_R-A-"] {
     display: none !important;
 }
 
-/* Google Publisher Tag */
+/* ---------- Google Publisher Tag ---------- */
 div[id^="div-gpt-ad"],
 div[id^="gpt-passback"] {
     display: none !important;
 }
 
-/* Mail.ru — рекламные виджеты с мнемониками */
-.widget__container:has([data-mnemo]) {
+/* ---------- Mail.ru — полноэкранные баннеры ---------- */
+[isfullscreen="true"],
+[id^="trg-b-"] {
     display: none !important;
 }
 
-/* Яндекс.РСЯ — обёртка партнёрских баннеров (в т.ч. через shadow DOM) */
-[id^="ya_partner_R-A-"] {
+/* ---------- Mail.ru — рекламные блоки через data-mnemo ---------- */
+[class*="widget__container"]:has([data-mnemo]),
+[data-bem]:has([data-mnemo]):has([class*="ad"]),
+[class*="advert"]:has([data-mnemo]),
+[data-mnemo][class*="ad"] {
     display: none !important;
 }
 
-/* Mail.ru — баннеры через data-banner-dom-node */
-[data-banner-dom-node^="rb-floorAd"] {
+/* ---------- Dzen — рекламные блоки ---------- */
+[data-testid$="-ad"],
+[data-testid*="-ad-"],
+[id^="auto-slide-ad"],
+[id*="-ad-item_"],
+[class*="auto-slide-ad"],
+[class*="dzen-desktop--auto-slide-ad"],
+a.yrw-url[href*="yandex.ru/an/count"] {
+    display: none !important;
+}
+
+/* ---------- ВК Видео — реклама ---------- */
+[data-testid="ad-container"],
+[class*="ads-container"],
+[class*="rb-adman-ad-actions"] {
+    display: none !important;
+}
+
+/* ============================================================
+   Яндекс.Погода — реклама в сайдбаре (AppMoney, включая shadow DOM)
+   ============================================================ */
+[class*="AppMoney_container"],
+[class*="AppMoney_wrap"],
+[class*="AppMoneySidebar"],
+[id^="money-main-"],
+[data-name="adWrapper"] {
     display: none !important;
 }

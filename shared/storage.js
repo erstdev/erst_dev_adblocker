@@ -16,7 +16,8 @@ const KEY_WHITELIST = "whitelist";
 
 const RULESET_ADS = "ads_ruleset";
 const RULESET_EXCEPTIONS = "exceptions_ruleset";
-const ALL_RULESETS = [RULESET_ADS, RULESET_EXCEPTIONS];
+const RULESET_MANUAL = 'manual_ruleset'
+const ALL_RULESETS = [RULESET_ADS, RULESET_EXCEPTIONS, RULESET_MANUAL];
 
 // Диапазон id динамических правил (whitelist)
 const DYN_RULE_ID_BASE = 1;
