@@ -12,10 +12,8 @@ export const DIR = {
 };
 
 export const MSG = {
-    // Пока пусто — badge работает без сообщений.
-    // Заготовки на будущее (вкл/выкл, белый список):
-    // POPUP_TOGGLE_ENABLED: `${DIR.POPUP_TO_SW}:toggleEnabled`,
-    // POPUP_GET_STATUS: `${DIR.POPUP_TO_SW}:getStatus`,
+    // content script → service worker
+    CS_GET_DOMAIN_SELECTORS: `${DIR.CS_TO_SW}:getDomainSelectors`,
 };
 
 const ALL_TYPES = new Set(Object.values(MSG));
