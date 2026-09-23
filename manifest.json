@@ -36,12 +36,12 @@
     "rule_resources": [
       {
         "id": "ads_ruleset",
-        "enabled": true,
+        "enabled": false,
         "path": "rules/ads.json"
       },
       {
         "id": "exceptions_ruleset",
-        "enabled": true,
+        "enabled": false,
         "path": "rules/exceptions.json"
       }
     ]

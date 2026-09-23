@@ -18,6 +18,7 @@ async function loadState() {
 
         currentDomain = state.currentDomain;
         $("enabled-toggle").checked = state.enabled;
+        $("toggle-label").textContent = state.enabled ? "Включено" : "Выключено";
 
         renderWhitelist(state.whitelist);
         updateAddButton(state.whitelist);
@@ -68,10 +69,12 @@ function updateAddButton(whitelist) {
 }
 
 async function toggleEnabled() {
-    const value = $("enabled-toggle").checked;
+    const checked = $("enabled-toggle").checked;
+    $("toggle-label").textContent = checked ? "Включено" : "Выключено";
+
     await chrome.runtime.sendMessage({
         type: MSG.POPUP_SET_ENABLED,
-        value
+        value: checked
     });
 }
 

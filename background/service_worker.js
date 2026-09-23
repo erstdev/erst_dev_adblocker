@@ -2,7 +2,7 @@ import { MSG, isValidMessageType } from "../shared/messages.js";
 import {
     getEnabled, setEnabled,
     getWhitelist, addToWhitelist, removeFromWhitelist,
-    isWhitelisted
+    isWhitelisted, syncDnrState
 } from "../shared/storage.js";
 
 const COSMETIC_CSS = [
@@ -13,7 +13,23 @@ const COSMETIC_CSS = [
 console.log("[erst_dev_adblocker] service worker started");
 
 /* ============================================================
-   Косметика: вставляем CSS на каждую новую страницу
+   Инициализация DNR
+   ============================================================ */
+syncDnrState().catch((e) => {
+    console.error("[erst_dev_adblocker] syncDnrState failed:", e);
+});
+
+chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== "local") return;
+    if (changes.enabled || changes.whitelist) {
+        syncDnrState().catch((e) => {
+            console.error("[erst_dev_adblocker] syncDnrState (onChanged) failed:", e);
+        });
+    }
+});
+
+/* ============================================================
+   Косметика
    ============================================================ */
 chrome.webNavigation.onCommitted.addListener(
     async (details) => {
@@ -46,7 +62,7 @@ async function updateBadge(tabId, text, color) {
         await chrome.action.setBadgeText({ tabId, text });
         await chrome.action.setBadgeBackgroundColor({ tabId, color });
     } catch (e) {
-        // служебные страницы — badge не ставится
+        // служебные страницы
     }
 }
 
@@ -153,9 +169,10 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                     return;
                 }
 
+                // ВАЖНО: syncDnrState НЕ вызываем здесь.
+                // Его вызовет chrome.storage.onChanged после записи в storage.
                 case MSG.POPUP_SET_ENABLED: {
                     await setEnabled(msg.value);
-                    // Обновить badge на активной вкладке
                     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
                     if (tab) refreshBadgeForTab(tab.id);
                     sendResponse({ ok: true });

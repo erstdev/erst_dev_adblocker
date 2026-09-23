@@ -31,8 +31,13 @@ const MAX_DNR_RULES = 30000;
 // Квоты (сумма блокирующих + исключений = 30000)
 const QUOTA_STAGE_2 = 5000;
 const QUOTA_STAGE_3 = 15000;
-const QUOTA_STAGE_1 = 8500;   // уменьшили с 10000 — освободили 1500 под исключения
+const QUOTA_STAGE_1 = 8500;
 const QUOTA_EXCEPTIONS = 1500;
+
+// Диапазоны id (Chrome смешивает пространства id статических
+// и динамических правил, поэтому выделяем каждому свой).
+const ID_BASE_ADS = 10000;         // ads.json: 10000..38023
+const ID_BASE_EXCEPTIONS = 100000; // exceptions.json: 100000..
 
 const ALL_RESOURCE_TYPES = [
     "script", "image", "xmlhttprequest", "sub_frame",
@@ -326,10 +331,8 @@ function exceptionRulesToDnr(rules, startId) {
     let skippedNonAscii = 0;
 
     for (const easyRule of rules) {
-        // Убираем префикс @@
         let body = easyRule.slice(2);
 
-        // Разбираем $ модификаторы, если есть
         let modPart = "";
         const dollarIndex = body.lastIndexOf("$");
         if (dollarIndex !== -1) {
@@ -358,7 +361,6 @@ function exceptionRulesToDnr(rules, startId) {
             }
         }
 
-        // priority 2 — выше блокирующих (у них 1), чтобы allow побеждал
         dnrRules.push({
             id: ruleId++,
             priority: 2,
@@ -494,22 +496,22 @@ function main() {
     const classified = classifyLines(allLines);
     logClassification(classified);
 
-    // === Этап 1: простые ||domain^ ===
+    // === Этап 1 ===
     const simple = selectSimpleRules(classified.network);
     const simpleDnr = simpleRulesToDnr(simple);
     console.log(`\n[stage 1] generated DNR rules: ${simpleDnr.length}`);
 
-    // === Этап 2: правила с $ ===
+    // === Этап 2 ===
     const withModifiers = selectModifierRules(classified.network);
     const modifierDnr = modifierRulesToDnr(withModifiers, 1);
     console.log(`[stage 2] generated DNR rules: ${modifierDnr.length}`);
 
-    // === Этап 3: |http:// и /path ===
+    // === Этап 3 ===
     const pathRules = selectPathRules(classified.network);
     const pathDnr = pathRulesToDnr(pathRules, 1);
     console.log(`[stage 3] generated DNR rules: ${pathDnr.length}`);
 
-    // === Этап 5: исключения ===
+    // === Этап 5 ===
     const exceptions = selectExceptionRules(classified.exceptions);
     const exceptionDnr = exceptionRulesToDnr(exceptions, 1);
     console.log(`[stage 5] generated DNR rules: ${exceptionDnr.length}`);
@@ -537,13 +539,14 @@ function main() {
     console.log(`[limit] exception rules: ${cappedExc.length}`);
     console.log(`[limit] total: ${dnrRules.length + cappedExc.length} (max: ${MAX_DNR_RULES})`);
 
-    dnrRules = dnrRules.map((rule, i) => ({ ...rule, id: i + 1 }));
-    const reindexedExc = cappedExc.map((rule, i) => ({ ...rule, id: i + 1 }));
+    // Переиндексация id в отдельные диапазоны
+    const reindexedAds = dnrRules.map((rule, i) => ({ ...rule, id: i + ID_BASE_ADS }));
+    const reindexedExc = cappedExc.map((rule, i) => ({ ...rule, id: i + ID_BASE_EXCEPTIONS }));
 
-    writeJson(OUT_RULES, dnrRules);
+    writeJson(OUT_RULES, reindexedAds);
     writeJson(OUT_EXCEPTIONS, reindexedExc);
 
-    // === Этап 4: косметика ===
+    // === Этап 4 ===
     const cosmetic = selectCosmeticRules(classified.cosmetic);
     const { cssText, domainMap } = cosmeticRulesToCss(cosmetic);
     writeCss(OUT_CSS, cssText);
