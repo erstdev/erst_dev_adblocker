@@ -28,9 +28,9 @@
         "content/lib/state.js",
         "content/lib/inject-css.js",
         "content/lib/spa.js",
+        "content/lib/ad-markers.js",
         "content/lib/observer.js",
         "content/lib/auto-skip.js",
-        "content/lib/ad-markers.js",
         "content/domain-cosmetic.js"
       ],
       "run_at": "document_start"
