@@ -1,3 +1,17 @@
+/* ============================================================
+   Стили popup расширения.
+
+   Разделы:
+   - базовые (body, header)
+   - свитчер вкл/выкл
+   - секция белого списка
+   - кнопки
+   - подсказка
+   - обратная связь
+   ============================================================ */
+
+/* ---------- Базовые ---------- */
+
 body {
     font-family: system-ui, -apple-system, sans-serif;
     margin: 0;
@@ -7,7 +21,9 @@ body {
     color: #eee;
 }
 
-.header { margin-bottom: 14px; }
+.header {
+    margin-bottom: 14px;
+}
 
 h1 {
     font-size: 14px;
@@ -22,8 +38,8 @@ h1 {
     margin-top: 2px;
 }
 
-/* Toggle */
-/* Toggle switch */
+/* ---------- Свитчер вкл/выкл ---------- */
+
 .toggle-switch {
     display: flex;
     align-items: center;
@@ -81,7 +97,8 @@ h1 {
     font-weight: 500;
 }
 
-/* Section */
+/* ---------- Секция белого списка ---------- */
+
 .section {
     margin-bottom: 12px;
 }
@@ -128,7 +145,11 @@ h1 {
     line-height: 1;
 }
 
-.whitelist li button:hover { color: #ff4d4d; }
+.whitelist li button:hover {
+    color: #ff4d4d;
+}
+
+/* ---------- Кнопки ---------- */
 
 .btn-add {
     width: 100%;
@@ -152,10 +173,39 @@ h1 {
     cursor: not-allowed;
 }
 
+/* ---------- Подсказка ---------- */
+
 .note {
     font-size: 10px;
     color: #666;
     font-style: italic;
     margin-top: 12px;
     line-height: 1.4;
+}
+
+/* ---------- Обратная связь ---------- */
+
+.feedback {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11px;
+}
+
+.feedback-link {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.15s;
+    cursor: pointer;
+}
+
+.feedback-link:hover {
+    color: #4ade80;
+}
+
+.feedback-link.copied {
+    color: #4ade80;
 }

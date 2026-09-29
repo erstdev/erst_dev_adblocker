@@ -27,7 +27,6 @@ import {
     isWhitelisted
 } from "../../shared/storage.js";
 import { loadCosmeticMap, extractDomain, findSelectorsForDomain } from "./cosmetic-map.js";
-import {refreshBadgeForTab} from "./badge.js";
 
 /**
  * Регистрирует обработчик onMessage.
@@ -40,8 +39,6 @@ export function registerMessageHandler() {
             return;
         }
 
-        // Обрабатываем асинхронно; return true говорит Chrome,
-        // что ответ будет позже (асинхронно).
         (async () => {
             try {
                 switch (msg.type) {
@@ -107,21 +104,15 @@ async function handleGetState(msg, sendResponse) {
 
 async function handleSetEnabled(msg, sendResponse) {
     await setEnabled(msg.value);
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab) void refreshBadgeForTab(tab.id);
     sendResponse({ ok: true });
 }
 
 async function handleWhitelistAdd(msg, sendResponse) {
     const list = await addToWhitelist(msg.domain);
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab) void refreshBadgeForTab(tab.id);
     sendResponse({ ok: true, whitelist: list });
 }
 
 async function handleWhitelistRemove(msg, sendResponse) {
     const list = await removeFromWhitelist(msg.domain);
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab) void refreshBadgeForTab(tab.id);
     sendResponse({ ok: true, whitelist: list });
 }

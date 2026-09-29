@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
+
 <div class="header">
     <h1>erst_dev_adblocker</h1>
-    <div class="version">v0.6 — dev build</div>
+    <div class="version" id="version-label">v0.7</div>
 </div>
 
 <label class="toggle-switch">
@@ -26,6 +27,11 @@
 
 <div class="note">
     На сайтах из белого списка реклама не блокируется.
+</div>
+
+<div class="feedback">
+    <a href="#" id="feedback-bug" class="feedback-link">Сообщить о проблеме</a>
+    <a href="#" id="feedback-copy" class="feedback-link">Скопировать email</a>
 </div>
 
 <script type="module" src="popup.js"></script>

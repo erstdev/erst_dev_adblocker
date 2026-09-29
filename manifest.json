@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
   "name": "erst_dev_adblocker",
-  "version": "0.3",
+  "version": "1.0.0",
   "description": "Блокировщик рекламы",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "declarativeNetRequest",
     "scripting",
@@ -17,8 +23,16 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["content/domain-cosmetic.js"],
+      "matches": ["*://*/*"],
+      "js": [
+        "content/lib/state.js",
+        "content/lib/inject-css.js",
+        "content/lib/spa.js",
+        "content/lib/observer.js",
+        "content/lib/auto-skip.js",
+        "content/lib/ad-markers.js",
+        "content/domain-cosmetic.js"
+      ],
       "run_at": "document_start"
     }
   ],
@@ -30,7 +44,13 @@
   ],
   "action": {
     "default_title": "erst_dev_adblocker",
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   },
   "declarative_net_request": {
     "rule_resources": [

@@ -5,18 +5,15 @@
    - при навигации на новую страницу вставляет cosmetic.css
      и cosmetic-manual.css (если расширение включено и сайт
      не в белом списке)
-   - после успешной вставки обновляет badge (через badge.js)
 
    Кого зовёт:
    - chrome.scripting.insertCSS — вставка CSS
-   - updateBadge из badge.js — статус на иконке
 
    Кто зовёт:
    - service_worker.js — регистрирует onCommitted
    ============================================================ */
 
 import { getEnabled, isWhitelisted } from "../../shared/storage.js";
-import { updateBadge } from "./badge.js";
 
 // Файлы CSS, которые вставляем на каждую страницу.
 // cosmetic.css — автогенерированный конвертером.
@@ -48,7 +45,6 @@ export async function handleCommitted(details) {
             target: { tabId: details.tabId },
             files: COSMETIC_CSS
         });
-        void updateBadge(details.tabId, "ON", "#4ade80");
     } catch (e) {
         console.error("[erst_dev_adblocker] insertCSS failed:", e);
     }

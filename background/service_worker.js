@@ -4,14 +4,12 @@
    Что делает:
    1. Инициализирует DNR (rulesets + whitelist-правила).
    2. Слушает изменения storage (enabled, whitelist).
-   3. Регистрирует слушателей навигации (для вставки CSS).
-   4. Регистрирует слушателей вкладок (для badge).
-   5. Регистрирует обработчик сообщений от popup и content script.
+   3. Регистрирует слушателя навигации (для вставки CSS).
+   4. Регистрирует обработчик сообщений от popup и content script.
 
    Что НЕ делает (вынесено в background/lib/):
    - вставка CSS            → lib/cosmetic-injector.js
    - загрузка карты          → lib/cosmetic-map.js
-   - события вкладок         → lib/tabs.js
    - обработка сообщений     → lib/message-handler.js
 
    ВАЖНО про syncDnrState:
@@ -22,7 +20,6 @@
 
 import { syncDnrState } from "../shared/storage.js";
 import { handleCommitted } from "./lib/cosmetic-injector.js";
-import { registerTabListeners } from "./lib/tabs.js";
 import { registerMessageHandler } from "./lib/message-handler.js";
 
 console.log("[erst_dev_adblocker] service worker started");
@@ -55,11 +52,6 @@ chrome.webNavigation.onCommitted.addListener(
 );
 
 // ------------------------------------------------------------
-// 4. События вкладок (badge)
-// ------------------------------------------------------------
-registerTabListeners();
-
-// ------------------------------------------------------------
-// 5. Обработчик сообщений
+// 4. Обработчик сообщений
 // ------------------------------------------------------------
 registerMessageHandler();
