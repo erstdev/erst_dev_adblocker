@@ -209,3 +209,27 @@ h1 {
 .feedback-link.copied {
     color: #4ade80;
 }
+
+/* ---------- Кнопка перезагрузки ---------- */
+
+.btn-reload {
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    background: #4ade80;
+    color: #1e1e1e;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-reload:hover {
+    background: #22c55e;
+}
+
+.btn-reload:active {
+    background: #16a34a;
+}

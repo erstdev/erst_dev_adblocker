@@ -3,9 +3,8 @@ import { MSG } from "../shared/messages.js";
 // Адрес для обратной связи
 const FEEDBACK_EMAIL = "erst_dev@mail.ru";
 
-// Алиас для getElementById. Назван byId, а не $, потому что
-// WebStorm считает $ символом jQuery и ругается на дубликаты.
-const byId = (id) => document.getElementById(id);
+// Алиас для getElementById
+const getElementById = (id) => document.getElementById(id);
 
 let currentDomain = null;
 let currentUrl = null;
@@ -30,8 +29,8 @@ async function loadState() {
         currentDomain = state.currentDomain;
         currentUrl = url;
 
-        byId("enabled-toggle").checked = state.enabled;
-        byId("toggle-label").textContent = state.enabled ? "Включено" : "Выключено";
+        getElementById("enabled-toggle").checked = state.enabled;
+        getElementById("toggle-label").textContent = state.enabled ? "Включено" : "Выключено";
 
         renderWhitelist(state.whitelist);
         updateAddButton(state.whitelist);
@@ -43,7 +42,7 @@ async function loadState() {
 function loadVersion() {
     const manifest = chrome.runtime.getManifest();
     currentVersion = manifest.version;
-    byId("version-label").textContent = `v${currentVersion}`;
+    getElementById("version-label").textContent = `v${currentVersion}`;
 }
 
 // ------------------------------------------------------------
@@ -51,8 +50,8 @@ function loadVersion() {
 // ------------------------------------------------------------
 
 function renderWhitelist(list) {
-    const ul = byId("whitelist");
-    const empty = byId("whitelist-empty");
+    const ul = getElementById("whitelist");
+    const empty = getElementById("whitelist-empty");
     ul.innerHTML = "";
 
     if (!list || list.length === 0) {
@@ -79,7 +78,7 @@ function renderWhitelist(list) {
 }
 
 function updateAddButton(whitelist) {
-    const btn = byId("add-current");
+    const btn = getElementById("add-current");
 
     if (!currentDomain) {
         btn.disabled = true;
@@ -97,17 +96,39 @@ function updateAddButton(whitelist) {
 }
 
 // ------------------------------------------------------------
+// Кнопка перезагрузки страницы
+// ------------------------------------------------------------
+
+function showReloadButton() {
+    getElementById("reload-page").style.display = "block";
+}
+
+async function reloadActiveTab() {
+    try {
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        if (tab && tab.id) {
+            await chrome.tabs.reload(tab.id);
+            window.close();
+        }
+    } catch (e) {
+        console.error("reloadActiveTab failed:", e);
+    }
+}
+
+// ------------------------------------------------------------
 // Действия пользователя
 // ------------------------------------------------------------
 
 async function toggleEnabled() {
-    const checked = byId("enabled-toggle").checked;
-    byId("toggle-label").textContent = checked ? "Включено" : "Выключено";
+    const checked = getElementById("enabled-toggle").checked;
+    getElementById("toggle-label").textContent = checked ? "Включено" : "Выключено";
 
     await chrome.runtime.sendMessage({
         type: MSG.POPUP_SET_ENABLED,
         value: checked
     });
+
+    showReloadButton();
 }
 
 async function addCurrent() {
@@ -121,6 +142,7 @@ async function addCurrent() {
     if (res?.ok) {
         renderWhitelist(res.whitelist);
         updateAddButton(res.whitelist);
+        showReloadButton();
     }
 }
 
@@ -133,6 +155,7 @@ async function removeDomain(domain) {
     if (res?.ok) {
         renderWhitelist(res.whitelist);
         updateAddButton(res.whitelist);
+        showReloadButton();
     }
 }
 
@@ -194,13 +217,14 @@ async function copyEmail(e) {
 // Инициализация
 // ------------------------------------------------------------
 
-byId("enabled-toggle").addEventListener("change", toggleEnabled);
-byId("add-current").addEventListener("click", addCurrent);
-byId("feedback-bug").addEventListener("click", (e) => {
+getElementById("enabled-toggle").addEventListener("change", toggleEnabled);
+getElementById("add-current").addEventListener("click", addCurrent);
+getElementById("reload-page").addEventListener("click", reloadActiveTab);
+getElementById("feedback-bug").addEventListener("click", (e) => {
     e.preventDefault();
     openBugReport();
 });
-byId("feedback-copy").addEventListener("click", copyEmail);
+getElementById("feedback-copy").addEventListener("click", copyEmail);
 
 loadVersion();
 void loadState();
