@@ -18,6 +18,7 @@ export const OUT_RULES = "rules/ads.json";
 export const OUT_EXCEPTIONS = "rules/exceptions.json";
 export const OUT_CSS = "content/cosmetic.css";
 export const OUT_COSMETIC_MAP = "rules/cosmetic-map.json";
+export const OUT_COSMETIC_EXCLUDE = "rules/cosmetic-exclude.json";
 
 // Лимит Chrome на статические DNR-правила (см. README → «Лимиты Chrome»)
 export const MAX_DNR_RULES = 30000;

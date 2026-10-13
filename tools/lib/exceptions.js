@@ -1,18 +1,14 @@
 /* ============================================================
    Конвертация ИСКЛЮЧЕНИЙ (@@) из EasyList в DNR-формат.
 
-   Что такое исключения:
-   Правила вида "@@||site.com/allowed^" говорят:
-   «НЕ блокируй это, даже если другое правило хочет».
-
    В DNR это action: "allow" с priority выше, чем у block-правил.
    У нас block имеет priority: 1, allow — priority: 2.
 
-   Приоритет работает так: если url подходит под оба правила
-   (block и allow), побеждает то, у которого priority больше.
-
    Импортирует parseModifiers из network.js — там логика разбора
    $-модификаторов (одинаковая для сетевых правил и исключений).
+
+   id: внутри функции id присваиваются с 1 и ни на что не влияют.
+   Финальные id выдаёт limiter.js → applyQuotas (exceptions.json → 100000+).
    ============================================================ */
 
 import { parseModifiers } from "./network.js";
@@ -34,27 +30,22 @@ export function selectExceptionRules(exceptionRules) {
 /**
  * Конвертирует исключения в DNR-формат с action: "allow".
  *
- * Пример: "@@||abcnews.com/assets/js/prebid.min.js" →
- *   { id, priority: 2, action: { type: "allow" },
- *     condition: { urlFilter: "||abcnews.com/assets/js/prebid.min.js" } }
+ * Если urlFilter пустой, но есть initiatorDomains/excludedInitiatorDomains —
+ * не добавляем urlFilter в condition (Chrome этого не разрешает).
  *
  * @param {string[]} rules - исключения (со префиксом @@)
- * @param {number} startId - стартовый id. Используется только для промежуточной
- *   нумерации внутри функции. Финальные id присваиваются в limiter.js → applyQuotas,
- *   где правила переиндексируются в диапазон ID_BASE_EXCEPTIONS (100000..).
  * @returns {Array} массив DNR-правил с allow
  */
-export function exceptionRulesToDnr(rules, startId) {
+export function exceptionRulesToDnr(rules) {
     const dnrRules = [];
-    let ruleId = startId;
+    let ruleId = 1;
     let skipped = 0;
     let skippedNonAscii = 0;
+    let skippedEmpty = 0;
 
     for (const easyRule of rules) {
-        // Отрезаем префикс @@
         let body = easyRule.slice(2);
 
-        // Отделяем $модификаторы, если есть
         let modPart = "";
         const dollarIndex = body.lastIndexOf("$");
         if (dollarIndex !== -1) {
@@ -62,18 +53,31 @@ export function exceptionRulesToDnr(rules, startId) {
             body = body.slice(0, dollarIndex);
         }
 
-        if (!isAsciiOnly(body)) {
+        if (body && !isAsciiOnly(body)) {
             skippedNonAscii++;
             continue;
         }
 
-        const condition = { urlFilter: body };
+        const condition = {};
 
         if (modPart) {
             const parsed = parseModifiers(modPart);
             if (parsed.unsupported) {
                 skipped++;
                 continue;
+            }
+
+            const hasDomains =
+                parsed.initiatorDomains.length > 0 ||
+                parsed.excludedInitiatorDomains.length > 0;
+
+            if (!body && !hasDomains) {
+                skippedEmpty++;
+                continue;
+            }
+
+            if (body) {
+                condition.urlFilter = body;
             }
             if (parsed.thirdParty !== null) {
                 condition.domainType = parsed.thirdParty ? "thirdParty" : "firstParty";
@@ -87,10 +91,14 @@ export function exceptionRulesToDnr(rules, startId) {
             if (parsed.excludedInitiatorDomains.length > 0) {
                 condition.excludedInitiatorDomains = parsed.excludedInitiatorDomains;
             }
+        } else {
+            if (!body) {
+                skippedEmpty++;
+                continue;
+            }
+            condition.urlFilter = body;
         }
 
-        // priority: 2 — выше, чем у block-правил (у них 1),
-        // поэтому allow всегда побеждает при конфликте.
         dnrRules.push({
             id: ruleId++,
             priority: 2,
@@ -99,6 +107,6 @@ export function exceptionRulesToDnr(rules, startId) {
         });
     }
 
-    console.log(`[stage 5] converted: ${dnrRules.length}, skipped: ${skipped}, non-ascii: ${skippedNonAscii}`);
+    console.log(`[stage 5] converted: ${dnrRules.length}, skipped: ${skipped}, non-ascii: ${skippedNonAscii}, empty-url: ${skippedEmpty}`);
     return dnrRules;
 }

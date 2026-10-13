@@ -10,8 +10,7 @@
             rules/exceptions.json
             content/cosmetic.css
             rules/cosmetic-map.json
-
-   См. также tools/README.md — там описание каждого модуля.
+            rules/cosmetic-exclude.json
    ============================================================ */
 
 import {
@@ -19,7 +18,8 @@ import {
     OUT_RULES,
     OUT_EXCEPTIONS,
     OUT_CSS,
-    OUT_COSMETIC_MAP
+    OUT_COSMETIC_MAP,
+    OUT_COSMETIC_EXCLUDE
 } from "./lib/config.js";
 
 import { readAllLists } from "./lib/reader.js";
@@ -57,18 +57,16 @@ function main() {
     console.log(`\n[stage 1] generated DNR rules: ${simpleDnr.length}`);
 
     const withModifiers = selectModifierRules(classified.network);
-    // startId здесь не важен: applyQuotas в limiter.js переиндексирует id
-    // в диапазоны ID_BASE_ADS / ID_BASE_EXCEPTIONS.
-    const modifierDnr = modifierRulesToDnr(withModifiers, 1);
+    const modifierDnr = modifierRulesToDnr(withModifiers);
     console.log(`[stage 2] generated DNR rules: ${modifierDnr.length}`);
 
     const pathRules = selectPathRules(classified.network);
-    const pathDnr = pathRulesToDnr(pathRules, 1);
+    const pathDnr = pathRulesToDnr(pathRules);
     console.log(`[stage 3] generated DNR rules: ${pathDnr.length}`);
 
     // 4. Исключения → DNR allow
     const exceptions = selectExceptionRules(classified.exceptions);
-    const exceptionDnr = exceptionRulesToDnr(exceptions, 1);
+    const exceptionDnr = exceptionRulesToDnr(exceptions);
     console.log(`[stage 5] generated DNR rules: ${exceptionDnr.length}`);
 
     // 5. Применяем квоты, получаем финальные массивы с id
@@ -82,11 +80,12 @@ function main() {
     writeJson(OUT_RULES, ads);
     writeJson(OUT_EXCEPTIONS, excs);
 
-    // 6. Косметика → CSS + domain-map
+    // 6. Косметика → CSS + domain-map + domain-exclude
     const cosmetic = selectCosmeticRules(classified.cosmetic);
-    const { cssText, domainMap } = cosmeticRulesToCss(cosmetic);
+    const { cssText, domainMap, domainExclude } = cosmeticRulesToCss(cosmetic);
     writeCss(OUT_CSS, cssText);
     writeJson(OUT_COSMETIC_MAP, domainMap);
+    writeJson(OUT_COSMETIC_EXCLUDE, domainExclude);
 }
 
 main();

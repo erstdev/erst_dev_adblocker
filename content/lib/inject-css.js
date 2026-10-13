@@ -7,6 +7,10 @@
      с текущим URL
    - получает массив CSS-селекторов
    - вставляет <style id="erst-domain-cosmetic"> в <head>
+   - отправляет SW сообщение cs→sw:getDomainExclude
+   - получает массив исключений (#@#)
+   - вставляет <style id="erst-domain-exclude"> с display: revert
+     (перекрывает скрытие из первого стиля и из общего cosmetic.css)
 
    Экспортирует в глобальный контекст:
    - fetchSelectors(url)     — запрос селекторов у SW
@@ -23,7 +27,9 @@
    ============================================================ */
 
 const STYLE_ID = "erst-domain-cosmetic";
-const MSG_TYPE = "cs→sw:getDomainSelectors";
+const EXCLUDE_STYLE_ID = "erst-domain-exclude";
+const MSG_GET_SELECTORS = "cs→sw:getDomainSelectors";
+const MSG_GET_EXCLUDE = "cs→sw:getDomainExclude";
 
 /**
  * Запрашивает селекторы у service worker.
@@ -34,13 +40,33 @@ const MSG_TYPE = "cs→sw:getDomainSelectors";
 async function fetchSelectors(url) {
     try {
         const response = await chrome.runtime.sendMessage({
-            type: MSG_TYPE,
+            type: MSG_GET_SELECTORS,
             url
         });
         if (!response || !Array.isArray(response.selectors)) return [];
         return response.selectors;
     } catch (e) {
         console.error("[erst_dev_adblocker] fetchSelectors failed:", e);
+        return [];
+    }
+}
+
+/**
+ * Запрашивает исключения (#@#) у service worker.
+ *
+ * @param {string} url - текущий URL страницы
+ * @returns {Promise<string[]>} массив селекторов-исключений
+ */
+async function fetchExclude(url) {
+    try {
+        const response = await chrome.runtime.sendMessage({
+            type: MSG_GET_EXCLUDE,
+            url
+        });
+        if (!response || !Array.isArray(response.exclude)) return [];
+        return response.exclude;
+    } catch (e) {
+        console.error("[erst_dev_adblocker] fetchExclude failed:", e);
         return [];
     }
 }
@@ -70,7 +96,31 @@ function applySelectors(selectors) {
 }
 
 /**
- * Обновляет селекторы для нового URL, если он изменился.
+ * Вставляет или обновляет <style> с исключениями.
+ * Исключения перекрывают скрытие (display: revert !important).
+ *
+ * @param {string[]} exclude
+ */
+function applyExclude(exclude) {
+    const existing = document.getElementById(EXCLUDE_STYLE_ID);
+    if (existing) existing.remove();
+
+    if (!exclude || exclude.length === 0) return;
+
+    const css = exclude
+        .map((sel) => `${sel} { display: revert !important; }`)
+        .join("\n");
+
+    const style = document.createElement("style");
+    style.id = EXCLUDE_STYLE_ID;
+    style.textContent = css;
+
+    const target = document.head || document.documentElement;
+    if (target) target.appendChild(style);
+}
+
+/**
+ * Обновляет селекторы и исключения для нового URL, если он изменился.
  * Обновляет глобальный state.currentSelectors и state.currentUrl.
  *
  * @param {string} url
@@ -83,7 +133,10 @@ async function refreshSelectors(url) {
     state.currentSelectors = selectors;
     applySelectors(selectors);
 
+    const exclude = await fetchExclude(url);
+    applyExclude(exclude);
+
     if (selectors.length > 0) {
-        console.log(`[erst_dev_adblocker] refreshed for ${url}: ${selectors.length} selectors`);
+        console.log(`[erst_dev_adblocker] refreshed for ${url}: ${selectors.length} selectors, ${exclude.length} excluded`);
     }
 }

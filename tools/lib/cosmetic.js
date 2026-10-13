@@ -6,15 +6,17 @@
    - Общие (##selector без домена) → в один CSS-файл (cosmetic.css).
    - Domain-specific (example.com##selector) → в карту domain-map.json,
      откуда потом content script берёт селекторы для конкретного сайта.
+   - Исключения (domain#@#selector) → в карту cosmetic-exclude.json.
+     Content script вставляет отдельный <style> с display: revert,
+     который перекрывает скрытие.
 
    Почему две категории:
    - Общие селекторы применяются на любой странице.
    - Domain-specific нужны только на конкретном сайте — держать их
-     в общем CSS = грузить браузер парсингом всех 31 310 правил
-     на каждой странице. Карта позволяет отдавать только нужные.
+     в общем CSS = грузить браузер парсингом всех правил на каждой
+     странице. Карта позволяет отдавать только нужные.
 
    Не поддерживается (пропускается):
-   - #@# (исключения косметики) — учтём позже, если понадобится.
    - Не-ASCII селекторы — Chrome капризен, пропускаем на всякий случай.
    - Селекторы с префиксом ~ в домене (например, "~example.com##.ad").
    - Extended-синтаксис (AdGuard/uBlock/ABP), который не является
@@ -80,34 +82,49 @@ export function selectCosmeticRules(cosmeticRules) {
  * Разбирает косметические правила на:
  * - общие селекторы (для CSS-файла)
  * - domain-map (для content script)
+ * - domain-exclude (исключения #@#, для отдельного стиля)
  *
- * Возвращает готовый CSS-текст и объект { domain: [selectors] }.
+ * Возвращает css-текст, карту селекторов и карту исключений.
  *
  * @param {string[]} rules - уникальные косметические правила
- * @returns {{ cssText: string, domainMap: Object<string, string[]> }}
+ * @returns {{
+ *   cssText: string,
+ *   domainMap: Object<string, string[]>,
+ *   domainExclude: Object<string, string[]>
+ * }}
  */
 export function cosmeticRulesToCss(rules) {
     const generalSelectors = [];
     const domainMap = {};
-    let skippedExceptions = 0;
+    const domainExclude = {};
     let skippedInvalid = 0;
     let skippedExtended = 0;
+    let excludeCount = 0;
 
     for (const rule of rules) {
-        // #@# — исключения, пока пропускаем
-        if (rule.includes("#@#")) {
-            skippedExceptions++;
-            continue;
+        // Определяем тип: ## (скрыть) или #@# (не скрывать).
+        // #@# имеет приоритет: если строка содержит и #@#, и ##, считаем
+        // её исключением — так делает EasyList.
+        const isExclude = rule.includes("#@#");
+
+        let hashIndex;
+        let selectorOffset;
+
+        if (isExclude) {
+            hashIndex = rule.indexOf("#@#");
+            selectorOffset = 3;
+        } else {
+            hashIndex = rule.indexOf("##");
+            selectorOffset = 2;
         }
 
-        const hashIndex = rule.indexOf("##");
         if (hashIndex === -1) {
             skippedInvalid++;
             continue;
         }
 
         const domainPart = rule.slice(0, hashIndex);
-        const selectorPart = rule.slice(hashIndex + 2).trim();
+        const selectorPart = rule.slice(hashIndex + selectorOffset).trim();
 
         if (!selectorPart) {
             skippedInvalid++;
@@ -119,34 +136,54 @@ export function cosmeticRulesToCss(rules) {
             continue;
         }
 
-        // Extended-синтаксис — не CSS, пропускаем.
-        // Применяем проверку и к общим, и к domain-specific правилам,
-        // потому что extended-часть может быть в любом из них.
         if (isExtendedSelector(selectorPart)) {
             skippedExtended++;
             continue;
         }
 
-        // Общее правило (без домена)
+        // Общее правило без домена.
+        // #@# без домена смысла не имеет, но если встретится — игнорируем.
         if (domainPart === "") {
-            generalSelectors.push(selectorPart);
+            if (!isExclude) generalSelectors.push(selectorPart);
             continue;
         }
 
-        // Domain-specific: доменов может быть несколько через запятую
+        // Domain-specific: доменов может быть несколько через запятую.
         const domains = domainPart.split(",").map((d) => d.trim()).filter(Boolean);
         for (const domain of domains) {
-            if (domain.startsWith("~")) continue; // исключения пока не поддерживаем
+            if (domain.startsWith("~")) continue; // исключения домена пока не поддерживаем
             if (!isAsciiOnly(domain)) continue;
 
-            if (!domainMap[domain]) domainMap[domain] = new Set();
-            domainMap[domain].add(selectorPart);
+            if (isExclude) {
+                if (!domainExclude[domain]) domainExclude[domain] = new Set();
+                domainExclude[domain].add(selectorPart);
+                excludeCount++;
+            } else {
+                if (!domainMap[domain]) domainMap[domain] = new Set();
+                domainMap[domain].add(selectorPart);
+            }
+        }
+    }
+
+    // Вычитаем исключения из domainMap: что запрещено на домене — убираем.
+    // Общий CSS (cosmetic.css) не трогаем: он глобальный, переопределение
+    // делается через отдельный <style id="erst-domain-exclude"> в content script.
+    let removedFromMap = 0;
+    for (const domain of Object.keys(domainMap)) {
+        if (!domainExclude[domain]) continue;
+        for (const sel of domainExclude[domain]) {
+            if (domainMap[domain].delete(sel)) removedFromMap++;
+        }
+        if (domainMap[domain].size === 0) {
+            delete domainMap[domain];
         }
     }
 
     console.log(`[stage 4] general selectors:       ${generalSelectors.length}`);
     console.log(`[stage 4] domain-specific domains: ${Object.keys(domainMap).length}`);
-    console.log(`[stage 4] skipped exceptions:      ${skippedExceptions}`);
+    console.log(`[stage 4] #@# exclusions (raw):    ${excludeCount}`);
+    console.log(`[stage 4] #@# removed from map:    ${removedFromMap}`);
+    console.log(`[stage 4] #@# domains:             ${Object.keys(domainExclude).length}`);
     console.log(`[stage 4] skipped invalid:         ${skippedInvalid}`);
     console.log(`[stage 4] skipped extended:        ${skippedExtended}`);
 
@@ -173,10 +210,21 @@ export function cosmeticRulesToCss(rules) {
         totalDomainSelectors += selectors.size;
     }
 
+    const domainExcludePlain = {};
+    let totalExcludeSelectors = 0;
+    for (const [domain, selectors] of Object.entries(domainExclude)) {
+        // Если после вычитания для домена ничего не осталось — исключения
+        // для него всё равно нужны: они могут перекрывать общий CSS.
+        domainExcludePlain[domain] = [...selectors];
+        totalExcludeSelectors += selectors.size;
+    }
+
     console.log(`[stage 4] total domain selectors:  ${totalDomainSelectors}`);
+    console.log(`[stage 4] total exclude selectors: ${totalExcludeSelectors}`);
 
     return {
         cssText: cssLines.join("\n"),
-        domainMap: domainMapPlain
+        domainMap: domainMapPlain,
+        domainExclude: domainExcludePlain
     };
 }

@@ -1,8 +1,9 @@
 /* ============================================================
-   Карта domain-specific косметических селекторов.
+   Карта domain-specific косметических селекторов + исключений.
 
    Что делает:
    - один раз загружает rules/cosmetic-map.json в память
+   - один раз загружает rules/cosmetic-exclude.json в память
    - по hostname находит все подходящие селекторы (учитывая
      поддомены: для www.rbc.ru проверит www.rbc.ru, rbc.ru, ru)
 
@@ -16,6 +17,7 @@
    ============================================================ */
 
 let cosmeticMapCache = null;
+let cosmeticExcludeCache = null;
 
 /**
  * Загружает карту domain-specific селекторов.
@@ -30,6 +32,21 @@ export async function loadCosmeticMap() {
     cosmeticMapCache = await response.json();
     console.log(`[erst_dev_adblocker] cosmetic map loaded: ${Object.keys(cosmeticMapCache).length} domains`);
     return cosmeticMapCache;
+}
+
+/**
+ * Загружает карту domain-specific исключений (#@#).
+ * Кэширует в памяти service worker.
+ *
+ * @returns {Promise<Object<string, string[]>>} карта { domain: [selectors] }
+ */
+export async function loadCosmeticExclude() {
+    if (cosmeticExcludeCache) return cosmeticExcludeCache;
+    const url = chrome.runtime.getURL("rules/cosmetic-exclude.json");
+    const response = await fetch(url);
+    cosmeticExcludeCache = await response.json();
+    console.log(`[erst_dev_adblocker] cosmetic exclude loaded: ${Object.keys(cosmeticExcludeCache).length} domains`);
+    return cosmeticExcludeCache;
 }
 
 /**

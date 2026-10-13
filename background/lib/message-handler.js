@@ -8,6 +8,7 @@
 
    Сообщения:
    - cs→sw:getDomainSelectors  ← content script просит селекторы
+   - cs→sw:getDomainExclude    ← content script просит исключения (#@#)
    - popup→sw:getState          ← popup просит состояние
    - popup→sw:setEnabled        ← popup переключает вкл/выкл
    - popup→sw:whitelistAdd      ← popup добавляет сайт в белый список
@@ -26,7 +27,12 @@ import {
     getWhitelist, addToWhitelist, removeFromWhitelist,
     isWhitelisted
 } from "../../shared/storage.js";
-import { loadCosmeticMap, extractDomain, findSelectorsForDomain } from "./cosmetic-map.js";
+import {
+    loadCosmeticMap,
+    loadCosmeticExclude,
+    extractDomain,
+    findSelectorsForDomain
+} from "./cosmetic-map.js";
 
 /**
  * Регистрирует обработчик onMessage.
@@ -44,6 +50,10 @@ export function registerMessageHandler() {
                 switch (msg.type) {
                     case MSG.CS_GET_DOMAIN_SELECTORS:
                         await handleGetDomainSelectors(msg, sendResponse);
+                        return;
+
+                    case MSG.CS_GET_DOMAIN_EXCLUDE:
+                        await handleGetDomainExclude(msg, sendResponse);
                         return;
 
                     case MSG.POPUP_GET_STATE:
@@ -92,6 +102,21 @@ async function handleGetDomainSelectors(msg, sendResponse) {
 
     const selectors = findSelectorsForDomain(map, hostname);
     sendResponse({ selectors });
+}
+
+async function handleGetDomainExclude(msg, sendResponse) {
+    const enabled = await getEnabled();
+    if (!enabled) { sendResponse({ exclude: [] }); return; }
+
+    const whitelisted = await isWhitelisted(msg.url);
+    if (whitelisted) { sendResponse({ exclude: [] }); return; }
+
+    const map = await loadCosmeticExclude();
+    const hostname = extractDomain(msg.url);
+    if (!hostname) { sendResponse({ exclude: [] }); return; }
+
+    const exclude = findSelectorsForDomain(map, hostname);
+    sendResponse({ exclude });
 }
 
 async function handleGetState(msg, sendResponse) {

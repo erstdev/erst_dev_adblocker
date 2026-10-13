@@ -16,6 +16,7 @@ export const DIR = {
 export const MSG = {
     // content script → service worker
     CS_GET_DOMAIN_SELECTORS: `${DIR.CS_TO_SW}:getDomainSelectors`,
+    CS_GET_DOMAIN_EXCLUDE:   `${DIR.CS_TO_SW}:getDomainExclude`,
 
     // popup → service worker
     POPUP_GET_STATE:         `${DIR.POPUP_TO_SW}:getState`,
