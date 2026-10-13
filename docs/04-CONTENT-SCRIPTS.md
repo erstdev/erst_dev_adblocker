@@ -171,7 +171,7 @@ async function refreshSelectors(url) {
   applySelectors(selectors);
 
   if (selectors.length > 0) {
-    console.log(`[erst-dev] refreshed for ${url}: ${selectors.length} selectors`);
+    console.log(`[erst_dev_adblocker] refreshed for ${url}: ${selectors.length} selectors`);
   }
 }
 ```
@@ -285,7 +285,7 @@ function startObserver() {
     subtree: true
   });
 
-  console.log("[erst-dev] MutationObserver started");
+  console.log("[erst_dev_adblocker] MutationObserver started");
 }
 ```
 
@@ -334,7 +334,7 @@ function trySkip() {
       const btn = document.querySelector(sel);
       if (btn && !btn.disabled) {
         btn.click();
-        console.log(`[erst-dev] ad skipped: ${sel}`);
+        console.log(`[erst_dev_adblocker] ad skipped: ${sel}`);
         return;
       }
     } catch (e) {
@@ -402,7 +402,7 @@ function hideAdMarkers() {
           target = target.parentElement;
         }
         target.style.setProperty("display", "none", "important");
-        console.log(`[erst-dev] hid ad marker block: "${text}"`);
+        console.log(`[erst_dev_adblocker] hid ad marker block: "${text}"`);
         break;
       }
     }

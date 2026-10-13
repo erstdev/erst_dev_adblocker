@@ -84,6 +84,6 @@ async function refreshSelectors(url) {
     applySelectors(selectors);
 
     if (selectors.length > 0) {
-        console.log(`[erst-dev] refreshed for ${url}: ${selectors.length} selectors`);
+        console.log(`[erst_dev_adblocker] refreshed for ${url}: ${selectors.length} selectors`);
     }
 }

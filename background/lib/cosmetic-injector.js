@@ -5,6 +5,9 @@
    - при навигации на новую страницу вставляет cosmetic.css
      и cosmetic-manual.css (если расширение включено и сайт
      не в белом списке)
+   - пропускает chrome.google.com и chromewebstore.google.com
+     (insertCSS на них падает с "The extensions gallery cannot
+     be scripted")
 
    Кого зовёт:
    - chrome.scripting.insertCSS — вставка CSS
@@ -23,6 +26,23 @@ const COSMETIC_CSS = [
     "content/cosmetic-manual.css"
 ];
 
+// Хосты, на которых insertCSS падает.
+// Chrome Web Store и Google extensions gallery запрещают
+// выполнение любых скриптов/стилей на своих страницах.
+const FORBIDDEN_HOSTS = [
+    "chrome.google.com",
+    "chromewebstore.google.com"
+];
+
+function isForbiddenHost(url) {
+    try {
+        const hostname = new URL(url).hostname;
+        return FORBIDDEN_HOSTS.includes(hostname);
+    } catch {
+        return false;
+    }
+}
+
 /**
  * Обработчик события onCommitted.
  * Вставляем CSS в главный фрейм, если разрешено.
@@ -33,6 +53,9 @@ export async function handleCommitted(details) {
     // Нас интересует только главный фрейм.
     // Проверка защищает от 11 вставок CSS подряд (по одной на каждый iframe).
     if (details.frameId !== 0) return;
+
+    // Chrome Web Store / extensions gallery — пропускаем.
+    if (isForbiddenHost(details.url)) return;
 
     try {
         const enabled = await getEnabled();

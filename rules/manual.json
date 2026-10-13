@@ -25,5 +25,32 @@
       "urlFilter": "||ad.mail.ru^",
       "resourceTypes": ["script", "image", "xmlhttprequest", "sub_frame"]
     }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||an.yandex.ru^",
+      "resourceTypes": ["script", "image", "xmlhttprequest", "sub_frame", "media", "ping", "other"]
+    }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||yandex.ru/an/",
+      "resourceTypes": ["script", "image", "xmlhttprequest", "sub_frame", "media", "ping", "other"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 3,
+    "action": { "type": "allow" },
+    "condition": {
+      "urlFilter": "||r.mradx.net/imgs/",
+      "resourceTypes": ["image"]
+    }
   }
 ]

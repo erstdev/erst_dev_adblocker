@@ -18,7 +18,7 @@
 
 Если строки `service worker started` нет — значит, `service_worker.js` не выполнился вообще. Причина либо в синтаксисе, либо в манифесте (неверный путь или опечатка в имени).
 
-**3. Console страницы.** F12 на любом сайте → Console. Там логи content scripts `[erst-dev] refreshed for ...` и ошибки из модулей `content/lib/`.
+**3. Console страницы.** F12 на любом сайте → Console. Там логи content scripts `[erst_dev_adblocker] refreshed for ...` и ошибки из модулей `content/lib/`.
 
 ### Popup открывается пустой
 

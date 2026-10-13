@@ -57,6 +57,8 @@ function main() {
     console.log(`\n[stage 1] generated DNR rules: ${simpleDnr.length}`);
 
     const withModifiers = selectModifierRules(classified.network);
+    // startId здесь не важен: applyQuotas в limiter.js переиндексирует id
+    // в диапазоны ID_BASE_ADS / ID_BASE_EXCEPTIONS.
     const modifierDnr = modifierRulesToDnr(withModifiers, 1);
     console.log(`[stage 2] generated DNR rules: ${modifierDnr.length}`);
 

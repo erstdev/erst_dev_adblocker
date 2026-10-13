@@ -6,12 +6,176 @@
       "type": "allow"
     },
     "condition": {
+      "urlFilter": "||youtube.com/get_video_info?",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100001,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets//jwplayer-*/jwplayer.core.controls.html5.js|"
+    }
+  },
+  {
+    "id": 100002,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets//jwplayer-*/jwplayer.core.controls.js|"
+    }
+  },
+  {
+    "id": 100003,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets//jwplayer-*/jwplayer.js|"
+    }
+  },
+  {
+    "id": 100004,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets//jwplayer-*/provider.hlsjs.js|"
+    }
+  },
+  {
+    "id": 100005,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets/jwplayer-*/jwplayer.core.controls.html5.js|"
+    }
+  },
+  {
+    "id": 100006,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets/jwplayer-*/jwplayer.core.controls.js|"
+    }
+  },
+  {
+    "id": 100007,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets/jwplayer-*/jwplayer.js|"
+    }
+  },
+  {
+    "id": 100008,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/assets/jwplayer-*/provider.hlsjs.js|"
+    }
+  },
+  {
+    "id": 100009,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/upd/*/assets/preview*.js|"
+    }
+  },
+  {
+    "id": 100010,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thegay.com/upd/*/static/js/*.js|"
+    }
+  },
+  {
+    "id": 100011,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||2mdn.net/instream/html5/ima3.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100012,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||4cdn.org/adv/",
+      "resourceTypes": [
+        "image",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100013,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||4channel.org/adv/",
+      "resourceTypes": [
+        "image",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100014,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||a.vdo.ai/core/v-m-timesofindia-v3/vdo.ai.js"
+    }
+  },
+  {
+    "id": 100015,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
       "urlFilter": "||abcnews.com/assets/js/prebid.min.js",
       "domainType": "firstParty"
     }
   },
   {
-    "id": 100001,
+    "id": 100016,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -25,7 +189,7 @@
     }
   },
   {
-    "id": 100002,
+    "id": 100017,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -38,7 +202,20 @@
     }
   },
   {
-    "id": 100003,
+    "id": 100018,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.linksynergy.com^",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100019,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -48,7 +225,7 @@
     }
   },
   {
-    "id": 100004,
+    "id": 100020,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -62,7 +239,245 @@
     }
   },
   {
-    "id": 100005,
+    "id": 100021,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adjust.com/adjust-latest.min.js"
+    }
+  },
+  {
+    "id": 100022,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adm.fwmrm.net^*/TremorAdRenderer."
+    }
+  },
+  {
+    "id": 100023,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adm.fwmrm.net^*/videoadrenderer."
+    }
+  },
+  {
+    "id": 100024,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adnxs.com/ast/ast.js"
+    }
+  },
+  {
+    "id": 100025,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads-static.conde.digital^"
+    }
+  },
+  {
+    "id": 100026,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adthrive.com/api/"
+    }
+  },
+  {
+    "id": 100027,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adthrive.com/builds/core/*/js/adthrive.min.js"
+    }
+  },
+  {
+    "id": 100028,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adthrive.com/builds/core/*/prebid.min.js"
+    }
+  },
+  {
+    "id": 100029,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adthrive.com/builds/core/*/vendor/prebid/*/prebid.min.js"
+    }
+  },
+  {
+    "id": 100030,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adthrive.com/sites/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100031,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adthrive.com/sites/*/ads.min.js"
+    }
+  },
+  {
+    "id": 100032,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.burdadigital.cz/sites/default/files/public/burda_ads/prod/dist/"
+    }
+  },
+  {
+    "id": 100033,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.freewheel.tv/|",
+      "resourceTypes": [
+        "media"
+      ]
+    }
+  },
+  {
+    "id": 100034,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.kbmax.com^"
+    }
+  },
+  {
+    "id": 100035,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.pubmatic.com/adserver/js/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100036,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.pubmatic.com/AdServer/js/pwtSync/",
+      "resourceTypes": [
+        "script",
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100037,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.roblox.com/v1/sponsored-pages",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100038,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.rogersmedia.com^",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100039,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.rubiconproject.com/prebid/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100040,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adsafeprotected.com/iasPET.",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100041,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adsafeprotected.com/vans-adapter-google-ima.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100042,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -75,7 +490,44 @@
     }
   },
   {
-    "id": 100006,
+    "id": 100043,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adserver.skiresort-service.com/www/delivery/spcjs.php?",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100044,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adswizz.com/adswizz/js/SynchroClient*.js",
+      "domainType": "thirdParty",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100045,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adswizz.com/sca_newenco/"
+    }
+  },
+  {
+    "id": 100046,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -88,7 +540,7 @@
     }
   },
   {
-    "id": 100007,
+    "id": 100047,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -102,7 +554,17 @@
     }
   },
   {
-    "id": 100008,
+    "id": 100048,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||amazon-adsystem.com/aax2/apstag.js"
+    }
+  },
+  {
+    "id": 100049,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -116,7 +578,31 @@
     }
   },
   {
-    "id": 100009,
+    "id": 100050,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||amazonaws.com/prod.iqdcontroller.iqdigital/cdn_iqdspiegel/live/iqadcontroller.js.gz"
+    }
+  },
+  {
+    "id": 100051,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||aniview.com/api/",
+      "resourceTypes": [
+        "script",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100052,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -126,7 +612,43 @@
     }
   },
   {
-    "id": 100010,
+    "id": 100053,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||api.adinplay.com/libs/aiptag/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100054,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||api.adinplay.com/libs/aiptag/pub/"
+    }
+  },
+  {
+    "id": 100055,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||api.adinplay.com/v4/live/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100056,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -137,7 +659,30 @@
     }
   },
   {
-    "id": 100011,
+    "id": 100057,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||apis.kostprice.com/fapi/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100058,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||apmebf.com/ad/"
+    }
+  },
+  {
+    "id": 100059,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -148,7 +693,7 @@
     }
   },
   {
-    "id": 100012,
+    "id": 100060,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -162,7 +707,7 @@
     }
   },
   {
-    "id": 100013,
+    "id": 100061,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -175,7 +720,7 @@
     }
   },
   {
-    "id": 100014,
+    "id": 100062,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -190,7 +735,7 @@
     }
   },
   {
-    "id": 100015,
+    "id": 100063,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -205,7 +750,72 @@
     }
   },
   {
-    "id": 100016,
+    "id": 100064,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||assets.ctfassets.net^",
+      "resourceTypes": [
+        "media"
+      ]
+    }
+  },
+  {
+    "id": 100065,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||assets.strossle.com^*/strossle-widget-sdk.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100066,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||at.adtech.redventures.io/lib/api/",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100067,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||at.adtech.redventures.io/lib/dist/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100068,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||atlas.playpilot.com/api/v1/ads/browse/",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100069,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -216,7 +826,7 @@
     }
   },
   {
-    "id": 100017,
+    "id": 100070,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -230,7 +840,7 @@
     }
   },
   {
-    "id": 100018,
+    "id": 100071,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -244,7 +854,7 @@
     }
   },
   {
-    "id": 100019,
+    "id": 100072,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -254,7 +864,20 @@
     }
   },
   {
-    "id": 100020,
+    "id": 100073,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||bannersnack.com/banners/",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100074,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -264,7 +887,7 @@
     }
   },
   {
-    "id": 100021,
+    "id": 100075,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -274,7 +897,17 @@
     }
   },
   {
-    "id": 100022,
+    "id": 100076,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||bauersecure.com/dist/js/prebid/"
+    }
+  },
+  {
+    "id": 100077,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -284,7 +917,20 @@
     }
   },
   {
-    "id": 100023,
+    "id": 100078,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||bbc.gscontxt.net^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100079,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -298,7 +944,7 @@
     }
   },
   {
-    "id": 100024,
+    "id": 100080,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -312,7 +958,7 @@
     }
   },
   {
-    "id": 100025,
+    "id": 100081,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -326,7 +972,7 @@
     }
   },
   {
-    "id": 100026,
+    "id": 100082,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -337,7 +983,46 @@
     }
   },
   {
-    "id": 100027,
+    "id": 100083,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||blueconic.net/capitolbroadcasting.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100084,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||boatwizard.com/ads_prebid.min.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100085,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||bordeaux.futurecdn.net/bordeaux.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100086,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -348,7 +1033,7 @@
     }
   },
   {
-    "id": 100028,
+    "id": 100087,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -362,7 +1047,7 @@
     }
   },
   {
-    "id": 100029,
+    "id": 100088,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -376,7 +1061,22 @@
     }
   },
   {
-    "id": 100030,
+    "id": 100089,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||capitolbroadcasting.blueconic.net^",
+      "resourceTypes": [
+        "image",
+        "script",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100090,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -390,7 +1090,76 @@
     }
   },
   {
-    "id": 100031,
+    "id": 100091,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cbsi.com/dist/optanon.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100092,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdn.advertserve.com^"
+    }
+  },
+  {
+    "id": 100093,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdn.ex.co^"
+    }
+  },
+  {
+    "id": 100094,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdn.wgchrrammzv.com/prod/ajc/loader.min.js"
+    }
+  },
+  {
+    "id": 100095,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||chycor.co.uk/cms/advert_search_thumb.php",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100096,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||client.aps.amazon-adsystem.com/publisher.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100097,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -401,7 +1170,7 @@
     }
   },
   {
-    "id": 100032,
+    "id": 100098,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -411,7 +1180,7 @@
     }
   },
   {
-    "id": 100033,
+    "id": 100099,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -425,7 +1194,33 @@
     }
   },
   {
-    "id": 100034,
+    "id": 100100,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||config.aps.amazon-adsystem.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100101,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||connatix.com*/connatix.player.",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100102,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -439,7 +1234,7 @@
     }
   },
   {
-    "id": 100035,
+    "id": 100103,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -453,7 +1248,7 @@
     }
   },
   {
-    "id": 100036,
+    "id": 100104,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -464,7 +1259,20 @@
     }
   },
   {
-    "id": 100037,
+    "id": 100105,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||d.socdm.com/adsv/*/tver_splive",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100106,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -475,7 +1283,20 @@
     }
   },
   {
-    "id": 100038,
+    "id": 100107,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||delivery-cdn-cf.adswizz.com/adswizz/js/SynchroClient*.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100108,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -485,7 +1306,7 @@
     }
   },
   {
-    "id": 100039,
+    "id": 100109,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -499,7 +1320,7 @@
     }
   },
   {
-    "id": 100040,
+    "id": 100110,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -512,7 +1333,7 @@
     }
   },
   {
-    "id": 100041,
+    "id": 100111,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -527,7 +1348,46 @@
     }
   },
   {
-    "id": 100042,
+    "id": 100112,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||dodo.ac/np/images/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100113,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||doubleclick.net/ddm/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100114,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||doubleclick.net/|",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100115,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -541,7 +1401,7 @@
     }
   },
   {
-    "id": 100043,
+    "id": 100116,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -555,7 +1415,33 @@
     }
   },
   {
-    "id": 100044,
+    "id": 100117,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||embed.ex.co^",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100118,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||entitlements.jwplayer.com^",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100119,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -566,7 +1452,7 @@
     }
   },
   {
-    "id": 100045,
+    "id": 100120,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -580,7 +1466,33 @@
     }
   },
   {
-    "id": 100046,
+    "id": 100121,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ezodn.com/tardisrocinante/lazy_load.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100122,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ezoic.net/detroitchicago/cmb.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100123,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -591,7 +1503,7 @@
     }
   },
   {
-    "id": 100047,
+    "id": 100124,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -605,7 +1517,7 @@
     }
   },
   {
-    "id": 100048,
+    "id": 100125,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -615,7 +1527,7 @@
     }
   },
   {
-    "id": 100049,
+    "id": 100126,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -629,7 +1541,20 @@
     }
   },
   {
-    "id": 100050,
+    "id": 100127,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||fdyn.pubwise.io^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100128,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -643,7 +1568,7 @@
     }
   },
   {
-    "id": 100051,
+    "id": 100129,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -657,7 +1582,7 @@
     }
   },
   {
-    "id": 100052,
+    "id": 100130,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -671,7 +1596,7 @@
     }
   },
   {
-    "id": 100053,
+    "id": 100131,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -685,7 +1610,196 @@
     }
   },
   {
-    "id": 100054,
+    "id": 100132,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||franklymedia.com/*/300x150_WBNQ_TEXT.png",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100133,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||fuseplatform.net^*/fuse.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100134,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100135,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads*%20Web%20Player"
+    }
+  },
+  {
+    "id": 100136,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?*%2Ftver.",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100137,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?*&iu=%2F18190176%2C22509719621%2FAdThrive_Video_Collapse_Autoplay_",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100138,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?*&iu=%2F18190176%2C22509719621%2FAdThrive_Video_In-Post_ClicktoPlay_"
+    }
+  },
+  {
+    "id": 100139,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?*&prev_scp=kw%3Diqdspiegel%2Cdigtransform%2Ciqadtile4%2",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100140,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?*.crunchyroll.com",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100141,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?*RakutenShowtime",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100142,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?env=",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100143,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/live/ads?*tver.",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100144,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/pagead/ads",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100145,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/pagead/ads?*&description_url=https%3A%2F%2Fgames.wkb.jp",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100146,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g2crowd.com/uploads/product/image/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100147,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -699,7 +1813,7 @@
     }
   },
   {
-    "id": 100055,
+    "id": 100148,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -710,7 +1824,7 @@
     }
   },
   {
-    "id": 100056,
+    "id": 100149,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -721,7 +1835,59 @@
     }
   },
   {
-    "id": 100057,
+    "id": 100150,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||global-uploads.webflow.com/*_dimensions-",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100151,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||gn-web-assets.api.bbc.com/bbcdotcom/assets/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100152,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||go.ezodn.com/tardisrocinante/lazy_load.js?",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100153,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||go.ezodn.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100154,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -734,7 +1900,7 @@
     }
   },
   {
-    "id": 100058,
+    "id": 100155,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -748,7 +1914,7 @@
     }
   },
   {
-    "id": 100059,
+    "id": 100156,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -762,7 +1928,33 @@
     }
   },
   {
-    "id": 100060,
+    "id": 100157,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleadservices.com/pagead/conversion_async.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100158,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleoptimize.com/optimize.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100159,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -773,7 +1965,43 @@
     }
   },
   {
-    "id": 100061,
+    "id": 100160,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||grapeshot.co.uk/main/channels.cgi",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100161,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||gstatic.com/_/mss/boq-ads-privacy-consumer-frontend"
+    }
+  },
+  {
+    "id": 100162,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||gstatic.com/ads/external/images/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100163,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -784,7 +2012,17 @@
     }
   },
   {
-    "id": 100062,
+    "id": 100164,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||hotstar.com/vs/getad.php"
+    }
+  },
+  {
+    "id": 100165,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -799,7 +2037,63 @@
     }
   },
   {
-    "id": 100063,
+    "id": 100166,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||htlbid.com^*/htlbid.js"
+    }
+  },
+  {
+    "id": 100167,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||hutchgo.advertserve.com^"
+    }
+  },
+  {
+    "id": 100168,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||hw-ads.datpiff.com/news/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100169,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||image.shutterstock.com^",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100170,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||improvedigital.com/pbw/headerlift.min.js"
+    }
+  },
+  {
+    "id": 100171,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -813,7 +2107,7 @@
     }
   },
   {
-    "id": 100064,
+    "id": 100172,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -824,7 +2118,7 @@
     }
   },
   {
-    "id": 100065,
+    "id": 100173,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -838,7 +2132,7 @@
     }
   },
   {
-    "id": 100066,
+    "id": 100174,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -852,7 +2146,7 @@
     }
   },
   {
-    "id": 100067,
+    "id": 100175,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -862,7 +2156,7 @@
     }
   },
   {
-    "id": 100068,
+    "id": 100176,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -875,7 +2169,7 @@
     }
   },
   {
-    "id": 100069,
+    "id": 100177,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -886,7 +2180,40 @@
     }
   },
   {
-    "id": 100070,
+    "id": 100178,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||js.adsrvr.org/up_loader.1.1.0.js"
+    }
+  },
+  {
+    "id": 100179,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||jsdelivr.net^*/videojs.ads.css"
+    }
+  },
+  {
+    "id": 100180,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||jwpcdn.com/player/plugins/googima/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100181,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -897,7 +2224,20 @@
     }
   },
   {
-    "id": 100071,
+    "id": 100182,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||lastpass.com/ads.php",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100183,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -911,7 +2251,7 @@
     }
   },
   {
-    "id": 100072,
+    "id": 100184,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -925,7 +2265,7 @@
     }
   },
   {
-    "id": 100073,
+    "id": 100185,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -939,7 +2279,40 @@
     }
   },
   {
-    "id": 100074,
+    "id": 100186,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||live.primis.tech^"
+    }
+  },
+  {
+    "id": 100187,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||live.primis.tech^",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100188,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||live.streamtheworld.com/partnerIds"
+    }
+  },
+  {
+    "id": 100189,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -950,7 +2323,7 @@
     }
   },
   {
-    "id": 100075,
+    "id": 100190,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -961,7 +2334,7 @@
     }
   },
   {
-    "id": 100076,
+    "id": 100191,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -975,7 +2348,7 @@
     }
   },
   {
-    "id": 100077,
+    "id": 100192,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -986,7 +2359,7 @@
     }
   },
   {
-    "id": 100078,
+    "id": 100193,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1000,7 +2373,7 @@
     }
   },
   {
-    "id": 100079,
+    "id": 100194,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1011,7 +2384,7 @@
     }
   },
   {
-    "id": 100080,
+    "id": 100195,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1025,7 +2398,7 @@
     }
   },
   {
-    "id": 100081,
+    "id": 100196,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1039,7 +2412,44 @@
     }
   },
   {
-    "id": 100082,
+    "id": 100197,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||mediaalpha.com/js/serve.js"
+    }
+  },
+  {
+    "id": 100198,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||micro.rubiconproject.com/prebid/dynamic/",
+      "resourceTypes": [
+        "script",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100199,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||moatads.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100200,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1053,7 +2463,17 @@
     }
   },
   {
-    "id": 100083,
+    "id": 100201,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||mtouch.facebook.com/ads/api/preview/"
+    }
+  },
+  {
+    "id": 100202,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1064,7 +2484,30 @@
     }
   },
   {
-    "id": 100084,
+    "id": 100203,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||newscgp.com/prod/prebid/nyp/pb.js"
+    }
+  },
+  {
+    "id": 100204,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||newsweek.com/prebid.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100205,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1078,7 +2521,20 @@
     }
   },
   {
-    "id": 100085,
+    "id": 100206,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||nflcdn.com/static/site/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100207,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1092,7 +2548,17 @@
     }
   },
   {
-    "id": 100086,
+    "id": 100208,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ntv.io/serve/load.js"
+    }
+  },
+  {
+    "id": 100209,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1106,7 +2572,73 @@
     }
   },
   {
-    "id": 100087,
+    "id": 100210,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||optimatic.com/iframe.html",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100211,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||optimatic.com/redux/optiplayer-"
+    }
+  },
+  {
+    "id": 100212,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||optimatic.com/shell.js"
+    }
+  },
+  {
+    "id": 100213,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||p.d.1emn.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100214,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/gampad/ads?*laurelberninteriors.com*&iu=%2F18190176%2C22509719621%2FAdThrive_Video_Collapse_Autoplay_"
+    }
+  },
+  {
+    "id": 100215,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/gampad/ads?*laurelberninteriors.com*&iu=%2F18190176%2C22509719621%2FAdThrive_Video_In-Post_ClicktoPlay_"
+    }
+  },
+  {
+    "id": 100216,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1119,7 +2651,20 @@
     }
   },
   {
-    "id": 100088,
+    "id": 100217,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||patreonusercontent.com/*.gif?token-",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100218,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1133,7 +2678,7 @@
     }
   },
   {
-    "id": 100089,
+    "id": 100219,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1147,7 +2692,20 @@
     }
   },
   {
-    "id": 100090,
+    "id": 100220,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pepperjamnetwork.com/banners/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100221,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1161,7 +2719,72 @@
     }
   },
   {
-    "id": 100091,
+    "id": 100222,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pjtra.com/b/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100223,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||player.aniview.com/script/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100224,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||player.avplayer.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100225,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||player.ex.co/player/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100226,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||player.odycdn.com/api/",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100227,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1175,7 +2798,7 @@
     }
   },
   {
-    "id": 100092,
+    "id": 100228,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1189,7 +2812,46 @@
     }
   },
   {
-    "id": 100093,
+    "id": 100229,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pntrac.com/b/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100230,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pntrs.com/b/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100231,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||poastcdn.org/ad/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100232,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1200,7 +2862,7 @@
     }
   },
   {
-    "id": 100094,
+    "id": 100233,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1211,7 +2873,20 @@
     }
   },
   {
-    "id": 100095,
+    "id": 100234,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||prebid.adnxs.com^",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100235,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1222,7 +2897,7 @@
     }
   },
   {
-    "id": 100096,
+    "id": 100236,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1236,7 +2911,46 @@
     }
   },
   {
-    "id": 100097,
+    "id": 100237,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||promo.zendesk.com^",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100238,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pub.doubleverify.com/dvtag/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100239,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pub.pixels.ai/wrap-independent-no-prebid-lib.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100240,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1250,7 +2964,30 @@
     }
   },
   {
-    "id": 100098,
+    "id": 100241,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||raw.githubusercontent.com^"
+    }
+  },
+  {
+    "id": 100242,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||redventures.io/lib/dist/prod/bidbarrel-",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100243,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1264,7 +3001,20 @@
     }
   },
   {
-    "id": 100099,
+    "id": 100244,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||rubiconproject.com/prebid/dynamic/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100245,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1278,7 +3028,7 @@
     }
   },
   {
-    "id": 100100,
+    "id": 100246,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1291,7 +3041,17 @@
     }
   },
   {
-    "id": 100101,
+    "id": 100247,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s.ntv.io/serve/load.js"
+    }
+  },
+  {
+    "id": 100248,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1304,7 +3064,7 @@
     }
   },
   {
-    "id": 100102,
+    "id": 100249,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1318,7 +3078,20 @@
     }
   },
   {
-    "id": 100103,
+    "id": 100250,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||scrippsdigital.com/cms/videojs/",
+      "resourceTypes": [
+        "stylesheet"
+      ]
+    }
+  },
+  {
+    "id": 100251,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1329,7 +3102,7 @@
     }
   },
   {
-    "id": 100104,
+    "id": 100252,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1339,7 +3112,7 @@
     }
   },
   {
-    "id": 100105,
+    "id": 100253,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1353,7 +3126,7 @@
     }
   },
   {
-    "id": 100106,
+    "id": 100254,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1367,7 +3140,7 @@
     }
   },
   {
-    "id": 100107,
+    "id": 100255,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1378,7 +3151,7 @@
     }
   },
   {
-    "id": 100108,
+    "id": 100256,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1392,7 +3165,17 @@
     }
   },
   {
-    "id": 100109,
+    "id": 100257,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||solutions.cdn.optable.co/ezoic/sdk.js"
+    }
+  },
+  {
+    "id": 100258,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1405,7 +3188,17 @@
     }
   },
   {
-    "id": 100110,
+    "id": 100259,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||sportsnet.ca/wp-content/plugins/bwp-minify/"
+    }
+  },
+  {
+    "id": 100260,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1416,7 +3209,7 @@
     }
   },
   {
-    "id": 100111,
+    "id": 100261,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1429,7 +3222,43 @@
     }
   },
   {
-    "id": 100112,
+    "id": 100262,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||stat-rock.com/player/"
+    }
+  },
+  {
+    "id": 100263,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||static.doubleclick.net/instream/ad_status.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100264,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||static.vrv.co^",
+      "resourceTypes": [
+        "media"
+      ]
+    }
+  },
+  {
+    "id": 100265,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1439,7 +3268,7 @@
     }
   },
   {
-    "id": 100113,
+    "id": 100266,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1453,7 +3282,33 @@
     }
   },
   {
-    "id": 100114,
+    "id": 100267,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||survey.g.doubleclick.net^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100268,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||synchrobox.adswizz.com/register2.php",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100269,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1464,7 +3319,17 @@
     }
   },
   {
-    "id": 100115,
+    "id": 100270,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thdstatic.com/experiences/local-ad/"
+    }
+  },
+  {
+    "id": 100271,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1475,7 +3340,7 @@
     }
   },
   {
-    "id": 100116,
+    "id": 100272,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1486,7 +3351,59 @@
     }
   },
   {
-    "id": 100117,
+    "id": 100273,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thetvdb.com/banners/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100274,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||thisiswaldo.com/static/js/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100275,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||townhall.com/resources/dist/js/prebid-pjmedia.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100276,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tpc.googlesyndication.com/pagead/js/*/elements/html/interstitial_ad_frame_",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100277,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1497,7 +3414,20 @@
     }
   },
   {
-    "id": 100118,
+    "id": 100278,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tradingview.com/adx/",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100279,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1510,7 +3440,7 @@
     }
   },
   {
-    "id": 100119,
+    "id": 100280,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1520,7 +3450,20 @@
     }
   },
   {
-    "id": 100120,
+    "id": 100281,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||unpkg.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100282,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1534,7 +3477,7 @@
     }
   },
   {
-    "id": 100121,
+    "id": 100283,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1547,7 +3490,7 @@
     }
   },
   {
-    "id": 100122,
+    "id": 100284,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1560,7 +3503,17 @@
     }
   },
   {
-    "id": 100123,
+    "id": 100285,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||v.fwmrm.net/ad/g/1"
+    }
+  },
+  {
+    "id": 100286,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1573,7 +3526,7 @@
     }
   },
   {
-    "id": 100124,
+    "id": 100287,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1586,7 +3539,17 @@
     }
   },
   {
-    "id": 100125,
+    "id": 100288,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||v.fwmrm.net/ad/p/1?"
+    }
+  },
+  {
+    "id": 100289,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1599,7 +3562,43 @@
     }
   },
   {
-    "id": 100126,
+    "id": 100290,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||videosvc.ezoic.com/play?videoID="
+    }
+  },
+  {
+    "id": 100291,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||vms-players.minutemediaservices.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100292,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||vms-videos.minutemediaservices.com^",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100293,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1609,7 +3608,7 @@
     }
   },
   {
-    "id": 100127,
+    "id": 100294,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1619,7 +3618,17 @@
     }
   },
   {
-    "id": 100128,
+    "id": 100295,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||web-ads.pulse.weatherbug.net/api/ads/targeting/"
+    }
+  },
+  {
+    "id": 100296,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1633,7 +3642,30 @@
     }
   },
   {
-    "id": 100129,
+    "id": 100297,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||widgets.jobbio.com^*/display.min.js"
+    }
+  },
+  {
+    "id": 100298,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||worldgravity.com^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100299,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1644,7 +3676,20 @@
     }
   },
   {
-    "id": 100130,
+    "id": 100300,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||www.google.*/search?",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100301,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1659,7 +3704,7 @@
     }
   },
   {
-    "id": 100131,
+    "id": 100302,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1670,7 +3715,30 @@
     }
   },
   {
-    "id": 100132,
+    "id": 100303,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yieldlove.com/v2/yieldlove.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100304,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yimg.com/rq/darla/*/g-r-min.js"
+    }
+  },
+  {
+    "id": 100305,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1684,7 +3752,21 @@
     }
   },
   {
-    "id": 100133,
+    "id": 100306,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||zohopublic.com^*/ADManager_",
+      "resourceTypes": [
+        "sub_frame",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100307,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1697,7 +3779,7 @@
     }
   },
   {
-    "id": 100134,
+    "id": 100308,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1707,7 +3789,7 @@
     }
   },
   {
-    "id": 100135,
+    "id": 100309,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1717,7 +3799,7 @@
     }
   },
   {
-    "id": 100136,
+    "id": 100310,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1727,7 +3809,7 @@
     }
   },
   {
-    "id": 100137,
+    "id": 100311,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1737,7 +3819,7 @@
     }
   },
   {
-    "id": 100138,
+    "id": 100312,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1747,7 +3829,7 @@
     }
   },
   {
-    "id": 100139,
+    "id": 100313,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1761,7 +3843,7 @@
     }
   },
   {
-    "id": 100140,
+    "id": 100314,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1771,7 +3853,7 @@
     }
   },
   {
-    "id": 100141,
+    "id": 100315,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1784,7 +3866,7 @@
     }
   },
   {
-    "id": 100142,
+    "id": 100316,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1797,7 +3879,7 @@
     }
   },
   {
-    "id": 100143,
+    "id": 100317,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1808,7 +3890,53 @@
     }
   },
   {
-    "id": 100144,
+    "id": 100318,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ps.w.org^",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100319,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s.w.org/wp-content/",
+      "resourceTypes": [
+        "stylesheet"
+      ]
+    }
+  },
+  {
+    "id": 100320,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||wordpress.org/plugins/"
+    }
+  },
+  {
+    "id": 100321,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||wordpress.org/stats/plugin/"
+    }
+  },
+  {
+    "id": 100322,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1821,7 +3949,54 @@
     }
   },
   {
-    "id": 100145,
+    "id": 100323,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||akinator.mobi.cdn.ezoic.net^"
+    }
+  },
+  {
+    "id": 100324,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||banner.customer.kyruus.com^"
+    }
+  },
+  {
+    "id": 100325,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||hwcdn.net^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100326,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ezsoftwarestorage.com^",
+      "resourceTypes": [
+        "image",
+        "media"
+      ]
+    }
+  },
+  {
+    "id": 100327,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1834,7 +4009,7 @@
     }
   },
   {
-    "id": 100146,
+    "id": 100328,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1844,7 +4019,45 @@
     }
   },
   {
-    "id": 100147,
+    "id": 100329,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googletagservices.com/tag/js/gpt.js"
+    }
+  },
+  {
+    "id": 100330,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/wp-content/plugins/blockalyzer-adblock-counter/*",
+      "domainType": "firstParty",
+      "resourceTypes": [
+        "image",
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100331,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adtng.com/get/",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100332,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1855,7 +4068,7 @@
     }
   },
   {
-    "id": 100148,
+    "id": 100333,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1866,7 +4079,7 @@
     }
   },
   {
-    "id": 100149,
+    "id": 100334,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1879,7 +4092,7 @@
     }
   },
   {
-    "id": 100150,
+    "id": 100335,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1893,7 +4106,31 @@
     }
   },
   {
-    "id": 100151,
+    "id": 100336,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||dlh.net^",
+      "resourceTypes": [
+        "script",
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100337,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||exponential.com^*/tags.js"
+    }
+  },
+  {
+    "id": 100338,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1906,7 +4143,7 @@
     }
   },
   {
-    "id": 100152,
+    "id": 100339,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1919,7 +4156,7 @@
     }
   },
   {
-    "id": 100153,
+    "id": 100340,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1932,7 +4169,143 @@
     }
   },
   {
-    "id": 100154,
+    "id": 100341,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yimg.com/dy/ads/native.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100342,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adsninja.ca/ads_",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100343,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adsninja.ca/adsninja_client.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100344,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adsninja.ca^",
+      "resourceTypes": [
+        "stylesheet",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100345,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100346,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.g.doubleclick.net/ads/controlcookies/getcookies"
+    }
+  },
+  {
+    "id": 100347,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.g.doubleclick.net/ads/preferences/"
+    }
+  },
+  {
+    "id": 100348,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3_dai.js"
+    }
+  },
+  {
+    "id": 100349,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pubads.g.doubleclick.net/ondemand/hls/"
+    }
+  },
+  {
+    "id": 100350,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/core/bridge*.html",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100351,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/pal/sdkloader/pal.js"
+    }
+  },
+  {
+    "id": 100352,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3_debug.js"
+    }
+  },
+  {
+    "id": 100353,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1942,7 +4315,172 @@
     }
   },
   {
-    "id": 100155,
+    "id": 100354,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/tag/js/gpt.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100355,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/tag/js/gpt.js",
+      "resourceTypes": [
+        "script",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100356,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googletagservices.com/tag/js/gpt.js"
+    }
+  },
+  {
+    "id": 100357,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gpt/pubads_impl_"
+    }
+  },
+  {
+    "id": 100358,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/pagead/managed/js/gpt/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100359,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/pagead/managed/js/gpt/*/pubads_impl.js"
+    }
+  },
+  {
+    "id": 100360,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.g.doubleclick.net/pagead/html/*/zrt_lookup_",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100361,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100362,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/managed/js/*/show_ads_impl",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100363,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/managed/js/adsense/*/slotcar_library_",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100364,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/managed/js/gpt/*/pubads_impl.js?",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100365,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/pagead/ppub_config"
+    }
+  },
+  {
+    "id": 100366,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads-twitter.com/uwt.js"
+    }
+  },
+  {
+    "id": 100367,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/banner/ad/*",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100368,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1953,7 +4491,41 @@
     }
   },
   {
-    "id": 100156,
+    "id": 100369,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad-api-v01.uliza.jp^",
+      "resourceTypes": [
+        "script",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100370,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.atown.jp/adserver/"
+    }
+  },
+  {
+    "id": 100371,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.smartmediarep.com/NetInsight/video/smr"
+    }
+  },
+  {
+    "id": 100372,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1964,7 +4536,7 @@
     }
   },
   {
-    "id": 100157,
+    "id": 100373,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1975,7 +4547,79 @@
     }
   },
   {
-    "id": 100158,
+    "id": 100374,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads-twitter.com/oct.js"
+    }
+  },
+  {
+    "id": 100375,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adsdk.microsoft.com/ast/ast.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100376,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adtraction.com^",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100377,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||aeradot.ismcdn.jp/resources/aeradigital/css/smartphone/ad.css?"
+    }
+  },
+  {
+    "id": 100378,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||aiasahi.jp/ads/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100379,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||amebame.com/pub/ads/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100380,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -1986,7 +4630,7 @@
     }
   },
   {
-    "id": 100159,
+    "id": 100381,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2000,7 +4644,7 @@
     }
   },
   {
-    "id": 100160,
+    "id": 100382,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2014,7 +4658,7 @@
     }
   },
   {
-    "id": 100161,
+    "id": 100383,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2028,7 +4672,33 @@
     }
   },
   {
-    "id": 100162,
+    "id": 100384,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||assoc-amazon.com/widgets/cm?",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100385,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||astatic.ccmbg.com^*/prebid",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100386,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2041,7 +4711,7 @@
     }
   },
   {
-    "id": 100163,
+    "id": 100387,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2052,7 +4722,7 @@
     }
   },
   {
-    "id": 100164,
+    "id": 100388,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2063,7 +4733,27 @@
     }
   },
   {
-    "id": 100165,
+    "id": 100389,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||book.com.tw/image/getImage?"
+    }
+  },
+  {
+    "id": 100390,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||c.ad6media.fr/l.js"
+    }
+  },
+  {
+    "id": 100391,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2077,7 +4767,7 @@
     }
   },
   {
-    "id": 100166,
+    "id": 100392,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2088,7 +4778,17 @@
     }
   },
   {
-    "id": 100167,
+    "id": 100393,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdn.jsdelivr.net/npm/*/videojs-contrib-ads.min.js"
+    }
+  },
+  {
+    "id": 100394,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2102,7 +4802,7 @@
     }
   },
   {
-    "id": 100168,
+    "id": 100395,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2112,7 +4812,40 @@
     }
   },
   {
-    "id": 100169,
+    "id": 100396,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cloudflare.com^*/videojs-contrib-ads.js"
+    }
+  },
+  {
+    "id": 100397,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||copilog2.jp/*/webroot/ad_img/"
+    }
+  },
+  {
+    "id": 100398,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||core.windows.net^*/annonser/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100399,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2125,7 +4858,7 @@
     }
   },
   {
-    "id": 100170,
+    "id": 100400,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2135,7 +4868,7 @@
     }
   },
   {
-    "id": 100171,
+    "id": 100401,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2145,7 +4878,7 @@
     }
   },
   {
-    "id": 100172,
+    "id": 100402,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2155,7 +4888,30 @@
     }
   },
   {
-    "id": 100173,
+    "id": 100403,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||econcal.forexprostools.com^"
+    }
+  },
+  {
+    "id": 100404,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||forexprostools.com^",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100405,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2166,7 +4922,7 @@
     }
   },
   {
-    "id": 100174,
+    "id": 100406,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2177,7 +4933,27 @@
     }
   },
   {
-    "id": 100175,
+    "id": 100407,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/ads?"
+    }
+  },
+  {
+    "id": 100408,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||g.doubleclick.net/gampad/live/ads?*%2Flemino_instr%"
+    }
+  },
+  {
+    "id": 100409,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2188,7 +4964,7 @@
     }
   },
   {
-    "id": 100176,
+    "id": 100410,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2199,7 +4975,7 @@
     }
   },
   {
-    "id": 100177,
+    "id": 100411,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2213,7 +4989,40 @@
     }
   },
   {
-    "id": 100178,
+    "id": 100412,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||getjad.io/library/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100413,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||go.ezodn.com/beardeddragon/basilisk.js"
+    }
+  },
+  {
+    "id": 100414,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleadservices.com/pagead/conversion.js"
+    }
+  },
+  {
+    "id": 100415,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2227,7 +5036,7 @@
     }
   },
   {
-    "id": 100179,
+    "id": 100416,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2238,7 +5047,7 @@
     }
   },
   {
-    "id": 100180,
+    "id": 100417,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2252,7 +5061,20 @@
     }
   },
   {
-    "id": 100181,
+    "id": 100418,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ias.global.rakuten.com/adv/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100419,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2266,7 +5088,7 @@
     }
   },
   {
-    "id": 100182,
+    "id": 100420,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2277,7 +5099,7 @@
     }
   },
   {
-    "id": 100183,
+    "id": 100421,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2288,7 +5110,7 @@
     }
   },
   {
-    "id": 100184,
+    "id": 100422,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2299,7 +5121,7 @@
     }
   },
   {
-    "id": 100185,
+    "id": 100423,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2310,7 +5132,7 @@
     }
   },
   {
-    "id": 100186,
+    "id": 100424,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2324,7 +5146,17 @@
     }
   },
   {
-    "id": 100187,
+    "id": 100425,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||intelyvale.com.mx/ads/images/"
+    }
+  },
+  {
+    "id": 100426,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2338,7 +5170,7 @@
     }
   },
   {
-    "id": 100188,
+    "id": 100427,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2349,7 +5181,7 @@
     }
   },
   {
-    "id": 100189,
+    "id": 100428,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2360,7 +5192,7 @@
     }
   },
   {
-    "id": 100190,
+    "id": 100429,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2370,7 +5202,7 @@
     }
   },
   {
-    "id": 100191,
+    "id": 100430,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2384,7 +5216,20 @@
     }
   },
   {
-    "id": 100192,
+    "id": 100431,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ladsp.com/script-sf/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100432,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2395,7 +5240,17 @@
     }
   },
   {
-    "id": 100193,
+    "id": 100433,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||lostpod.space/static/streaming-playlists/"
+    }
+  },
+  {
+    "id": 100434,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2408,7 +5263,7 @@
     }
   },
   {
-    "id": 100194,
+    "id": 100435,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2419,7 +5274,7 @@
     }
   },
   {
-    "id": 100195,
+    "id": 100436,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2430,7 +5285,7 @@
     }
   },
   {
-    "id": 100196,
+    "id": 100437,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2440,7 +5295,7 @@
     }
   },
   {
-    "id": 100197,
+    "id": 100438,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2454,7 +5309,7 @@
     }
   },
   {
-    "id": 100198,
+    "id": 100439,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2465,7 +5320,7 @@
     }
   },
   {
-    "id": 100199,
+    "id": 100440,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2479,7 +5334,7 @@
     }
   },
   {
-    "id": 100200,
+    "id": 100441,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2489,7 +5344,7 @@
     }
   },
   {
-    "id": 100201,
+    "id": 100442,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2500,7 +5355,7 @@
     }
   },
   {
-    "id": 100202,
+    "id": 100443,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2513,7 +5368,7 @@
     }
   },
   {
-    "id": 100203,
+    "id": 100444,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2524,7 +5379,7 @@
     }
   },
   {
-    "id": 100204,
+    "id": 100445,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2535,7 +5390,7 @@
     }
   },
   {
-    "id": 100205,
+    "id": 100446,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2546,7 +5401,7 @@
     }
   },
   {
-    "id": 100206,
+    "id": 100447,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2557,7 +5412,7 @@
     }
   },
   {
-    "id": 100207,
+    "id": 100448,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2570,7 +5425,7 @@
     }
   },
   {
-    "id": 100208,
+    "id": 100449,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2581,7 +5436,7 @@
     }
   },
   {
-    "id": 100209,
+    "id": 100450,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2592,7 +5447,17 @@
     }
   },
   {
-    "id": 100210,
+    "id": 100451,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||r10s.jp/share/themes/ds/js/show_ads_randomly.js"
+    }
+  },
+  {
+    "id": 100452,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2603,7 +5468,7 @@
     }
   },
   {
-    "id": 100211,
+    "id": 100453,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2614,7 +5479,37 @@
     }
   },
   {
-    "id": 100212,
+    "id": 100454,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s.yimg.jp/images/listing/tool/yads/yads-timeline-ex.js"
+    }
+  },
+  {
+    "id": 100455,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s0.2mdn.net/ads/studio/Enabler.js"
+    }
+  },
+  {
+    "id": 100456,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||safeframe.googlesyndication.com/safeframe/"
+    }
+  },
+  {
+    "id": 100457,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2625,7 +5520,20 @@
     }
   },
   {
-    "id": 100213,
+    "id": 100458,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||search.spotxchange.com/vmap/*&content_page_url=www.bsfuji.tv",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100459,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2636,7 +5544,27 @@
     }
   },
   {
-    "id": 100214,
+    "id": 100460,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||site-banner.hange.jp/adshow?"
+    }
+  },
+  {
+    "id": 100461,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||smartadserver.com/genericpost"
+    }
+  },
+  {
+    "id": 100462,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2647,7 +5575,20 @@
     }
   },
   {
-    "id": 100215,
+    "id": 100463,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||stats.g.doubleclick.net/dc.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100464,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2657,7 +5598,7 @@
     }
   },
   {
-    "id": 100216,
+    "id": 100465,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2671,7 +5612,20 @@
     }
   },
   {
-    "id": 100217,
+    "id": 100466,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tdn.da-services.ch/libs/prebid8.",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100467,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2681,7 +5635,7 @@
     }
   },
   {
-    "id": 100218,
+    "id": 100468,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2692,7 +5646,55 @@
     }
   },
   {
-    "id": 100219,
+    "id": 100469,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tpc.googlesyndication.com/archive/",
+      "resourceTypes": [
+        "image",
+        "sub_frame",
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100470,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tpc.googlesyndication.com/archive/sadbundle/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100471,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tpc.googlesyndication.com/pagead/js/"
+    }
+  },
+  {
+    "id": 100472,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tra.scds.pmdstatic.net/advertising-core/"
+    }
+  },
+  {
+    "id": 100473,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2702,7 +5704,7 @@
     }
   },
   {
-    "id": 100220,
+    "id": 100474,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2713,7 +5715,53 @@
     }
   },
   {
-    "id": 100221,
+    "id": 100475,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||valuecommerce.com^",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100476,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||videosvc.ezoic.com/play?videoID="
+    }
+  },
+  {
+    "id": 100477,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||widget.playoncenter.com/webservice/geo",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ]
+    }
+  },
+  {
+    "id": 100478,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yads.c.yimg.jp/js/yads-async.js"
+    }
+  },
+  {
+    "id": 100479,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2724,7 +5772,7 @@
     }
   },
   {
-    "id": 100222,
+    "id": 100480,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2735,7 +5783,7 @@
     }
   },
   {
-    "id": 100223,
+    "id": 100481,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2746,7 +5794,17 @@
     }
   },
   {
-    "id": 100224,
+    "id": 100482,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.google.com^"
+    }
+  },
+  {
+    "id": 100483,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2757,7 +5815,77 @@
     }
   },
   {
-    "id": 100225,
+    "id": 100484,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||developers.google.com^"
+    }
+  },
+  {
+    "id": 100485,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||support.google.com^"
+    }
+  },
+  {
+    "id": 100486,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tpc.googlesyndication.com^"
+    }
+  },
+  {
+    "id": 100487,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||gemini.yahoo.com/advertiser/"
+    }
+  },
+  {
+    "id": 100488,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yimg.com/av/gemini-ui/*/advertiser/"
+    }
+  },
+  {
+    "id": 100489,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads-api.twitter.com^"
+    }
+  },
+  {
+    "id": 100490,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.twitter.com^"
+    }
+  },
+  {
+    "id": 100491,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2768,7 +5896,7 @@
     }
   },
   {
-    "id": 100226,
+    "id": 100492,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2779,7 +5907,7 @@
     }
   },
   {
-    "id": 100227,
+    "id": 100493,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2793,7 +5921,7 @@
     }
   },
   {
-    "id": 100228,
+    "id": 100494,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2807,7 +5935,7 @@
     }
   },
   {
-    "id": 100229,
+    "id": 100495,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2821,7 +5949,7 @@
     }
   },
   {
-    "id": 100230,
+    "id": 100496,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2835,7 +5963,7 @@
     }
   },
   {
-    "id": 100231,
+    "id": 100497,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2849,7 +5977,7 @@
     }
   },
   {
-    "id": 100232,
+    "id": 100498,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2863,7 +5991,7 @@
     }
   },
   {
-    "id": 100233,
+    "id": 100499,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2874,7 +6002,7 @@
     }
   },
   {
-    "id": 100234,
+    "id": 100500,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2888,7 +6016,7 @@
     }
   },
   {
-    "id": 100235,
+    "id": 100501,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2902,7 +6030,7 @@
     }
   },
   {
-    "id": 100236,
+    "id": 100502,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2913,7 +6041,7 @@
     }
   },
   {
-    "id": 100237,
+    "id": 100503,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2927,7 +6055,7 @@
     }
   },
   {
-    "id": 100238,
+    "id": 100504,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2938,7 +6066,7 @@
     }
   },
   {
-    "id": 100239,
+    "id": 100505,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2952,7 +6080,7 @@
     }
   },
   {
-    "id": 100240,
+    "id": 100506,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2966,7 +6094,7 @@
     }
   },
   {
-    "id": 100241,
+    "id": 100507,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2980,7 +6108,7 @@
     }
   },
   {
-    "id": 100242,
+    "id": 100508,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -2994,7 +6122,7 @@
     }
   },
   {
-    "id": 100243,
+    "id": 100509,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3008,7 +6136,7 @@
     }
   },
   {
-    "id": 100244,
+    "id": 100510,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3022,7 +6150,7 @@
     }
   },
   {
-    "id": 100245,
+    "id": 100511,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3036,7 +6164,7 @@
     }
   },
   {
-    "id": 100246,
+    "id": 100512,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3049,7 +6177,7 @@
     }
   },
   {
-    "id": 100247,
+    "id": 100513,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3063,7 +6191,7 @@
     }
   },
   {
-    "id": 100248,
+    "id": 100514,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3077,7 +6205,83 @@
     }
   },
   {
-    "id": 100249,
+    "id": 100515,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yimg.jp/images/news-web/all/images/jsonld_image_300x250.png"
+    }
+  },
+  {
+    "id": 100516,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/api/models?"
+    }
+  },
+  {
+    "id": 100517,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/api/v2/models-online?"
+    }
+  },
+  {
+    "id": 100518,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||abt.s3.yandex.net/expjs/latest/exp.js",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100519,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||astonishlandmassnervy.com/sc4fr/rwff/f9ef/"
+    }
+  },
+  {
+    "id": 100520,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||chaturbate.com/in/",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100521,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||exosrv.com/video-slider.js"
+    }
+  },
+  {
+    "id": 100522,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3091,7 +6295,7 @@
     }
   },
   {
-    "id": 100250,
+    "id": 100523,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3101,7 +6305,7 @@
     }
   },
   {
-    "id": 100251,
+    "id": 100524,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3115,7 +6319,17 @@
     }
   },
   {
-    "id": 100252,
+    "id": 100525,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||spankbang.com^*/prebid-ads.js"
+    }
+  },
+  {
+    "id": 100526,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3129,7 +6343,7 @@
     }
   },
   {
-    "id": 100253,
+    "id": 100527,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3143,7 +6357,7 @@
     }
   },
   {
-    "id": 100254,
+    "id": 100528,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3157,7 +6371,7 @@
     }
   },
   {
-    "id": 100255,
+    "id": 100529,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3171,7 +6385,7 @@
     }
   },
   {
-    "id": 100256,
+    "id": 100530,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3185,7 +6399,7 @@
     }
   },
   {
-    "id": 100257,
+    "id": 100531,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3199,7 +6413,7 @@
     }
   },
   {
-    "id": 100258,
+    "id": 100532,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3213,7 +6427,7 @@
     }
   },
   {
-    "id": 100259,
+    "id": 100533,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3227,7 +6441,7 @@
     }
   },
   {
-    "id": 100260,
+    "id": 100534,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3241,7 +6455,7 @@
     }
   },
   {
-    "id": 100261,
+    "id": 100535,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3255,7 +6469,7 @@
     }
   },
   {
-    "id": 100262,
+    "id": 100536,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3269,7 +6483,7 @@
     }
   },
   {
-    "id": 100263,
+    "id": 100537,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3283,7 +6497,7 @@
     }
   },
   {
-    "id": 100264,
+    "id": 100538,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3297,7 +6511,7 @@
     }
   },
   {
-    "id": 100265,
+    "id": 100539,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3311,7 +6525,7 @@
     }
   },
   {
-    "id": 100266,
+    "id": 100540,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3325,7 +6539,7 @@
     }
   },
   {
-    "id": 100267,
+    "id": 100541,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3339,7 +6553,7 @@
     }
   },
   {
-    "id": 100268,
+    "id": 100542,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3353,7 +6567,7 @@
     }
   },
   {
-    "id": 100269,
+    "id": 100543,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3367,7 +6581,7 @@
     }
   },
   {
-    "id": 100270,
+    "id": 100544,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3377,7 +6591,7 @@
     }
   },
   {
-    "id": 100271,
+    "id": 100545,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3387,7 +6601,47 @@
     }
   },
   {
-    "id": 100272,
+    "id": 100546,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s.znctrack.net/z"
+    }
+  },
+  {
+    "id": 100547,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100548,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/ap-loader.js"
+    }
+  },
+  {
+    "id": 100549,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||mc.yandex.ru/metrika/tag.js"
+    }
+  },
+  {
+    "id": 100550,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3397,7 +6651,47 @@
     }
   },
   {
-    "id": 100273,
+    "id": 100551,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||magnit.ru/scripts/prebid.js"
+    }
+  },
+  {
+    "id": 100552,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/adsdk.js"
+    }
+  },
+  {
+    "id": 100553,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100554,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100555,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3407,7 +6701,7 @@
     }
   },
   {
-    "id": 100274,
+    "id": 100556,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3417,7 +6711,7 @@
     }
   },
   {
-    "id": 100275,
+    "id": 100557,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3427,7 +6721,27 @@
     }
   },
   {
-    "id": 100276,
+    "id": 100558,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100559,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/resource/spacer.gif"
+    }
+  },
+  {
+    "id": 100560,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3437,7 +6751,117 @@
     }
   },
   {
-    "id": 100277,
+    "id": 100561,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||staticmv.mediavitrina.ru/yastatic/ads.js"
+    }
+  },
+  {
+    "id": 100562,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100563,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/adsdk.js"
+    }
+  },
+  {
+    "id": 100564,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||fireman.club/wp-content/themes/fireman/js/prebid-ads.js"
+    }
+  },
+  {
+    "id": 100565,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100566,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.github.io/videojs-ima/dist/videojs.ima.js"
+    }
+  },
+  {
+    "id": 100567,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.github.io/videojs-ima/dist/videojs.ima.css"
+    }
+  },
+  {
+    "id": 100568,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.github.io/videojs-ima/node_modules/video.js/dist/video.min.js"
+    }
+  },
+  {
+    "id": 100569,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.github.io/videojs-ima/node_modules/video.js/dist/video-js.min.css"
+    }
+  },
+  {
+    "id": 100570,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.github.io/videojs-ima/node_modules/videojs-contrib-ads/dist/videojs.ads.min.js"
+    }
+  },
+  {
+    "id": 100571,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.github.io/videojs-ima/node_modules/videojs-contrib-ads/dist/videojs.ads.css"
+    }
+  },
+  {
+    "id": 100572,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3447,7 +6871,37 @@
     }
   },
   {
-    "id": 100278,
+    "id": 100573,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||staticmv.mediavitrina.ru/vitrina_assets/*/banner.gif?r=*&ads=adv"
+    }
+  },
+  {
+    "id": 100574,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100575,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100576,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3461,7 +6915,40 @@
     }
   },
   {
-    "id": 100279,
+    "id": 100577,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||videoroll.net/js/vid_vpaut_script.js"
+    }
+  },
+  {
+    "id": 100578,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.g.doubleclick.net^",
+      "resourceTypes": [
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 100579,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100580,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3471,7 +6958,7 @@
     }
   },
   {
-    "id": 100280,
+    "id": 100581,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3481,7 +6968,27 @@
     }
   },
   {
-    "id": 100281,
+    "id": 100582,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||get.optad360.io/sf/*/plugin.min.js"
+    }
+  },
+  {
+    "id": 100583,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/*/videojs-contrib-ads.min.js"
+    }
+  },
+  {
+    "id": 100584,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3491,7 +6998,27 @@
     }
   },
   {
-    "id": 100282,
+    "id": 100585,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||awaps.yandex.net/*.js"
+    }
+  },
+  {
+    "id": 100586,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100587,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3501,7 +7028,47 @@
     }
   },
   {
-    "id": 100283,
+    "id": 100588,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100589,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||staticmv.mediavitrina.ru/vitrina_assets/*?_=*&ads=adv"
+    }
+  },
+  {
+    "id": 100590,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100591,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru/vast/"
+    }
+  },
+  {
+    "id": 100592,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3511,7 +7078,67 @@
     }
   },
   {
-    "id": 100284,
+    "id": 100593,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/advertisement.js"
+    }
+  },
+  {
+    "id": 100594,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100595,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100596,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/*/show_ads_impl_*.js"
+    }
+  },
+  {
+    "id": 100597,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": ".js|"
+    }
+  },
+  {
+    "id": 100598,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||awaps.yandex.net/*.js"
+    }
+  },
+  {
+    "id": 100599,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3521,7 +7148,7 @@
     }
   },
   {
-    "id": 100285,
+    "id": 100600,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3531,7 +7158,7 @@
     }
   },
   {
-    "id": 100286,
+    "id": 100601,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3541,7 +7168,7 @@
     }
   },
   {
-    "id": 100287,
+    "id": 100602,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3551,7 +7178,7 @@
     }
   },
   {
-    "id": 100288,
+    "id": 100603,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3561,7 +7188,7 @@
     }
   },
   {
-    "id": 100289,
+    "id": 100604,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3571,7 +7198,17 @@
     }
   },
   {
-    "id": 100290,
+    "id": 100605,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100606,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3581,7 +7218,17 @@
     }
   },
   {
-    "id": 100291,
+    "id": 100607,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100608,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3591,7 +7238,17 @@
     }
   },
   {
-    "id": 100292,
+    "id": 100609,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||vuzlit.ru/advertisement.js"
+    }
+  },
+  {
+    "id": 100610,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3601,7 +7258,7 @@
     }
   },
   {
-    "id": 100293,
+    "id": 100611,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3611,7 +7268,7 @@
     }
   },
   {
-    "id": 100294,
+    "id": 100612,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3621,7 +7278,7 @@
     }
   },
   {
-    "id": 100295,
+    "id": 100613,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3631,7 +7288,27 @@
     }
   },
   {
-    "id": 100296,
+    "id": 100614,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cas.criteo.com/delivery/ajs.php"
+    }
+  },
+  {
+    "id": 100615,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdnjs.cloudflare.com/ajax/libs/fuckadblock/3.2.1/fuckadblock.min.js"
+    }
+  },
+  {
+    "id": 100616,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3641,7 +7318,7 @@
     }
   },
   {
-    "id": 100297,
+    "id": 100617,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3651,7 +7328,17 @@
     }
   },
   {
-    "id": 100298,
+    "id": 100618,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdnjs.cloudflare.com^"
+    }
+  },
+  {
+    "id": 100619,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3661,7 +7348,7 @@
     }
   },
   {
-    "id": 100299,
+    "id": 100620,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3671,7 +7358,7 @@
     }
   },
   {
-    "id": 100300,
+    "id": 100621,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3681,7 +7368,37 @@
     }
   },
   {
-    "id": 100301,
+    "id": 100622,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||wambacdn.net//mamba-app/adv/advert.*.js"
+    }
+  },
+  {
+    "id": 100623,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/advert.js"
+    }
+  },
+  {
+    "id": 100624,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/clickunder.js"
+    }
+  },
+  {
+    "id": 100625,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3691,7 +7408,17 @@
     }
   },
   {
-    "id": 100302,
+    "id": 100626,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/popunder.js"
+    }
+  },
+  {
+    "id": 100627,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3701,7 +7428,7 @@
     }
   },
   {
-    "id": 100303,
+    "id": 100628,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3711,7 +7438,17 @@
     }
   },
   {
-    "id": 100304,
+    "id": 100629,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||static.doubleclick.net/instream/ad_status.js"
+    }
+  },
+  {
+    "id": 100630,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3721,7 +7458,7 @@
     }
   },
   {
-    "id": 100305,
+    "id": 100631,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3731,7 +7468,7 @@
     }
   },
   {
-    "id": 100306,
+    "id": 100632,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3741,7 +7478,27 @@
     }
   },
   {
-    "id": 100307,
+    "id": 100633,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/system/context.js"
+    }
+  },
+  {
+    "id": 100634,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/fuckadblock.js"
+    }
+  },
+  {
+    "id": 100635,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3751,7 +7508,7 @@
     }
   },
   {
-    "id": 100308,
+    "id": 100636,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3761,7 +7518,27 @@
     }
   },
   {
-    "id": 100309,
+    "id": 100637,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/system/context.js"
+    }
+  },
+  {
+    "id": 100638,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100639,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3771,7 +7548,27 @@
     }
   },
   {
-    "id": 100310,
+    "id": 100640,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||mctqu.com/static/player.js"
+    }
+  },
+  {
+    "id": 100641,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||mctqu.com/*?p="
+    }
+  },
+  {
+    "id": 100642,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3781,7 +7578,17 @@
     }
   },
   {
-    "id": 100311,
+    "id": 100643,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100644,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3791,7 +7598,7 @@
     }
   },
   {
-    "id": 100312,
+    "id": 100645,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3801,7 +7608,7 @@
     }
   },
   {
-    "id": 100313,
+    "id": 100646,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3811,7 +7618,17 @@
     }
   },
   {
-    "id": 100314,
+    "id": 100647,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100648,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3821,7 +7638,7 @@
     }
   },
   {
-    "id": 100315,
+    "id": 100649,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3831,7 +7648,7 @@
     }
   },
   {
-    "id": 100316,
+    "id": 100650,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3841,7 +7658,7 @@
     }
   },
   {
-    "id": 100317,
+    "id": 100651,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3851,7 +7668,7 @@
     }
   },
   {
-    "id": 100318,
+    "id": 100652,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3861,7 +7678,7 @@
     }
   },
   {
-    "id": 100319,
+    "id": 100653,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3871,7 +7688,7 @@
     }
   },
   {
-    "id": 100320,
+    "id": 100654,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3881,7 +7698,7 @@
     }
   },
   {
-    "id": 100321,
+    "id": 100655,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3891,7 +7708,17 @@
     }
   },
   {
-    "id": 100322,
+    "id": 100656,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s-cdn.sportbox.ru/*/adfox.asyn.code.*.js^"
+    }
+  },
+  {
+    "id": 100657,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3901,7 +7728,7 @@
     }
   },
   {
-    "id": 100323,
+    "id": 100658,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3911,7 +7738,7 @@
     }
   },
   {
-    "id": 100324,
+    "id": 100659,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3921,7 +7748,17 @@
     }
   },
   {
-    "id": 100325,
+    "id": 100660,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100661,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3931,7 +7768,7 @@
     }
   },
   {
-    "id": 100326,
+    "id": 100662,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3941,7 +7778,7 @@
     }
   },
   {
-    "id": 100327,
+    "id": 100663,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3951,7 +7788,7 @@
     }
   },
   {
-    "id": 100328,
+    "id": 100664,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3961,7 +7798,7 @@
     }
   },
   {
-    "id": 100329,
+    "id": 100665,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3971,7 +7808,7 @@
     }
   },
   {
-    "id": 100330,
+    "id": 100666,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3981,7 +7818,7 @@
     }
   },
   {
-    "id": 100331,
+    "id": 100667,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -3991,7 +7828,40 @@
     }
   },
   {
-    "id": 100332,
+    "id": 100668,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||rsocks.net/resources/banners/*"
+    }
+  },
+  {
+    "id": 100669,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||num-link.ru/banner/",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100670,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||num-link.ru/link/list/*.js"
+    }
+  },
+  {
+    "id": 100671,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4001,7 +7871,7 @@
     }
   },
   {
-    "id": 100333,
+    "id": 100672,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4011,7 +7881,37 @@
     }
   },
   {
-    "id": 100334,
+    "id": 100673,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100674,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100675,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||forum.ixbt.com/banners/adfox/"
+    }
+  },
+  {
+    "id": 100676,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4021,7 +7921,7 @@
     }
   },
   {
-    "id": 100335,
+    "id": 100677,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4031,7 +7931,7 @@
     }
   },
   {
-    "id": 100336,
+    "id": 100678,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4041,7 +7941,17 @@
     }
   },
   {
-    "id": 100337,
+    "id": 100679,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100680,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4051,7 +7961,7 @@
     }
   },
   {
-    "id": 100338,
+    "id": 100681,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4061,7 +7971,7 @@
     }
   },
   {
-    "id": 100339,
+    "id": 100682,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4071,7 +7981,7 @@
     }
   },
   {
-    "id": 100340,
+    "id": 100683,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4081,7 +7991,67 @@
     }
   },
   {
-    "id": 100341,
+    "id": 100684,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||awaps.yandex.net/*.js"
+    }
+  },
+  {
+    "id": 100685,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||awaps.yandex.net/*.js"
+    }
+  },
+  {
+    "id": 100686,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru/static/admanhtml/rbadman-html5.min.js"
+    }
+  },
+  {
+    "id": 100687,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru/adp/?_SITEZONE="
+    }
+  },
+  {
+    "id": 100688,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru/i*.gif"
+    }
+  },
+  {
+    "id": 100689,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru/adq/?callback=mailruEnabled"
+    }
+  },
+  {
+    "id": 100690,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4091,7 +8061,277 @@
     }
   },
   {
-    "id": 100342,
+    "id": 100691,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/clickheat.js"
+    }
+  },
+  {
+    "id": 100692,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/sponsored-links.js"
+    }
+  },
+  {
+    "id": 100693,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/ads-admin.js"
+    }
+  },
+  {
+    "id": 100694,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/sidead"
+    }
+  },
+  {
+    "id": 100695,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/punder-rotate."
+    }
+  },
+  {
+    "id": 100696,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/pushdownAd."
+    }
+  },
+  {
+    "id": 100697,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/pubads.js"
+    }
+  },
+  {
+    "id": 100698,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/newad.js"
+    }
+  },
+  {
+    "id": 100699,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/nativead.js"
+    }
+  },
+  {
+    "id": 100700,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/footerad.js"
+    }
+  },
+  {
+    "id": 100701,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/linkadv."
+    }
+  },
+  {
+    "id": 100702,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/leftad."
+    }
+  },
+  {
+    "id": 100703,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/lazyad."
+    }
+  },
+  {
+    "id": 100704,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/layerad."
+    }
+  },
+  {
+    "id": 100705,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/jspopunder.js"
+    }
+  },
+  {
+    "id": 100706,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/printad.js"
+    }
+  },
+  {
+    "id": 100707,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/prerollad.js"
+    }
+  },
+  {
+    "id": 100708,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/pop_ads.js"
+    }
+  },
+  {
+    "id": 100709,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/pop_ad.js"
+    }
+  },
+  {
+    "id": 100710,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/clickunder.js"
+    }
+  },
+  {
+    "id": 100711,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/pop-under.js"
+    }
+  },
+  {
+    "id": 100712,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/popunder.js"
+    }
+  },
+  {
+    "id": 100713,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/footerads.js"
+    }
+  },
+  {
+    "id": 100714,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/nativeads.js"
+    }
+  },
+  {
+    "id": 100715,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/side-ad.js"
+    }
+  },
+  {
+    "id": 100716,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/SidebarAds.js"
+    }
+  },
+  {
+    "id": 100717,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/report_ad.js"
+    }
+  },
+  {
+    "id": 100718,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4101,7 +8341,7 @@
     }
   },
   {
-    "id": 100343,
+    "id": 100719,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4111,7 +8351,7 @@
     }
   },
   {
-    "id": 100344,
+    "id": 100720,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4121,7 +8361,7 @@
     }
   },
   {
-    "id": 100345,
+    "id": 100721,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4131,7 +8371,67 @@
     }
   },
   {
-    "id": 100346,
+    "id": 100722,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100723,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/pagead/js/rum.js"
+    }
+  },
+  {
+    "id": 100724,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pub-config/*/ca-pub-*.js"
+    }
+  },
+  {
+    "id": 100725,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.edugram.com/assets/img/partners/promo/*/button_"
+    }
+  },
+  {
+    "id": 100726,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/r*/show_ads_impl.js"
+    }
+  },
+  {
+    "id": 100727,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100728,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4141,7 +8441,7 @@
     }
   },
   {
-    "id": 100347,
+    "id": 100729,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4151,7 +8451,7 @@
     }
   },
   {
-    "id": 100348,
+    "id": 100730,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4161,7 +8461,7 @@
     }
   },
   {
-    "id": 100349,
+    "id": 100731,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4171,7 +8471,7 @@
     }
   },
   {
-    "id": 100350,
+    "id": 100732,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4181,7 +8481,47 @@
     }
   },
   {
-    "id": 100351,
+    "id": 100733,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/getCode?"
+    }
+  },
+  {
+    "id": 100734,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/getCode?pp="
+    }
+  },
+  {
+    "id": 100735,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||stats.seedr.com/vast?gid="
+    }
+  },
+  {
+    "id": 100736,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100737,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4191,7 +8531,7 @@
     }
   },
   {
-    "id": 100352,
+    "id": 100738,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4201,7 +8541,7 @@
     }
   },
   {
-    "id": 100353,
+    "id": 100739,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4211,7 +8551,7 @@
     }
   },
   {
-    "id": 100354,
+    "id": 100740,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4221,7 +8561,17 @@
     }
   },
   {
-    "id": 100355,
+    "id": 100741,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||medialand.ru/code"
+    }
+  },
+  {
+    "id": 100742,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4231,7 +8581,7 @@
     }
   },
   {
-    "id": 100356,
+    "id": 100743,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4241,7 +8591,7 @@
     }
   },
   {
-    "id": 100357,
+    "id": 100744,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4251,7 +8601,7 @@
     }
   },
   {
-    "id": 100358,
+    "id": 100745,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4261,7 +8611,7 @@
     }
   },
   {
-    "id": 100359,
+    "id": 100746,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4271,7 +8621,7 @@
     }
   },
   {
-    "id": 100360,
+    "id": 100747,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4281,7 +8631,7 @@
     }
   },
   {
-    "id": 100361,
+    "id": 100748,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4291,7 +8641,7 @@
     }
   },
   {
-    "id": 100362,
+    "id": 100749,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4301,7 +8651,17 @@
     }
   },
   {
-    "id": 100363,
+    "id": 100750,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/crossdomain.xml"
+    }
+  },
+  {
+    "id": 100751,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4311,7 +8671,57 @@
     }
   },
   {
-    "id": 100364,
+    "id": 100752,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||player.bidmatic.io/microplayer/*/stream.es.js"
+    }
+  },
+  {
+    "id": 100753,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||files.bidmatic.io/microplayer/configs/*.jsonp|"
+    }
+  },
+  {
+    "id": 100754,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||widget.getwhelp.com/init.js"
+    }
+  },
+  {
+    "id": 100755,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||a.abbyads.com/vast.php?spot="
+    }
+  },
+  {
+    "id": 100756,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/videojs-contrib-ads.min.js"
+    }
+  },
+  {
+    "id": 100757,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4321,7 +8731,27 @@
     }
   },
   {
-    "id": 100365,
+    "id": 100758,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100759,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||d1e1kd3gffmhjg.cloudfront.net/bannerbottom/"
+    }
+  },
+  {
+    "id": 100760,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4331,7 +8761,67 @@
     }
   },
   {
-    "id": 100366,
+    "id": 100761,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100762,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100763,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||video-cdn1.moe.video/videos/*/master.m3u8"
+    }
+  },
+  {
+    "id": 100764,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||video-cdn1.moe.video/videos/*/index-*.m3u8"
+    }
+  },
+  {
+    "id": 100765,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||video-cdn1.moe.video/videos/*/segment-*.ts"
+    }
+  },
+  {
+    "id": 100766,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100767,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4341,7 +8831,7 @@
     }
   },
   {
-    "id": 100367,
+    "id": 100768,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4354,7 +8844,7 @@
     }
   },
   {
-    "id": 100368,
+    "id": 100769,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4364,7 +8854,30 @@
     }
   },
   {
-    "id": 100369,
+    "id": 100770,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||miradres.com/lat/"
+    }
+  },
+  {
+    "id": 100771,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||static.ig-store.ru/ads/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100772,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4374,7 +8887,17 @@
     }
   },
   {
-    "id": 100370,
+    "id": 100773,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/adsdk.js"
+    }
+  },
+  {
+    "id": 100774,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4384,7 +8907,7 @@
     }
   },
   {
-    "id": 100371,
+    "id": 100775,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4394,7 +8917,7 @@
     }
   },
   {
-    "id": 100372,
+    "id": 100776,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4404,7 +8927,37 @@
     }
   },
   {
-    "id": 100373,
+    "id": 100777,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ssp.rambler.ru/capirs_async.js"
+    }
+  },
+  {
+    "id": 100778,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/adsdk.js"
+    }
+  },
+  {
+    "id": 100779,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/vas-bundles/*/loader.bundle.js"
+    }
+  },
+  {
+    "id": 100780,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4414,7 +8967,513 @@
     }
   },
   {
-    "id": 100374,
+    "id": 100781,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||miradres.com/lat/*?season=",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 100782,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||miradres.com/lat/*/uploads/kozyrki_fon.jpg"
+    }
+  },
+  {
+    "id": 100783,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/"
+    }
+  },
+  {
+    "id": 100784,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||xporn.in^"
+    }
+  },
+  {
+    "id": 100785,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/header-bidding.js"
+    }
+  },
+  {
+    "id": 100786,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s0.2mdn.net/ads/studio/Enabler.js"
+    }
+  },
+  {
+    "id": 100787,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||films-torrent.ru/templates/reborn_films2/img/ads1.png"
+    }
+  },
+  {
+    "id": 100788,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdn.membrana.media^"
+    }
+  },
+  {
+    "id": 100789,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cdn.jsdelivr.net/npm/videojs-contrib-ads@*/dist/videojs.ads.css"
+    }
+  },
+  {
+    "id": 100790,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||vk.com/ads?adslogger=",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100791,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||static.vk.com/ads_"
+    }
+  },
+  {
+    "id": 100792,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||piguiqproxy.com/api"
+    }
+  },
+  {
+    "id": 100793,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100794,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||eurofurence.org/*_banner.gif"
+    }
+  },
+  {
+    "id": 100795,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads2.bid^"
+    }
+  },
+  {
+    "id": 100796,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100797,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||img.ex.co/image/upload/"
+    }
+  },
+  {
+    "id": 100798,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||embed.ex.co/sdk.js"
+    }
+  },
+  {
+    "id": 100799,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||embed.ex.co/html"
+    }
+  },
+  {
+    "id": 100800,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||en.bongacash.com/js/videojs/video.js"
+    }
+  },
+  {
+    "id": 100801,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||en.bongacash.com/js/videojs/videojs_5.vast.vpaid.min.js"
+    }
+  },
+  {
+    "id": 100802,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
+    }
+  },
+  {
+    "id": 100803,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/gpt/pubads_impl_*.js"
+    }
+  },
+  {
+    "id": 100804,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/pagead/ppub_config"
+    }
+  },
+  {
+    "id": 100805,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/gampad/ads?"
+    }
+  },
+  {
+    "id": 100806,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||source.dot.net/*/Ad.html"
+    }
+  },
+  {
+    "id": 100807,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||static.wi-fi.ru/mtt/banners/"
+    }
+  },
+  {
+    "id": 100808,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/system/context.js"
+    }
+  },
+  {
+    "id": 100809,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yandex.ru/ads/system/context.js"
+    }
+  },
+  {
+    "id": 100810,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ssp.rambler.ru/capirs_async.js"
+    }
+  },
+  {
+    "id": 100811,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pubads.g.doubleclick.net/gampad/live/ads?iu=*&url=https%3A%2F%2Folympics.1tv.ru"
+    }
+  },
+  {
+    "id": 100812,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||redirector.gvt1.com/videoplayback/id/*/source/dclk_video_ads/*/file.webm"
+    }
+  },
+  {
+    "id": 100813,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||gvt1.com/videoplayback/id/*/source/dclk_video_ads/*/file.webm"
+    }
+  },
+  {
+    "id": 100814,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/adfox/"
+    }
+  },
+  {
+    "id": 100815,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/system/adfox.js"
+    }
+  },
+  {
+    "id": 100816,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/system/widget.js"
+    }
+  },
+  {
+    "id": 100817,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100818,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/header-bidding.js"
+    }
+  },
+  {
+    "id": 100819,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    }
+  },
+  {
+    "id": 100820,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/*/show_ads_impl_fy2019.js"
+    }
+  },
+  {
+    "id": 100821,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/pagead/js/*/rum_fy2019.js"
+    }
+  },
+  {
+    "id": 100822,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com/getconfig/sodar?sv="
+    }
+  },
+  {
+    "id": 100823,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleads.g.doubleclick.net/pagead/html/*/zrt_lookup.html"
+    }
+  },
+  {
+    "id": 100824,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||api.rnet.plus//Scripts/embed.min.js"
+    }
+  },
+  {
+    "id": 100825,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||api.rnet.plus//Scripts/api.min.js"
+    }
+  },
+  {
+    "id": 100826,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||api.rnet.plus//Block/Data?ids="
+    }
+  },
+  {
+    "id": 100827,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100828,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||kiks.yandex.ru/su/"
+    }
+  },
+  {
+    "id": 100829,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||101.ru/api/outreach/vast/"
+    }
+  },
+  {
+    "id": 100830,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100831,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4424,7 +9483,27 @@
     }
   },
   {
-    "id": 100375,
+    "id": 100832,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100833,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/system/video-ads-sdk/adsdk.js"
+    }
+  },
+  {
+    "id": 100834,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4434,7 +9513,7 @@
     }
   },
   {
-    "id": 100376,
+    "id": 100835,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4444,7 +9523,70 @@
     }
   },
   {
-    "id": 100377,
+    "id": 100836,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pb-story.playbuzz.com/trivia/production/*/trivia-viewer*.js"
+    }
+  },
+  {
+    "id": 100837,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||dou165.my1.ru^"
+    }
+  },
+  {
+    "id": 100838,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pic.uma.media/pic/video/ad/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100839,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adtelligent.com/vmap?"
+    }
+  },
+  {
+    "id": 100840,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||player.adtelligent.com/static/player.core."
+    }
+  },
+  {
+    "id": 100841,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||s.vertamedia.com/vmap?aid="
+    }
+  },
+  {
+    "id": 100842,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4457,7 +9599,40 @@
     }
   },
   {
-    "id": 100378,
+    "id": 100843,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100844,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/adfox/*/getBulk/"
+    }
+  },
+  {
+    "id": 100845,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||vseinstrumenti.ru/imgtmbnf/769x270/res/img/AdFox/",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100846,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4467,7 +9642,7 @@
     }
   },
   {
-    "id": 100379,
+    "id": 100847,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4477,7 +9652,7 @@
     }
   },
   {
-    "id": 100380,
+    "id": 100848,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4487,7 +9662,20 @@
     }
   },
   {
-    "id": 100381,
+    "id": 100849,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tildacdn.com^",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100850,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4497,7 +9685,37 @@
     }
   },
   {
-    "id": 100382,
+    "id": 100851,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||widget.svk-native.ru^"
+    }
+  },
+  {
+    "id": 100852,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||mooo.com/ad/common/sites/default/files/"
+    }
+  },
+  {
+    "id": 100853,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||i.servimg.com/u/*/banner10.gif"
+    }
+  },
+  {
+    "id": 100854,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4507,7 +9725,107 @@
     }
   },
   {
-    "id": 100383,
+    "id": 100855,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
+    }
+  },
+  {
+    "id": 100856,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||embed.playbuzz.com^"
+    }
+  },
+  {
+    "id": 100857,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||pb-story.playbuzz.com/*/story-viewer.js"
+    }
+  },
+  {
+    "id": 100858,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||img.playbuzz.com^"
+    }
+  },
+  {
+    "id": 100859,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100860,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100861,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100862,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100863,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100864,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/awaps-ad-sdk-js/1_0/adsdk.js"
+    }
+  },
+  {
+    "id": 100865,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4517,7 +9835,17 @@
     }
   },
   {
-    "id": 100384,
+    "id": 100866,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/pro_hide_advertise.svg"
+    }
+  },
+  {
+    "id": 100867,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4530,7 +9858,27 @@
     }
   },
   {
-    "id": 100385,
+    "id": 100868,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/header-bidding.js"
+    }
+  },
+  {
+    "id": 100869,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100870,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4540,7 +9888,37 @@
     }
   },
   {
-    "id": 100386,
+    "id": 100871,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||coinmarketcap.com^"
+    }
+  },
+  {
+    "id": 100872,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ssp.rambler.ru/capirs_async.js"
+    }
+  },
+  {
+    "id": 100873,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||nativerent.ru/api/"
+    }
+  },
+  {
+    "id": 100874,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4550,7 +9928,7 @@
     }
   },
   {
-    "id": 100387,
+    "id": 100875,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4560,7 +9938,7 @@
     }
   },
   {
-    "id": 100388,
+    "id": 100876,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4570,7 +9948,40 @@
     }
   },
   {
-    "id": 100389,
+    "id": 100877,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru^"
+    }
+  },
+  {
+    "id": 100878,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100879,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "-fan.tv/images/ad.jpg",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100880,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4580,7 +9991,47 @@
     }
   },
   {
-    "id": 100390,
+    "id": 100881,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100882,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||js.mamydirect.com^"
+    }
+  },
+  {
+    "id": 100883,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
+    }
+  },
+  {
+    "id": 100884,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/gpt/pubads_impl_*.js"
+    }
+  },
+  {
+    "id": 100885,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4590,7 +10041,7 @@
     }
   },
   {
-    "id": 100391,
+    "id": 100886,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4600,7 +10051,17 @@
     }
   },
   {
-    "id": 100392,
+    "id": 100887,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/(smi2.ru/data/js/|rackcdn.com/stf.js|mc.yandex.ru/metrika/watch.js|yastatic.net/share2/share.js|news.net.finam.ru/data/js/|yastatic.net/pcode/adfox/loader.js)/"
+    }
+  },
+  {
+    "id": 100888,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4610,7 +10071,20 @@
     }
   },
   {
-    "id": 100393,
+    "id": 100889,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||mtrcss.com^",
+      "resourceTypes": [
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 100890,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4620,7 +10094,7 @@
     }
   },
   {
-    "id": 100394,
+    "id": 100891,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4630,7 +10104,7 @@
     }
   },
   {
-    "id": 100395,
+    "id": 100892,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4640,7 +10114,7 @@
     }
   },
   {
-    "id": 100396,
+    "id": 100893,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4650,7 +10124,7 @@
     }
   },
   {
-    "id": 100397,
+    "id": 100894,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4660,7 +10134,17 @@
     }
   },
   {
-    "id": 100398,
+    "id": 100895,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.showjet.ru/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100896,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4670,7 +10154,17 @@
     }
   },
   {
-    "id": 100399,
+    "id": 100897,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||fishki.net/informer*hot^"
+    }
+  },
+  {
+    "id": 100898,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4680,7 +10174,7 @@
     }
   },
   {
-    "id": 100400,
+    "id": 100899,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4690,7 +10184,37 @@
     }
   },
   {
-    "id": 100401,
+    "id": 100900,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100901,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||out.pladform.ru/getVast"
+    }
+  },
+  {
+    "id": 100902,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100903,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4700,7 +10224,47 @@
     }
   },
   {
-    "id": 100402,
+    "id": 100904,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||a.republer.com/exp?sid="
+    }
+  },
+  {
+    "id": 100905,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||a.republer.com/render.js"
+    }
+  },
+  {
+    "id": 100906,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ajax.googleapis.com/ajax/libs/jquery/"
+    }
+  },
+  {
+    "id": 100907,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||goodgame.ru/ajax/*"
+    }
+  },
+  {
+    "id": 100908,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4710,7 +10274,90 @@
     }
   },
   {
-    "id": 100403,
+    "id": 100909,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "-fan.ru/images/ad.jpg",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100910,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ulogin.ru/js/ulogin.js"
+    }
+  },
+  {
+    "id": 100911,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||fireseo.ru/wp-content/themes/fireseo/images/advertising/"
+    }
+  },
+  {
+    "id": 100912,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||yastatic.net/pcode/adfox/loader.js"
+    }
+  },
+  {
+    "id": 100913,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/prepareCode"
+    }
+  },
+  {
+    "id": 100914,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/getCode"
+    }
+  },
+  {
+    "id": 100915,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||banners.adfox.ru^"
+    }
+  },
+  {
+    "id": 100916,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||reklama.khakassia.ru^"
+    }
+  },
+  {
+    "id": 100917,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4720,7 +10367,47 @@
     }
   },
   {
-    "id": 100404,
+    "id": 100918,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||googleadservices.com/pagead/conversion_async.js"
+    }
+  },
+  {
+    "id": 100919,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru/static/admanhtml/rbadman-html5.min.js"
+    }
+  },
+  {
+    "id": 100920,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru/vp/*?content_id=*&duration=*&mm_catid="
+    }
+  },
+  {
+    "id": 100921,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||player.tree.tv/js/vast/video.ads.js"
+    }
+  },
+  {
+    "id": 100922,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4730,7 +10417,27 @@
     }
   },
   {
-    "id": 100405,
+    "id": 100923,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100924,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||securepubads.g.doubleclick.net/gpt/pubads_impl_"
+    }
+  },
+  {
+    "id": 100925,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4740,7 +10447,17 @@
     }
   },
   {
-    "id": 100406,
+    "id": 100926,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||gatop.ru/banner.php"
+    }
+  },
+  {
+    "id": 100927,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4750,7 +10467,60 @@
     }
   },
   {
-    "id": 100407,
+    "id": 100928,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "banner",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 100929,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/abuse/"
+    }
+  },
+  {
+    "id": 100930,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||sociomantic.com/js/*/adpan/2-berega-ru"
+    }
+  },
+  {
+    "id": 100931,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||devimages.apple.com.edgekey.net/app-store/marketing/guidelines/"
+    }
+  },
+  {
+    "id": 100932,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||advertising.my1.ru^"
+    }
+  },
+  {
+    "id": 100933,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4760,7 +10530,7 @@
     }
   },
   {
-    "id": 100408,
+    "id": 100934,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4770,7 +10540,57 @@
     }
   },
   {
-    "id": 100409,
+    "id": 100935,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||vmet.ro/system/deals/"
+    }
+  },
+  {
+    "id": 100936,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||images.apple.com^*/shared/promos/"
+    }
+  },
+  {
+    "id": 100937,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||plektan.com^"
+    }
+  },
+  {
+    "id": 100938,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||peers.tv/jwplayer/ariver/plugin.swf"
+    }
+  },
+  {
+    "id": 100939,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/prepareCode?"
+    }
+  },
+  {
+    "id": 100940,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4780,7 +10600,7 @@
     }
   },
   {
-    "id": 100410,
+    "id": 100941,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4790,7 +10610,7 @@
     }
   },
   {
-    "id": 100411,
+    "id": 100942,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4800,7 +10620,37 @@
     }
   },
   {
-    "id": 100412,
+    "id": 100943,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||video.videonow.ru^"
+    }
+  },
+  {
+    "id": 100944,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/system/context.js"
+    }
+  },
+  {
+    "id": 100945,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||an.yandex.ru/resource/context_static_r*.js"
+    }
+  },
+  {
+    "id": 100946,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4810,7 +10660,7 @@
     }
   },
   {
-    "id": 100413,
+    "id": 100947,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4820,7 +10670,40 @@
     }
   },
   {
-    "id": 100414,
+    "id": 100948,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||sync.pool.datamind.ru/image?source=retargeting"
+    }
+  },
+  {
+    "id": 100949,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||sedu.adhands.ru/view/?sid^",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 100950,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||lib.rl0.ru/adfox/*/adfox.custom.min.js"
+    }
+  },
+  {
+    "id": 100951,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4830,7 +10713,7 @@
     }
   },
   {
-    "id": 100415,
+    "id": 100952,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4840,7 +10723,7 @@
     }
   },
   {
-    "id": 100416,
+    "id": 100953,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4850,7 +10733,17 @@
     }
   },
   {
-    "id": 100417,
+    "id": 100954,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||winvideo.org/index.php?r=view/player"
+    }
+  },
+  {
+    "id": 100955,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4860,7 +10753,27 @@
     }
   },
   {
-    "id": 100418,
+    "id": 100956,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/getCode"
+    }
+  },
+  {
+    "id": 100957,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||st.kp.yandex.net/images/bnnr/brand/*.png"
+    }
+  },
+  {
+    "id": 100958,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4870,7 +10783,7 @@
     }
   },
   {
-    "id": 100419,
+    "id": 100959,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4880,7 +10793,17 @@
     }
   },
   {
-    "id": 100420,
+    "id": 100960,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||iguides.ru/scripts/adriver.core.2.js"
+    }
+  },
+  {
+    "id": 100961,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4890,7 +10813,7 @@
     }
   },
   {
-    "id": 100421,
+    "id": 100962,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4900,7 +10823,27 @@
     }
   },
   {
-    "id": 100422,
+    "id": 100963,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+    }
+  },
+  {
+    "id": 100964,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adriver.ru^"
+    }
+  },
+  {
+    "id": 100965,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4910,7 +10853,17 @@
     }
   },
   {
-    "id": 100423,
+    "id": 100966,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/advert"
+    }
+  },
+  {
+    "id": 100967,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4920,7 +10873,7 @@
     }
   },
   {
-    "id": 100424,
+    "id": 100968,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4930,7 +10883,7 @@
     }
   },
   {
-    "id": 100425,
+    "id": 100969,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4940,7 +10893,17 @@
     }
   },
   {
-    "id": 100426,
+    "id": 100970,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adman.com^"
+    }
+  },
+  {
+    "id": 100971,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4950,7 +10913,7 @@
     }
   },
   {
-    "id": 100427,
+    "id": 100972,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4960,7 +10923,7 @@
     }
   },
   {
-    "id": 100428,
+    "id": 100973,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4970,7 +10933,7 @@
     }
   },
   {
-    "id": 100429,
+    "id": 100974,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4980,7 +10943,7 @@
     }
   },
   {
-    "id": 100430,
+    "id": 100975,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -4990,7 +10953,27 @@
     }
   },
   {
-    "id": 100431,
+    "id": 100976,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tvzavr.ru^"
+    }
+  },
+  {
+    "id": 100977,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||tvzavr.ru/js/"
+    }
+  },
+  {
+    "id": 100978,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5003,7 +10986,7 @@
     }
   },
   {
-    "id": 100432,
+    "id": 100979,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5013,7 +10996,7 @@
     }
   },
   {
-    "id": 100433,
+    "id": 100980,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5023,7 +11006,7 @@
     }
   },
   {
-    "id": 100434,
+    "id": 100981,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5033,7 +11016,7 @@
     }
   },
   {
-    "id": 100435,
+    "id": 100982,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5043,7 +11026,7 @@
     }
   },
   {
-    "id": 100436,
+    "id": 100983,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5053,7 +11036,7 @@
     }
   },
   {
-    "id": 100437,
+    "id": 100984,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5063,7 +11046,7 @@
     }
   },
   {
-    "id": 100438,
+    "id": 100985,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5073,7 +11056,37 @@
     }
   },
   {
-    "id": 100439,
+    "id": 100986,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/event?hash="
+    }
+  },
+  {
+    "id": 100987,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/banners*swf"
+    }
+  },
+  {
+    "id": 100988,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/prepareCode?pp="
+    }
+  },
+  {
+    "id": 100989,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5083,7 +11096,7 @@
     }
   },
   {
-    "id": 100440,
+    "id": 100990,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5093,7 +11106,7 @@
     }
   },
   {
-    "id": 100441,
+    "id": 100991,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5103,7 +11116,7 @@
     }
   },
   {
-    "id": 100442,
+    "id": 100992,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5113,7 +11126,17 @@
     }
   },
   {
-    "id": 100443,
+    "id": 100993,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/imgs_1/banner/*"
+    }
+  },
+  {
+    "id": 100994,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5123,7 +11146,7 @@
     }
   },
   {
-    "id": 100444,
+    "id": 100995,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5133,7 +11156,17 @@
     }
   },
   {
-    "id": 100445,
+    "id": 100996,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||wm-panel.com/wm-panel/help-desk^"
+    }
+  },
+  {
+    "id": 100997,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5143,7 +11176,87 @@
     }
   },
   {
-    "id": 100446,
+    "id": 100998,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||google-analytics.com/analytics.js"
+    }
+  },
+  {
+    "id": 100999,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||google-analytics.com/plugins/"
+    }
+  },
+  {
+    "id": 101000,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adrcdn.com/ads/PG_Russia/*/gpmd_noclose.xml"
+    }
+  },
+  {
+    "id": 101001,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/getCode"
+    }
+  },
+  {
+    "id": 101002,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||bundle.ozone.ru/res/"
+    }
+  },
+  {
+    "id": 101003,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||bundle.ozone.ru/ozon/"
+    }
+  },
+  {
+    "id": 101004,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||wowjp.net/scripts/library/adRotator.js"
+    }
+  },
+  {
+    "id": 101005,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||kassa.rl0.ru^"
+    }
+  },
+  {
+    "id": 101006,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5153,7 +11266,7 @@
     }
   },
   {
-    "id": 100447,
+    "id": 101007,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5163,7 +11276,7 @@
     }
   },
   {
-    "id": 100448,
+    "id": 101008,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5173,7 +11286,17 @@
     }
   },
   {
-    "id": 100449,
+    "id": 101009,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/goLink"
+    }
+  },
+  {
+    "id": 101010,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5183,7 +11306,27 @@
     }
   },
   {
-    "id": 100450,
+    "id": 101011,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/adfox.asyn.code.ver3.js"
+    }
+  },
+  {
+    "id": 101012,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adfox.ru^"
+    }
+  },
+  {
+    "id": 101013,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5193,7 +11336,7 @@
     }
   },
   {
-    "id": 100451,
+    "id": 101014,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5203,7 +11346,7 @@
     }
   },
   {
-    "id": 100452,
+    "id": 101015,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5213,7 +11356,7 @@
     }
   },
   {
-    "id": 100453,
+    "id": 101016,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5223,7 +11366,7 @@
     }
   },
   {
-    "id": 100454,
+    "id": 101017,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5233,7 +11376,7 @@
     }
   },
   {
-    "id": 100455,
+    "id": 101018,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5243,7 +11386,7 @@
     }
   },
   {
-    "id": 100456,
+    "id": 101019,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5253,7 +11396,27 @@
     }
   },
   {
-    "id": 100457,
+    "id": 101020,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/advertise/*"
+    }
+  },
+  {
+    "id": 101021,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/ad_"
+    }
+  },
+  {
+    "id": 101022,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5263,7 +11426,27 @@
     }
   },
   {
-    "id": 100458,
+    "id": 101023,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||adriver.ru^"
+    }
+  },
+  {
+    "id": 101024,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||sport-express.ru^"
+    }
+  },
+  {
+    "id": 101025,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5273,7 +11456,17 @@
     }
   },
   {
-    "id": 100459,
+    "id": 101026,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru^"
+    }
+  },
+  {
+    "id": 101027,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5283,7 +11476,7 @@
     }
   },
   {
-    "id": 100460,
+    "id": 101028,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5293,7 +11486,7 @@
     }
   },
   {
-    "id": 100461,
+    "id": 101029,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5303,7 +11496,27 @@
     }
   },
   {
-    "id": 100462,
+    "id": 101030,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ads.adfox.ru/*/prepareCode?"
+    }
+  },
+  {
+    "id": 101031,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||vseinstrumenti.ru/res/js/adfox.asyn.code.ver*.js"
+    }
+  },
+  {
+    "id": 101032,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5313,7 +11526,7 @@
     }
   },
   {
-    "id": 100463,
+    "id": 101033,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5323,7 +11536,47 @@
     }
   },
   {
-    "id": 100464,
+    "id": 101034,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "adfox.ru/"
+    }
+  },
+  {
+    "id": 101035,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||static.ngs.ru^"
+    }
+  },
+  {
+    "id": 101036,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/adsgame."
+    }
+  },
+  {
+    "id": 101037,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/banner.php"
+    }
+  },
+  {
+    "id": 101038,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5333,7 +11586,17 @@
     }
   },
   {
-    "id": 100465,
+    "id": 101039,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||animespirit.*/banners/myvi_logo.png"
+    }
+  },
+  {
+    "id": 101040,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5343,7 +11606,17 @@
     }
   },
   {
-    "id": 100466,
+    "id": 101041,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/adclick/*"
+    }
+  },
+  {
+    "id": 101042,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5353,7 +11626,17 @@
     }
   },
   {
-    "id": 100467,
+    "id": 101043,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/ad.asp?"
+    }
+  },
+  {
+    "id": 101044,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5363,7 +11646,7 @@
     }
   },
   {
-    "id": 100468,
+    "id": 101045,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5373,7 +11656,7 @@
     }
   },
   {
-    "id": 100469,
+    "id": 101046,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5383,7 +11666,7 @@
     }
   },
   {
-    "id": 100470,
+    "id": 101047,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5393,7 +11676,7 @@
     }
   },
   {
-    "id": 100471,
+    "id": 101048,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5403,7 +11686,67 @@
     }
   },
   {
-    "id": 100472,
+    "id": 101049,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/informer*.js"
+    }
+  },
+  {
+    "id": 101050,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/advert/*"
+    }
+  },
+  {
+    "id": 101051,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/banner/*"
+    }
+  },
+  {
+    "id": 101052,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/banner/*"
+    }
+  },
+  {
+    "id": 101053,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||media.adrcdn.com/*.swf"
+    }
+  },
+  {
+    "id": 101054,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||ad.mail.ru^"
+    }
+  },
+  {
+    "id": 101055,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5413,7 +11756,7 @@
     }
   },
   {
-    "id": 100473,
+    "id": 101056,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5423,7 +11766,17 @@
     }
   },
   {
-    "id": 100474,
+    "id": 101057,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||begun.ru^"
+    }
+  },
+  {
+    "id": 101058,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5433,7 +11786,7 @@
     }
   },
   {
-    "id": 100475,
+    "id": 101059,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5443,7 +11796,7 @@
     }
   },
   {
-    "id": 100476,
+    "id": 101060,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5453,7 +11806,7 @@
     }
   },
   {
-    "id": 100477,
+    "id": 101061,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5463,7 +11816,7 @@
     }
   },
   {
-    "id": 100478,
+    "id": 101062,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5473,7 +11826,7 @@
     }
   },
   {
-    "id": 100479,
+    "id": 101063,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5483,7 +11836,7 @@
     }
   },
   {
-    "id": 100480,
+    "id": 101064,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5493,7 +11846,7 @@
     }
   },
   {
-    "id": 100481,
+    "id": 101065,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5503,7 +11856,7 @@
     }
   },
   {
-    "id": 100482,
+    "id": 101066,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5513,7 +11866,7 @@
     }
   },
   {
-    "id": 100483,
+    "id": 101067,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5523,7 +11876,7 @@
     }
   },
   {
-    "id": 100484,
+    "id": 101068,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5533,7 +11886,17 @@
     }
   },
   {
-    "id": 100485,
+    "id": 101069,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||gpm-digital.com"
+    }
+  },
+  {
+    "id": 101070,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5543,7 +11906,7 @@
     }
   },
   {
-    "id": 100486,
+    "id": 101071,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5553,7 +11916,7 @@
     }
   },
   {
-    "id": 100487,
+    "id": 101072,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5563,7 +11926,37 @@
     }
   },
   {
-    "id": 100488,
+    "id": 101073,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||awaps.yandex.net^"
+    }
+  },
+  {
+    "id": 101074,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||awaps.yandex.ru^"
+    }
+  },
+  {
+    "id": 101075,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||kiks.yandex.ru^"
+    }
+  },
+  {
+    "id": 101076,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5573,7 +11966,7 @@
     }
   },
   {
-    "id": 100489,
+    "id": 101077,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5583,7 +11976,17 @@
     }
   },
   {
-    "id": 100490,
+    "id": 101078,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||cache.zr.ru^"
+    }
+  },
+  {
+    "id": 101079,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5593,7 +11996,7 @@
     }
   },
   {
-    "id": 100491,
+    "id": 101080,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5603,7 +12006,7 @@
     }
   },
   {
-    "id": 100492,
+    "id": 101081,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5613,7 +12016,7 @@
     }
   },
   {
-    "id": 100493,
+    "id": 101082,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5623,7 +12026,17 @@
     }
   },
   {
-    "id": 100494,
+    "id": 101083,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/advert/*"
+    }
+  },
+  {
+    "id": 101084,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5633,7 +12046,17 @@
     }
   },
   {
-    "id": 100495,
+    "id": 101085,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||google-analytics.com"
+    }
+  },
+  {
+    "id": 101086,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5643,7 +12066,27 @@
     }
   },
   {
-    "id": 100496,
+    "id": 101087,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "/crossdomain.xml"
+    }
+  },
+  {
+    "id": 101088,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "urlFilter": "||google-analytics.com^"
+    }
+  },
+  {
+    "id": 101089,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5653,7 +12096,7 @@
     }
   },
   {
-    "id": 100497,
+    "id": 101090,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5663,7 +12106,7 @@
     }
   },
   {
-    "id": 100498,
+    "id": 101091,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5673,7 +12116,7 @@
     }
   },
   {
-    "id": 100499,
+    "id": 101092,
     "priority": 2,
     "action": {
       "type": "allow"
@@ -5683,7 +12126,7 @@
     }
   },
   {
-    "id": 100500,
+    "id": 101093,
     "priority": 2,
     "action": {
       "type": "allow"

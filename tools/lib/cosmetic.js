@@ -17,9 +17,51 @@
    - #@# (исключения косметики) — учтём позже, если понадобится.
    - Не-ASCII селекторы — Chrome капризен, пропускаем на всякий случай.
    - Селекторы с префиксом ~ в домене (например, "~example.com##.ad").
+   - Extended-синтаксис (AdGuard/uBlock/ABP), который не является
+     валидным CSS и молча игнорируется браузером при insertCSS:
+       :style(...)          — AdGuard
+       :remove()            — AdGuard
+       :upward(...)         — uBlock
+       :matches-path(...)   — uBlock
+       :matches-css(...)    — uBlock
+       :matches-attr(...)   — uBlock
+       :contains(...)       — uBlock (text-based)
+       :xpath(...)          — uBlock
+       :-abp-properties(...) — Adblock Plus
+       +js(...)             — AdGuard JS-правило
    ============================================================ */
 
 import { isAsciiOnly } from "./utils.js";
+
+// Маркеры extended-синтаксиса.
+// Если селектор содержит любой из них — правило невалидно для CSS
+// и должно быть отброшено конвертером.
+const EXTENDED_MARKERS = [
+    ":style(",
+    ":remove()",
+    ":upward(",
+    ":matches-path(",
+    ":matches-css(",
+    ":matches-attr(",
+    ":contains(",
+    ":xpath(",
+    ":-abp-properties(",
+    "+js("
+];
+
+/**
+ * Проверяет, содержит ли селектор extended-синтаксис.
+ * Такие правила не работают через insertCSS и должны быть пропущены.
+ *
+ * @param {string} selector - часть правила после ##
+ * @returns {boolean} true если селектор extended
+ */
+function isExtendedSelector(selector) {
+    for (const marker of EXTENDED_MARKERS) {
+        if (selector.includes(marker)) return true;
+    }
+    return false;
+}
 
 /**
  * Убирает дубликаты из косметических правил.
@@ -49,6 +91,7 @@ export function cosmeticRulesToCss(rules) {
     const domainMap = {};
     let skippedExceptions = 0;
     let skippedInvalid = 0;
+    let skippedExtended = 0;
 
     for (const rule of rules) {
         // #@# — исключения, пока пропускаем
@@ -76,6 +119,14 @@ export function cosmeticRulesToCss(rules) {
             continue;
         }
 
+        // Extended-синтаксис — не CSS, пропускаем.
+        // Применяем проверку и к общим, и к domain-specific правилам,
+        // потому что extended-часть может быть в любом из них.
+        if (isExtendedSelector(selectorPart)) {
+            skippedExtended++;
+            continue;
+        }
+
         // Общее правило (без домена)
         if (domainPart === "") {
             generalSelectors.push(selectorPart);
@@ -97,6 +148,7 @@ export function cosmeticRulesToCss(rules) {
     console.log(`[stage 4] domain-specific domains: ${Object.keys(domainMap).length}`);
     console.log(`[stage 4] skipped exceptions:      ${skippedExceptions}`);
     console.log(`[stage 4] skipped invalid:         ${skippedInvalid}`);
+    console.log(`[stage 4] skipped extended:        ${skippedExtended}`);
 
     const uniqueGeneral = [...new Set(generalSelectors)];
     console.log(`[stage 4] unique general selectors: ${uniqueGeneral.length}`);

@@ -30,7 +30,8 @@ const INCLUDE = [
     "content",
     "popup",
     "shared",
-    "rules"
+    "rules",
+    "_locales"
 ];
 
 // ------------------------------------------------------------

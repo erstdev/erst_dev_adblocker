@@ -16,6 +16,12 @@
    - вызываем один раз при старте
    - и при изменениях storage (chrome.storage.onChanged)
    - НЕ вызываем из message-handler — это приведёт к race condition
+
+   ВАЖНО про onCommitted:
+   - chrome.webNavigation.onCommitted.addListener не поддерживает
+     hostNotEquals в UrlFilter. Фильтр только на schemes.
+   - Исключение chrome.google.com и chromewebstore.google.com
+     делается вручную внутри handleCommitted (см. cosmetic-injector.js).
    ============================================================ */
 
 import { syncDnrState } from "../shared/storage.js";
@@ -45,10 +51,20 @@ chrome.storage.onChanged.addListener((changes, area) => {
 
 // ------------------------------------------------------------
 // 3. Вставка CSS при навигации
+//
+// Фильтр url принимает массив объектов UrlFilter.
+// Поддерживаются: schemes, hostContains, hostEquals, hostPrefix,
+// hostSuffix, pathContains/Equals/Prefix/Suffix, queryContains/...
+// urlContains/Equals/Matches, originAndPathMatches, urlPrefix/Suffix.
+//
+// hostNotEquals НЕ поддерживается — исключение хостов делаем
+// вручную в handleCommitted (см. cosmetic-injector.js).
 // ------------------------------------------------------------
 chrome.webNavigation.onCommitted.addListener(
     handleCommitted,
-    { url: [{ schemes: ["http", "https"] }] }
+    {
+        url: [{ schemes: ["http", "https"] }]
+    }
 );
 
 // ------------------------------------------------------------

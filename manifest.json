@@ -1,8 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "erst_dev_adblocker",
+  "minimum_chrome_version": "105",
+  "default_locale": "en",
+  "name": "__MSG_appName__",
   "version": "1.1.0",
-  "description": "Блокировщик рекламы",
+  "description": "__MSG_appDescription__",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
@@ -14,7 +16,7 @@
     "scripting",
     "storage",
     "webNavigation",
-    "tabs"
+    "activeTab"
   ],
   "host_permissions": ["<all_urls>"],
   "background": {
@@ -34,12 +36,6 @@
         "content/domain-cosmetic.js"
       ],
       "run_at": "document_start"
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["rules/cosmetic-map.json"],
-      "matches": ["<all_urls>"]
     }
   ],
   "action": {

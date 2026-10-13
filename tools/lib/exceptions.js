@@ -39,7 +39,9 @@ export function selectExceptionRules(exceptionRules) {
  *     condition: { urlFilter: "||abcnews.com/assets/js/prebid.min.js" } }
  *
  * @param {string[]} rules - исключения (со префиксом @@)
- * @param {number} startId - стартовый id
+ * @param {number} startId - стартовый id. Используется только для промежуточной
+ *   нумерации внутри функции. Финальные id присваиваются в limiter.js → applyQuotas,
+ *   где правила переиндексируются в диапазон ID_BASE_EXCEPTIONS (100000..).
  * @returns {Array} массив DNR-правил с allow
  */
 export function exceptionRulesToDnr(rules, startId) {
@@ -78,6 +80,12 @@ export function exceptionRulesToDnr(rules, startId) {
             }
             if (parsed.resourceTypes.length > 0) {
                 condition.resourceTypes = parsed.resourceTypes;
+            }
+            if (parsed.initiatorDomains.length > 0) {
+                condition.initiatorDomains = parsed.initiatorDomains;
+            }
+            if (parsed.excludedInitiatorDomains.length > 0) {
+                condition.excludedInitiatorDomains = parsed.excludedInitiatorDomains;
             }
         }
 

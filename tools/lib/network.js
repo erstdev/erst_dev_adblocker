@@ -88,22 +88,41 @@ export function simpleRulesToDnr(simpleRules) {
  * Пример: "third-party,script,~image" →
  *   { thirdParty: true, resourceTypes: ["script"], unsupported: false }
  *
+ * Пример: "domain=example.com|~sub.example.com,script" →
+ *   {
+ *     thirdParty: null,
+ *     resourceTypes: ["script"],
+ *     initiatorDomains: ["example.com"],
+ *     excludedInitiatorDomains: ["sub.example.com"],
+ *     unsupported: false
+ *   }
+ *
  * Поддерживаемые модификаторы:
  *   $third-party / $~third-party → domainType
  *   $script, $image, $subdocument, ... → resourceTypes
+ *   $domain=a|b|~c → initiatorDomains / excludedInitiatorDomains
  *
  * НЕ поддерживаемые:
- *   $domain=..., $document, $popup, $replace, $csp, $removeparam, ...
+ *   $document, $popup, $replace, $csp, $removeparam, $redirect,
+ *   $rewrite, $generichide, $elemhide, $empty
  *   Если встретили — правило пропускается (unsupported: true).
  *
  * @param {string} modifierStr - строка после $ (например, "third-party,script")
- * @returns {{thirdParty: boolean|null, resourceTypes: string[], unsupported: boolean}}
+ * @returns {{
+ *   thirdParty: boolean|null,
+ *   resourceTypes: string[],
+ *   initiatorDomains: string[],
+ *   excludedInitiatorDomains: string[],
+ *   unsupported: boolean
+ * }}
  */
 export function parseModifiers(modifierStr) {
     const mods = modifierStr.split(",");
     const result = {
         thirdParty: null,
         resourceTypes: [],
+        initiatorDomains: [],
+        excludedInitiatorDomains: [],
         unsupported: false
     };
 
@@ -117,9 +136,22 @@ export function parseModifiers(modifierStr) {
             continue;
         }
 
+        // $domain=a|b|~c|~d
+        // Включающие домены → initiatorDomains.
+        // Исключающие (~) → excludedInitiatorDomains.
+        // Chrome проверяет: initiator ∈ initiatorDomains AND initiator ∉ excludedInitiatorDomains.
         if (name.startsWith("domain=")) {
-            result.unsupported = true;
-            return result;
+            const value = name.slice(7); // отрезаем "domain="
+            const domains = value.split("|").map((d) => d.trim()).filter(Boolean);
+            for (const d of domains) {
+                if (d.startsWith("~")) {
+                    const clean = d.slice(1);
+                    if (clean) result.excludedInitiatorDomains.push(clean);
+                } else {
+                    result.initiatorDomains.push(d);
+                }
+            }
+            continue;
         }
 
         if (isNegated && RESOURCE_TYPE_MAP[name]) {
@@ -160,8 +192,15 @@ export function selectModifierRules(networkRules) {
  *   { condition:{ urlFilter:"||ads.com^", domainType:"thirdParty",
  *                 resourceTypes:["script"] } }
  *
+ * Пример: "||ads.com^$domain=example.com|~sub.example.com" →
+ *   { condition:{ urlFilter:"||ads.com^",
+ *                 initiatorDomains:["example.com"],
+ *                 excludedInitiatorDomains:["sub.example.com"] } }
+ *
  * @param {string[]} rules - правила с $
- * @param {number} startId - стартовый id
+ * @param {number} startId - стартовый id. Используется только для промежуточной
+ *   нумерации внутри функции. Финальные id присваиваются в limiter.js → applyQuotas,
+ *   где правила переиндексируются в диапазон ID_BASE_ADS (10000..).
  * @returns {Array} массив DNR-правил
  */
 export function modifierRulesToDnr(rules, startId) {
@@ -169,6 +208,7 @@ export function modifierRulesToDnr(rules, startId) {
     let ruleId = startId;
     let skipped = 0;
     let skippedNonAscii = 0;
+    let convertedDomain = 0;
 
     for (const easyRule of rules) {
         const dollarIndex = easyRule.lastIndexOf("$");
@@ -193,6 +233,14 @@ export function modifierRulesToDnr(rules, startId) {
         if (parsed.resourceTypes.length > 0) {
             condition.resourceTypes = parsed.resourceTypes;
         }
+        if (parsed.initiatorDomains.length > 0) {
+            condition.initiatorDomains = parsed.initiatorDomains;
+            convertedDomain++;
+        }
+        if (parsed.excludedInitiatorDomains.length > 0) {
+            condition.excludedInitiatorDomains = parsed.excludedInitiatorDomains;
+            if (parsed.initiatorDomains.length === 0) convertedDomain++;
+        }
 
         dnrRules.push({
             id: ruleId++,
@@ -203,6 +251,7 @@ export function modifierRulesToDnr(rules, startId) {
     }
 
     console.log(`[stage 2] converted: ${dnrRules.length}, skipped: ${skipped}, non-ascii: ${skippedNonAscii}`);
+    console.log(`[stage 2] with domain= (initiatorDomains): ${convertedDomain}`);
     return dnrRules;
 }
 
@@ -234,7 +283,9 @@ export function selectPathRules(networkRules) {
  * Конвертирует path/pipe правила в DNR-формат.
  *
  * @param {string[]} rules - path/pipe правила
- * @param {number} startId - стартовый id
+ * @param {number} startId - стартовый id. Используется только для промежуточной
+ *   нумерации внутри функции. Финальные id присваиваются в limiter.js → applyQuotas,
+ *   где правила переиндексируются в диапазон ID_BASE_ADS (10000..).
  * @returns {Array} массив DNR-правил
  */
 export function pathRulesToDnr(rules, startId) {

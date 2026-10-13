@@ -5,10 +5,21 @@
      enabled: boolean
      whitelist: string[]
 
-   Диапазоны id:
-     ads.json:         10000..38023
-     exceptions.json:  100000..
-     динамические:     1..9999  (этот файл)
+   Диапазоны id (статический DNR + динамический DNR — Chrome
+   использует единое пространство id для статических и
+   динамических правил):
+
+     manual.json:       1..100
+     ads.json:          10000..38023
+     exceptions.json:   100000..
+     динамические:      200..9999  (этот файл)
+
+   Диапазон 101..199 оставлен в запасе на случай расширения
+   manual.json (например, до 150 правил).
+
+   ВАЖНО: если статический и динамический id пересекутся,
+   Chrome выдаст "Rule with id N does not have a unique ID"
+   и откажется применять правило.
    ============================================================ */
 
 const KEY_ENABLED = "enabled";
@@ -16,11 +27,13 @@ const KEY_WHITELIST = "whitelist";
 
 const RULESET_ADS = "ads_ruleset";
 const RULESET_EXCEPTIONS = "exceptions_ruleset";
-const RULESET_MANUAL = 'manual_ruleset'
+const RULESET_MANUAL = "manual_ruleset";
 const ALL_RULESETS = [RULESET_ADS, RULESET_EXCEPTIONS, RULESET_MANUAL];
 
-// Диапазон id динамических правил (whitelist)
-const DYN_RULE_ID_BASE = 1;
+// Диапазон id динамических правил (whitelist).
+// Начинается с 200, потому что 1..100 заняты manual.json,
+// 101..199 — запас.
+const DYN_RULE_ID_BASE = 200;
 const DYN_RULE_ID_MAX = 9999;
 
 // ------------------------------------------------------------
@@ -105,6 +118,10 @@ async function setRulesetsEnabled(enabled) {
 
 // ------------------------------------------------------------
 // DNR: динамические allowAllRequests для whitelist.
+//
+// Удаление и добавление — двумя отдельными вызовами
+// updateDynamicRules. Chrome не гарантирует порядок операций
+// внутри одного вызова.
 // ------------------------------------------------------------
 async function syncWhitelistRules(enabled) {
     const existing = await chrome.declarativeNetRequest.getDynamicRules();
@@ -157,7 +174,6 @@ let syncInFlight = null;
 
 export async function syncDnrState() {
     if (syncInFlight) {
-        // Уже идёт — ждём тот же промис, не запускаем второй
         return syncInFlight;
     }
 

@@ -12,11 +12,11 @@
 
    Зависимости:
    - state.currentSelectors (inject-css.js / domain-cosmetic.js)
-   - AD_TEXT_MARKERS (ad-markers.js)
+   - hideAdInElement (ad-markers.js)
    ============================================================ */
 
 function startObserver() {
-    if (state.currentSelectors.length === 0 && typeof AD_TEXT_MARKERS === "undefined") {
+    if (state.currentSelectors.length === 0 && typeof hideAdInElement === "undefined") {
         return;
     }
 
@@ -24,6 +24,16 @@ function startObserver() {
         const combinedSelector = state.currentSelectors.join(",");
 
         for (const mutation of mutations) {
+            if (mutation.type === "characterData") {
+                // Текст поменялся внутри существующего узла.
+                // Mail.ru может наполнять контейнер текстом, не
+                // вставляя новых элементов — addedNodes пустой,
+                // но текст появляется.
+                const parent = mutation.target.parentElement;
+                if (parent) checkNodeForMarkers(parent);
+                continue;
+            }
+
             for (const node of mutation.addedNodes) {
                 if (node.nodeType !== 1) continue;
 
@@ -40,11 +50,11 @@ function startObserver() {
                             });
                         }
                     } catch (e) {
-                        // Некоторые селекторы (например, с :has()) невалидны для matches().
+                        // Некоторые селекторы невалидны для matches().
                     }
                 }
 
-                // 2. Проверка по текстовым маркерам рекламы
+                // 2. Проверка по текстовым маркерам
                 checkNodeForMarkers(node);
             }
         }
@@ -52,38 +62,24 @@ function startObserver() {
 
     observer.observe(document.documentElement || document, {
         childList: true,
-        subtree: true
+        subtree: true,
+        characterData: true
     });
 
-    console.log("[erst-dev] MutationObserver started");
+    console.log("[erst_dev_adblocker] MutationObserver started");
 }
 
 // ------------------------------------------------------------
-// Проверка нового узла на текстовые маркеры рекламы.
-// Использует AD_TEXT_MARKERS из ad-markers.js.
+// Проверка узла на текстовые маркеры рекламы.
+// Использует hideAdInElement из ad-markers.js.
 // ------------------------------------------------------------
 function checkNodeForMarkers(node) {
-    if (typeof AD_TEXT_MARKERS === "undefined") return;
-    if (!node.querySelectorAll) return;
+    if (typeof hideAdInElement === "undefined") return;
+    if (!node || !node.querySelectorAll) return;
 
     const elements = [node, ...node.querySelectorAll("div, span, a")];
 
     for (const el of elements) {
-        for (const child of el.childNodes) {
-            if (child.nodeType !== Node.TEXT_NODE) continue;
-
-            const text = (child.textContent || "").trim().toLowerCase();
-            if (text.length === 0 || text.length > 30) continue;
-
-            if (AD_TEXT_MARKERS.includes(text)) {
-                let target = el;
-                for (let i = 0; i < 3 && target.parentElement; i++) {
-                    target = target.parentElement;
-                }
-                target.style.setProperty("display", "none", "important");
-                console.log(`[erst-dev] hid new ad marker: "${text}"`);
-                return;
-            }
-        }
+        hideAdInElement(el, "[erst_dev_adblocker] hid new ad marker:");
     }
 }

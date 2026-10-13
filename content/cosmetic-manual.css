@@ -20,6 +20,19 @@ div[class^="yandex_ad"],
     display: none !important;
 }
 
+/* ---------- Яндекс — РСЯ (карты, поиск, сервисы) ---------- */
+[id*="R-I-"],
+[data-r-i] {
+    display: none !important;
+}
+
+/* ---------- Яндекс — РСЯ (гарантийные показы на поиске) ---------- */
+[data-layout-part="cr"],
+[id^="advRsyaReact_"],
+[id^="advRsyaReact_rsya-guarantee"] {
+    display: none !important;
+}
+
 /* ---------- Google Publisher Tag ---------- */
 div[id^="div-gpt-ad"],
 div[id^="gpt-passback"] {

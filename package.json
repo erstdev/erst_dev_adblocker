@@ -10,6 +10,7 @@
     "convert": "node tools/convert.js",
     "build": "node tools/build-prod.js",
     "icons": "node tools/build-icons.js",
+    "screenshots": "node tools/resize-screenshots.js"
   },
   "devDependencies": {
     "@types/chrome": "^0.3.0",
