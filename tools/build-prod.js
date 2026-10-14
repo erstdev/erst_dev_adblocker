@@ -2,9 +2,10 @@
    Сборка расширения в ZIP для публикации.
 
    Что делает:
-   1. Читает версию из manifest.json.
-   2. Копирует в dist/ только те файлы, что нужны Chrome.
-   3. Упаковывает dist/ в ZIP-архив в корне проекта.
+   1. Проверяет, что все обязательные файлы существуют.
+   2. Читает версию из manifest.json.
+   3. Копирует в dist/ только те файлы, что нужны Chrome.
+   4. Упаковывает dist/ в ZIP-архив в корне проекта.
 
    Запуск: npm run build
    Результат: dist/ (распакованная сборка) + erst_dev_adblocker-<version>.zip
@@ -33,6 +34,50 @@ const INCLUDE = [
     "rules",
     "_locales"
 ];
+
+// Что ОБЯЗАТЕЛЬНО должно существовать до сборки.
+// Если чего-то нет — build падает с ошибкой, а не собирает
+// нерабочий ZIP.
+//
+// icons/* и rules/* генерируются командами npm run icons и npm run convert.
+// content/cosmetic.css генерируется npm run convert.
+const REQUIRED_FILES = [
+    "manifest.json",
+    "icons/icon16.png",
+    "icons/icon32.png",
+    "icons/icon48.png",
+    "icons/icon128.png",
+    "rules/ads.json",
+    "rules/exceptions.json",
+    "rules/manual.json",
+    "rules/cosmetic-map.json",
+    "rules/cosmetic-exclude.json",
+    "content/cosmetic.css",
+    "content/cosmetic-manual.css"
+];
+
+// ------------------------------------------------------------
+// Проверка обязательных файлов
+// ------------------------------------------------------------
+
+function checkRequiredFiles() {
+    const missing = [];
+    for (const file of REQUIRED_FILES) {
+        const fullPath = path.join(ROOT, file);
+        if (!fs.existsSync(fullPath)) {
+            missing.push(file);
+        }
+    }
+    if (missing.length > 0) {
+        console.error("[build] FATAL: missing required files:");
+        for (const f of missing) {
+            console.error(`  - ${f}`);
+        }
+        console.error("[build] Run: npm run convert && npm run icons");
+        process.exit(1);
+    }
+    console.log(`[build] required files present: ${REQUIRED_FILES.length}`);
+}
 
 // ------------------------------------------------------------
 // Утилиты
@@ -123,6 +168,8 @@ async function packZip(version) {
 // ------------------------------------------------------------
 
 async function main() {
+    checkRequiredFiles();
+
     const manifest = readManifest();
     console.log(`[build] building erst_dev_adblocker v${manifest.version}`);
 

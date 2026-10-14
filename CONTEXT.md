@@ -494,11 +494,6 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 
 ### Открытые задачи по сборке
 
-39. **`build-prod.js` не проверяет, что `convert` и `icons` выполнены до сборки.**
-  - Если пользователь запустит `npm run build` без `npm run convert`, в ZIP попадут старые/отсутствующие правила.
-  - Если без `npm run icons`, `icons/` пустой, Chrome не установит расширение.
-  - В README нужно указать порядок команд: `convert → icons → build`.
-
 41. **`build-prod.js` кладёт ZIP в корень проекта.**
   - Не в `dist/`, а в корень: `erst_dev_adblocker-1.1.0.zip`.
   - В README про сборку стоит указать: ZIP в корне, `dist/` — распакованная сборка.
@@ -545,6 +540,5 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 - Пункт 5: TypeScript / Prettier / ESLint.
 
 **Отложено без версии:**
-- Пункт 39: порядок команд в README.
 - Пункт 41: ZIP в корне.
 - Bundler (Vite/Rollup) если понадобится.
