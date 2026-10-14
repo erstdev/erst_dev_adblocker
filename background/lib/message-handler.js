@@ -27,10 +27,10 @@ import {
     getWhitelist, addToWhitelist, removeFromWhitelist,
     isWhitelisted
 } from "../../shared/storage.js";
+import { extractHostname } from "../../shared/utils.js";
 import {
     loadCosmeticMap,
     loadCosmeticExclude,
-    extractDomain,
     findSelectorsForDomain
 } from "./cosmetic-map.js";
 
@@ -97,7 +97,7 @@ async function handleGetDomainSelectors(msg, sendResponse) {
     if (whitelisted) { sendResponse({ selectors: [] }); return; }
 
     const map = await loadCosmeticMap();
-    const hostname = extractDomain(msg.url);
+    const hostname = extractHostname(msg.url);
     if (!hostname) { sendResponse({ selectors: [] }); return; }
 
     const selectors = findSelectorsForDomain(map, hostname);
@@ -112,7 +112,7 @@ async function handleGetDomainExclude(msg, sendResponse) {
     if (whitelisted) { sendResponse({ exclude: [] }); return; }
 
     const map = await loadCosmeticExclude();
-    const hostname = extractDomain(msg.url);
+    const hostname = extractHostname(msg.url);
     if (!hostname) { sendResponse({ exclude: [] }); return; }
 
     const exclude = findSelectorsForDomain(map, hostname);
@@ -123,7 +123,7 @@ async function handleGetState(msg, sendResponse) {
     const enabled = await getEnabled();
     const whitelist = await getWhitelist();
     let currentDomain = null;
-    if (msg.url) currentDomain = extractDomain(msg.url);
+    if (msg.url) currentDomain = extractHostname(msg.url);
     sendResponse({ enabled, whitelist, currentDomain });
 }
 

@@ -50,20 +50,6 @@ export async function loadCosmeticExclude() {
 }
 
 /**
- * Достаёт hostname из URL.
- *
- * @param {string} url
- * @returns {string|null} hostname или null при ошибке
- */
-export function extractDomain(url) {
-    try {
-        return new URL(url).hostname;
-    } catch {
-        return null;
-    }
-}
-
-/**
  * Ищет селекторы для конкретного hostname.
  * Учитывает поддомены: для "www.rbc.ru" вернёт селекторы
  * для "www.rbc.ru", "rbc.ru", "ru" (что найдётся в карте).

@@ -8,6 +8,9 @@ lists/
 
 # Сгенерированные файлы (генерируются конвертером)
 rules/ads.json
+rules/exceptions.json
+rules/cosmetic-exclude.json
+rules/cosmetic-map.json
 content/cosmetic.css
 
 # IDE

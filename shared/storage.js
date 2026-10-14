@@ -10,7 +10,7 @@
    динамических правил):
 
      manual.json:       1..100
-     ads.json:          10000..38023
+     ads.json:          10000..
      exceptions.json:   100000..
      динамические:      200..9999  (этот файл)
 
@@ -21,6 +21,8 @@
    Chrome выдаст "Rule with id N does not have a unique ID"
    и откажется применять правило.
    ============================================================ */
+
+import { extractHostname } from "./utils.js";
 
 const KEY_ENABLED = "enabled";
 const KEY_WHITELIST = "whitelist";
@@ -75,14 +77,6 @@ export async function removeFromWhitelist(domain) {
 // ------------------------------------------------------------
 // Утилиты
 // ------------------------------------------------------------
-export function extractHostname(url) {
-    try {
-        return new URL(url).hostname;
-    } catch {
-        return null;
-    }
-}
-
 export async function isWhitelisted(url) {
     const hostname = extractHostname(url);
     if (!hostname) return false;

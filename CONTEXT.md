@@ -505,11 +505,7 @@ npm run screenshots   # ресайз скриншотов до 1280×800
   - Нет `trim()` и `toLowerCase()`.
   - На практике домен приходит чистым из `extractDomain` в SW, но защиты в `storage.js` нет.
   - Мелочь, можно не править.
-
-28. **`extractHostname` (в `storage.js`) и `extractDomain` (в `cosmetic-map.js`) — дубликаты.**
-  - Обе делают одно и то же через `new URL(url).hostname`.
-  - Унификация отложена.
-
+  - 
 ### Открытые задачи по косметике и content scripts
 
 29. **Wildcard-ключи в `cosmetic-map.json` не матчатся кодом.**
@@ -517,12 +513,6 @@ npm run screenshots   # ресайз скриншотов до 1280×800
   - Ключи вида `"yandex.*"`, `"flashscore.*"`, `"tripadvisor.*"`, `"manomano.*"` в JSON есть, но не сработают.
   - Решения: (A) поддержать wildcard в коде, (B) вычищать wildcard-ключи в конвертере.
   - Не реализовано.
-
-30. **`cosmetic.css` дублирует часть ручной косметики.**
-  - В автогенерированном `cosmetic.css` в конце есть правила для `#yandex_ad`, `[id^="yandex_rtb"]`, `div[id^="AdFox_banner_"]`, `.reklama`, `noindex > div#promo` и т.п.
-  - Это дубликаты из `cosmetic-manual.css`.
-  - При перегенерации `cosmetic.css` дубликаты сохраняются.
-  - Не критично, но стоит отметить в доке.
 
 31. **`hideAdMarkers` вызывает `hideAdInElement` для всех `span, div, a` без throttle.**
   - Потенциально тяжёлая операция на больших страницах.
@@ -556,26 +546,12 @@ npm run screenshots   # ресайз скриншотов до 1280×800
   - Фактический путь — `background/lib/cosmetic-injector.js`.
   - Косметическая правка в комментарии.
 
-### Открытые задачи по доке (docs/)
-
-38. **`docs/02-MANIFEST.md` — неверное утверждение про `web_accessible_resources`.**
-  - В доке написано: «По умолчанию Chrome запрещает расширению читать свои файлы через fetch — нужно явно разрешить.»
-  - Это неверно для MV3 service worker: SW имеет полный доступ ко всем своим файлам по `chrome.runtime.getURL(...)` без WAR.
-  - WAR регулирует только доступ из веб-контекста (страницы, content script, iframe).
-  - Нужно заменить раздел: «`web_accessible_resources` не используется. `rules/cosmetic-map.json` читается только из service worker через `chrome.runtime.getURL`, для этого WAR не требуется.»
-  - Файл `docs/02-MANIFEST.md` не трогали при правках 1.1.0.
-
 ### Открытые задачи по сборке
 
 39. **`build-prod.js` не проверяет, что `convert` и `icons` выполнены до сборки.**
   - Если пользователь запустит `npm run build` без `npm run convert`, в ZIP попадут старые/отсутствующие правила.
   - Если без `npm run icons`, `icons/` пустой, Chrome не установит расширение.
   - В README нужно указать порядок команд: `convert → icons → build`.
-
-40. **`resize-screenshots.js` использует `fit: "cover"`.**
-  - Обрезает по центру, чтобы заполнить 16:10.
-  - Если исходник 4:3, обрежется верх/низ.
-  - В README про скриншоты стоит отметить, что исходники лучше делать в 16:10.
 
 41. **`build-prod.js` кладёт ZIP в корень проекта.**
   - Не в `dist/`, а в корень: `erst_dev_adblocker-1.1.0.zip`.
@@ -590,10 +566,6 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 ### Оставшиеся пункты из начального списка (53 из 53)
 
 Ниже — пункты, которые не вошли в разделы выше, потому что либо закрыты как неактуальные, либо не требуют действий.
-
-43. **`npm run screenshots` — сделано.** См. пункт 9.
-
-44. **`tabs` permission — сделано.** См. пункт 10.
 
 45. **`README.md` — обрывается на `npm run build`.** См. пункт 13.
 
@@ -631,9 +603,7 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 - Пункт 25: оптимизация `syncWhitelistRules`.
 - Пункт 26: `isWhitelisted` и TLD.
 - Пункт 27: нормализация домена.
-- Пункт 28: дубликаты `extractHostname` / `extractDomain`.
 - Пункт 29: wildcard-ключи в `cosmetic-map.json`.
-- Пункт 30: дубли в `cosmetic.css` и `cosmetic-manual.css`.
 - Пункт 31: throttle в `hideAdMarkers`.
 - Пункт 32: дублирование строк сообщений.
 - Пункт 33: `file://`, `ftp://` в `matches`.
@@ -641,9 +611,7 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 - Пункт 35: `#version-label v0.7`.
 - Пункт 36: `res.ok` в `toggleEnabled`.
 - Пункт 37: комментарий про путь в `service_worker.js`.
-- Пункт 38: `docs/02-MANIFEST.md` и WAR.
 - Пункт 39: порядок команд в README.
-- Пункт 40: `fit: "cover"` и скриншоты.
 - Пункт 41: ZIP в корне.
 - TypeScript.
 - Prettier.

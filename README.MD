@@ -36,7 +36,7 @@ npm run build
 
 ## Скрипты
 
-- `npm run convert` — конвертирует EasyList и RU AdList в формат DNR (`rules/ads.json`, `rules/exceptions.json`), генерирует `content/cosmetic.css` и `rules/cosmetic-map.json`.
+- `npm run convert` — конвертирует EasyList и RU AdList в формат DNR (`rules/ads.json`, `rules/exceptions.json`), генерирует `content/cosmetic.css`, `rules/cosmetic-map.json` и `rules/cosmetic-exclude.json`.
 - `npm run icons` — нарезает иконки из `icon-source.png` и `icon-source-small.png` в `icons/` (16/32/48/128 + `store-icon-128`).
 - `npm run build` — собирает ZIP для Chrome Web Store через `jszip`. Кладёт ZIP в корень, распакованную сборку — в `dist/`.
 - `npm run screenshots` — ресайзит PNG из `store-assets/raw/` до 1280×800 и кладёт в `store-assets/`. Для Chrome Web Store.
@@ -74,11 +74,12 @@ shared/                  — общий код
   messages.js            — типы сообщений
   storage.js             — chrome.storage + DNR-синхронизация
 
-rules/                   — DNR-правила
+rules/                   — DNR-правила и карты косметики
   ads.json               — блокирующие (генерируется)
   exceptions.json        — allow (генерируется)
   manual.json            — ручные правила (не перезаписывается)
   cosmetic-map.json      — domain-specific селекторы (генерируется)
+  cosmetic-exclude.json  — исключения #@# (генерируется)
 
 lists/                   — исходники EasyList и RU AdList (не в ZIP)
 tools/                   — Node.js: конвертер, сборка, иконки, скриншоты (не в ZIP)
@@ -87,7 +88,8 @@ tools/                   — Node.js: конвертер, сборка, икон
 ## Как это работает
 
 - **DNR (Declarative Net Request).** Три ruleset'а: `ads_ruleset`, `exceptions_ruleset`, `manual_ruleset`. Все три выключены в манифесте и включаются программно при старте service worker. Блокирующие правила — 28 500, allow — 1 094.
-- **Косметика.** Общий CSS (14 116 селекторов) вставляется через `chrome.scripting.insertCSS` при навигации. Domain-specific селекторы (29 515 для 12 510 доменов) отдаются content script через сообщение по текущему домену.
+- **Косметика.** Общий CSS (14 116 селекторов) вставляется через `chrome.scripting.insertCSS` при навигации. Domain-specific селекторы (29 512 для 12 510 доменов) отдаются content script через сообщение по текущему домену.
+- **Исключения косметики (`#@#`).** Отдельный файл `rules/cosmetic-exclude.json` (706 доменов, 872 селектора). Content script вставляет второй `<style>` с `display: revert !important`, который перекрывает скрытие по правилам EasyList.
 - **Whitelist.** Список доменов, где блокировка не работает. Реализован через динамические правила `allowAllRequests` с priority 100. Управляется из popup.
 - **Авто-скип видео.** Работает на YouTube (ускорение 16x + mute + клик + оверлей), VK Video и RuTube (клик по кнопке «Пропустить»).
 - **Text-based hiding.** Скрытие рекламных блоков по текстовым маркерам («реклама», «промо», «спонсор») и по структуре (разбитый лейбл Mail.ru).
@@ -97,6 +99,13 @@ tools/                   — Node.js: конвертер, сборка, икон
 - 30 000 статических DNR-правил суммарно. У нас 29 594 (98.6%).
 - 5 000 динамических DNR-правил. Используется под whitelist (диапазон id 200..9999).
 - id статических и динамических правил должны быть уникальны в общем пространстве. Диапазоны: `manual.json` — 1..100, dynamic — 200..9999, `ads.json` — 10000+, `exceptions.json` — 100000+. Проверяется в `limiter.js` → `assertIdRanges()`.
+
+## Известные ограничения
+
+- Не поддерживаются uBlock-специфичные селекторы `:has-text(...)` (287 правил в EasyList). Реализация требует отдельного content-script движка, отложена в 1.2.0.
+- Не поддерживается extended-синтаксис AdGuard/uBlock/ABP (`:style()`, `:remove()`, `:upward()`, `:matches-path()`, `:matches-css()`, `:matches-attr()`, `:contains()`, `:xpath()`, `:-abp-properties()`, `+js()`). Эти правила отбрасываются на этапе конвертации.
+- Content scripts не выполняются в iframe (`all_frames` не указан).
+- Расширение не работает на `file://`, `ftp://` и внутренних страницах браузера.
 
 ## Документация
 
