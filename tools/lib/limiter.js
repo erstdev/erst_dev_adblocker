@@ -36,17 +36,38 @@ import {
 } from "./config.js";
 import { capRules } from "./utils.js";
 
-// Диапазон id динамических правил (whitelist).
-// Дублирует DYN_RULE_ID_MAX из shared/storage.js.
-// ⚠️ Если значение изменится в storage.js — синхронизировать здесь.
+// Диапазоны id, которые нужно держать раздельно.
+// Chrome использует единое пространство id для статических
+// (rules/*.json) и динамических (whitelist, см. shared/storage.js)
+// правил. Пересечение = "Rule with id N does not have a unique ID".
+//
+// ⚠️ Значения дублируют константы из shared/storage.js
+//    (DYN_RULE_ID_BASE = 200, DYN_RULE_ID_MAX = 9999).
+//    При изменении там — синхронизировать здесь.
+//
+// Диапазоны:
+//   manual.json:       1..100   (запас 101..199)
+//   dynamic (whitelist): 200..9999
+//   ads.json:          10000..
+//   exceptions.json:   100000..
+const DYN_RULE_ID_BASE = 200;
 const DYN_RULE_ID_MAX = 9999;
+const MANUAL_ID_MAX = 199;
 
 /**
- * Проверяет, что диапазоны id не пересекаются.
+ * Проверяет, что все диапазоны id раздельны и не пересекаются.
  *
- * Бросает Error, если:
- * - ads.json дорастёт до ID_BASE_EXCEPTIONS,
- * - exceptions.json начнётся не после DYN_RULE_ID_MAX.
+ * Проверяются все пары:
+ *   manual    vs dynamic
+ *   manual    vs ads
+ *   dynamic   vs ads
+ *   ads       vs exceptions
+ *   dynamic   vs exceptions
+ *   manual    vs exceptions
+ *
+ * Бросает Error, если хотя бы одна пара пересекается.
+ * Лучше упасть на этапе конвертации, чем получить расширение,
+ * которое Chrome откажется загружать.
  *
  * @param {number} adsCount - число блокирующих правил
  * @param {number} exceptionsCount - число allow-правил
@@ -56,7 +77,25 @@ function assertIdRanges(adsCount, exceptionsCount) {
     const minExcId = ID_BASE_EXCEPTIONS;
     const maxExcId = exceptionsCount > 0 ? ID_BASE_EXCEPTIONS + exceptionsCount - 1 : ID_BASE_EXCEPTIONS - 1;
 
-    // ads vs exceptions
+    // manual (1..MANUAL_ID_MAX) vs dynamic (DYN_RULE_ID_BASE..DYN_RULE_ID_MAX)
+    if (MANUAL_ID_MAX >= DYN_RULE_ID_BASE) {
+        throw new Error(
+            `DNR id range conflict: manual.json ends at id ${MANUAL_ID_MAX}, ` +
+            `dynamic whitelist starts at id ${DYN_RULE_ID_BASE}. ` +
+            `Подними DYN_RULE_ID_BASE или уменьши MANUAL_ID_MAX.`
+        );
+    }
+
+    // dynamic (DYN_RULE_ID_BASE..DYN_RULE_ID_MAX) vs ads (ID_BASE_ADS..)
+    if (DYN_RULE_ID_MAX >= ID_BASE_ADS) {
+        throw new Error(
+            `DNR id range conflict: dynamic whitelist ends at id ${DYN_RULE_ID_MAX}, ` +
+            `ads.json starts at id ${ID_BASE_ADS}. ` +
+            `Подними ID_BASE_ADS или уменьши DYN_RULE_ID_MAX.`
+        );
+    }
+
+    // ads (ID_BASE_ADS..) vs exceptions (ID_BASE_EXCEPTIONS..)
     if (maxAdsId >= minExcId) {
         throw new Error(
             `DNR id range conflict: ads.json ends at id ${maxAdsId}, ` +
@@ -65,18 +104,37 @@ function assertIdRanges(adsCount, exceptionsCount) {
         );
     }
 
-    // exceptions vs dynamic (whitelist)
+    // dynamic vs exceptions (на случай, если ID_BASE_EXCEPTIONS опустят ниже DYN_RULE_ID_MAX)
     if (minExcId <= DYN_RULE_ID_MAX) {
         throw new Error(
             `DNR id range conflict: exceptions.json starts at id ${minExcId}, ` +
-            `dynamic whitelist rules go up to id ${DYN_RULE_ID_MAX}. ` +
+            `dynamic whitelist ends at id ${DYN_RULE_ID_MAX}. ` +
             `Подними ID_BASE_EXCEPTIONS.`
         );
     }
 
+    // manual vs ads (на случай, если ID_BASE_ADS опустят ниже MANUAL_ID_MAX)
+    if (MANUAL_ID_MAX >= ID_BASE_ADS) {
+        throw new Error(
+            `DNR id range conflict: manual.json ends at id ${MANUAL_ID_MAX}, ` +
+            `ads.json starts at id ${ID_BASE_ADS}. ` +
+            `Подними ID_BASE_ADS или уменьши MANUAL_ID_MAX.`
+        );
+    }
+
+    // manual vs exceptions (на случай, если ID_BASE_EXCEPTIONS опустят ниже MANUAL_ID_MAX)
+    if (MANUAL_ID_MAX >= minExcId) {
+        throw new Error(
+            `DNR id range conflict: manual.json ends at id ${MANUAL_ID_MAX}, ` +
+            `exceptions.json starts at id ${minExcId}. ` +
+            `Подними ID_BASE_EXCEPTIONS или уменьши MANUAL_ID_MAX.`
+        );
+    }
+
+    console.log(`[id-check] manual ids:     1..${MANUAL_ID_MAX}`);
+    console.log(`[id-check] dynamic ids:    ${DYN_RULE_ID_BASE}..${DYN_RULE_ID_MAX} (shared/storage.js)`);
     console.log(`[id-check] ads ids:        ${ID_BASE_ADS}..${maxAdsId}`);
     console.log(`[id-check] exceptions ids: ${minExcId}..${maxExcId}`);
-    console.log(`[id-check] dynamic ids:    200..${DYN_RULE_ID_MAX} (shared/storage.js)`);
 }
 
 /**
