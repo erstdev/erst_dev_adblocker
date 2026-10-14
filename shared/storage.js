@@ -39,6 +39,26 @@ const DYN_RULE_ID_BASE = 200;
 const DYN_RULE_ID_MAX = 9999;
 
 // ------------------------------------------------------------
+// Нормализация домена
+//
+// Приводит домен к виду, который хранится в whitelist:
+// обрезает пробелы, приводит к lowercase.
+// Возвращает null, если после нормализации строка пустая
+// или не является строкой.
+//
+// Зачем: whitelist — это множество точных строк, и isWhitelisted
+// сравнивает их через list.includes(). Если в whitelist попадёт
+// "Example.com " (с пробелом или в верхнем регистре), сравнение
+// не сработает.
+// ------------------------------------------------------------
+function normalizeDomain(domain) {
+    if (typeof domain !== "string") return null;
+    const trimmed = domain.trim().toLowerCase();
+    if (!trimmed) return null;
+    return trimmed;
+}
+
+// ------------------------------------------------------------
 // Storage: enabled
 // ------------------------------------------------------------
 export async function getEnabled() {
@@ -59,17 +79,23 @@ export async function getWhitelist() {
 }
 
 export async function addToWhitelist(domain) {
+    const clean = normalizeDomain(domain);
+    if (!clean) return await getWhitelist();
+
     const list = await getWhitelist();
-    if (!list.includes(domain)) {
-        list.push(domain);
+    if (!list.includes(clean)) {
+        list.push(clean);
         await chrome.storage.local.set({ [KEY_WHITELIST]: list });
     }
     return list;
 }
 
 export async function removeFromWhitelist(domain) {
+    const clean = normalizeDomain(domain);
     let list = await getWhitelist();
-    list = list.filter((d) => d !== domain);
+    if (clean) {
+        list = list.filter((d) => d !== clean);
+    }
     await chrome.storage.local.set({ [KEY_WHITELIST]: list });
     return list;
 }
