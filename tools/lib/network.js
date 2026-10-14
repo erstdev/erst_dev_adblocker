@@ -12,6 +12,20 @@
 
    Каждый этап: select* (отбор из общего списка) + *ToDnr (конвертация).
 
+   ВАЖНО про пересечения этапов:
+   - selectSimpleRules берёт только ||...^ без $.
+   - selectPathRules берёт | или / без || и без $.
+     Проверка !startsWith("||") обязательна: ||domain^ тоже начинается
+     с |, и без неё правило попадает И в simple, И в path, создавая
+     два одинаковых DNR-правила. Это съедает квоту и грузит движок.
+   - selectModifierRules берёт всё с $, независимо от префикса.
+     simple и path явно исключают $, чтобы не пересекаться с этапом 2.
+
+   Известное ограничение:
+   - Правила вида ||example.com/path (начинаются с ||, не заканчиваются
+     на ^, без $) не попадают ни в один этап и теряются. В EasyList +
+     RU AdList таких несколько сотен. Осознанное ограничение.
+
    id: внутри функций id присваиваются с 1 и ни на что не влияют.
    Финальные id выдаёт limiter.js → applyQuotas: ads.json → 10000+,
    exceptions.json → 100000+.
@@ -31,15 +45,20 @@ import { isAsciiOnly } from "./utils.js";
 /**
  * Отбирает из сетевых правил простые ||domain^ и убирает дубликаты.
  *
- * Простое правило = начинается с || и заканчивается ^.
+ * Простое правило = начинается с ||, заканчивается ^, без $.
  * Пример: "||doubleclick.net^"
+ *
+ * Условие !includes("$") добавлено явно: сейчас правило
+ * ||example.com^$script не попадает сюда из-за endsWith("^"),
+ * но при изменении формата модификаторов (например, $script,domain=a^)
+ * пересечение стало бы возможным. Явная проверка защищает.
  *
  * @param {string[]} networkRules - все сетевые правила
  * @returns {string[]} уникальные простые правила
  */
 export function selectSimpleRules(networkRules) {
     const simple = networkRules.filter(
-        (r) => r.startsWith("||") && r.endsWith("^")
+        (r) => r.startsWith("||") && r.endsWith("^") && !r.includes("$")
     );
     const unique = [...new Set(simple)];
     console.log(`\n[stage 1] simple ||domain^ (before dedup): ${simple.length}`);
@@ -254,14 +273,21 @@ export function modifierRulesToDnr(rules) {
 // ============================================================
 
 /**
- * Отбирает правила, начинающиеся с | или / (без $).
+ * Отбирает правила, начинающиеся с | или / (без || и без $).
+ *
+ * Условие !startsWith("||") обязательно: ||domain^ тоже начинается
+ * с |, и без этой проверки правило попадает и в simple (этап 1),
+ * и в path (этап 3), создавая два одинаковых DNR-правила.
  *
  * @param {string[]} networkRules - все сетевые правила
  * @returns {string[]} уникальные path/pipe правила
  */
 export function selectPathRules(networkRules) {
     const paths = networkRules.filter(
-        (r) => (r.startsWith("|") || r.startsWith("/")) && !r.includes("$")
+        (r) =>
+            (r.startsWith("|") || r.startsWith("/")) &&
+            !r.startsWith("||") &&
+            !r.includes("$")
     );
     const unique = [...new Set(paths)];
     console.log(`\n[stage 3] path/pipe rules (before dedup): ${paths.length}`);

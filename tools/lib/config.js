@@ -23,10 +23,21 @@ export const OUT_COSMETIC_EXCLUDE = "rules/cosmetic-exclude.json";
 // Лимит Chrome на статические DNR-правила (см. README → «Лимиты Chrome»)
 export const MAX_DNR_RULES = 30000;
 
-// Квоты по этапам (сумма должна быть <= MAX_DNR_RULES)
-export const QUOTA_STAGE_2 = 5000;
-export const QUOTA_STAGE_3 = 15000;
-export const QUOTA_STAGE_1 = 8500;
+// Квоты по этапам (сумма должна быть <= MAX_DNR_RULES).
+//
+// Пересчитаны после снятия дублирования simple↔path:
+//   - этап 3 (path) реально генерирует ~600 правил, квота 15000
+//     была избыточной и простаивала.
+//   - этап 1 (simple) реально генерирует ~50000 правил, квота 8500
+//     резала 83% из них.
+//
+// Новое распределение отдаёт неиспользуемые слоты этапа 3
+// в этап 1 (наибольший дефицит) и этап 2 (небольшой запас).
+//
+// Ожидаемый итог: ~28100 блокирующих + ~1100 allow = ~29200 из 30000.
+export const QUOTA_STAGE_2 = 5200;
+export const QUOTA_STAGE_3 = 1000;
+export const QUOTA_STAGE_1 = 22300;
 export const QUOTA_EXCEPTIONS = 1500;
 
 // Диапазоны id.
