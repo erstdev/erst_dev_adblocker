@@ -100,9 +100,20 @@ export async function removeFromWhitelist(domain) {
     return list;
 }
 
-// ------------------------------------------------------------
-// Утилиты
-// ------------------------------------------------------------
+/**
+ * Проверяет, находится ли URL в whitelist.
+ *
+ * Учитывает поддомены: для www.example.com проверяет
+ * www.example.com, example.com, com.
+ *
+ * TLD (com, ru, ...) матчится намеренно — это позволяет отключить
+ * блокировку на всех сайтах зоны, если пользователь так решит.
+ * Через popup добавить TLD нельзя (он всегда присылает полный hostname),
+ * только вручную через storage или импорт.
+ *
+ * @param {string} url
+ * @returns {Promise<boolean>}
+ */
 export async function isWhitelisted(url) {
     const hostname = extractHostname(url);
     if (!hostname) return false;

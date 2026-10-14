@@ -490,56 +490,7 @@ npm run screenshots   # ресайз скриншотов до 1280×800
   - `JSON.stringify(data, null, 2)` даёт читаемые файлы для отладки.
   - Размер ZIP не критичен: Chrome принимает до 2 ГБ, `compressionOptions: { level: 9 }` в `build-prod.js` уже жмёт.
   - `ads.json` ~4–5 МБ → в ZIP ~500 КБ–1 МБ.
-
-25. **`syncWhitelistRules` пересоздаёт все dynamic-правила при каждом изменении storage.**
-  - Не оптимизировано: при переключении `enabled` или изменении whitelist удаляются все правила и добавляются заново.
-  - Не критично: у пользователя обычно 5–20 доменов в whitelist.
-  - Оптимизация отложена.
-
-26. **`isWhitelisted` проверяет TLD.**
-  - Для `www.example.com` проверяются `www.example.com`, `example.com`, `com`.
-  - Если пользователь внесёт `com` — блокировка отключится на всём.
-  - Поведение осознанное, но не задокументировано в README/PRIVACY.
-  - 
-### Открытые задачи по косметике и content scripts
-
-29. **Wildcard-ключи в `cosmetic-map.json` не матчатся кодом.**
-  - `findSelectorsForDomain` (`background/lib/cosmetic-map.js`) делает `parts.slice(i).join(".")`, то есть для `yandex.ru` получает `yandex.ru` и `ru`, но не `yandex.*`.
-  - Ключи вида `"yandex.*"`, `"flashscore.*"`, `"tripadvisor.*"`, `"manomano.*"` в JSON есть, но не сработают.
-  - Решения: (A) поддержать wildcard в коде, (B) вычищать wildcard-ключи в конвертере.
-  - Не реализовано.
-
-31. **`hideAdMarkers` вызывает `hideAdInElement` для всех `span, div, a` без throttle.**
-  - Потенциально тяжёлая операция на больших страницах.
-  - Не оптимизировано.
-  - Возможное решение: `requestIdleCallback` или ограничение по видимой части DOM.
-
-32. **Строки типов сообщений дублируются.**
-  - `shared/messages.js` экспортирует `MSG.CS_GET_DOMAIN_SELECTORS = "cs→sw:getDomainSelectors"`.
-  - `content/lib/inject-css.js` (content script, не ESM) хардкодит ту же строку `const MSG_TYPE = "cs→sw:getDomainSelectors"`.
-  - Ограничение MV3, но строки надо менять синхронно в двух местах.
-  - Не задокументировано.
-
-33. **`content_scripts.matches: ["*://*/*"]` не покрывает `file://`, `ftp://`.**
-  - На `file://` и внутренних страницах расширение не работает.
-  - Осознанное решение, но не задокументировано.
-
-34. **`all_frames` не указан в манифесте.**
-  - Content scripts не выполняются в iframe.
-  - Осознанное решение (iframe-реклама блокируется DNR), но не задокументировано.
-
-35. **Popup `#version-label` хардкодит `v0.7` в HTML.**
-  - `loadVersion()` перезаписывает его из манифеста при загрузке.
-  - Косметическая правка: заменить на `v…` или пустую строку.
-  - Не критично.
-
-36. **`toggleEnabled` не проверяет `res.ok` от SW.**
-  - Если `setEnabled` упадёт, UI покажет новое состояние, а storage останется старым.
-  - Мелочь, можно не править.
-
-37. **`service_worker.js`: комментарий упоминает `lib/cosmetic-injector.js`.**
-  - Фактический путь — `background/lib/cosmetic-injector.js`.
-  - Косметическая правка в комментарии.
+  -
 
 ### Открытые задачи по сборке
 
@@ -594,17 +545,6 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 - Пункт 5: TypeScript / Prettier / ESLint.
 
 **Отложено без версии:**
-
-- Пункт 25: оптимизация `syncWhitelistRules`.
-- Пункт 26: `isWhitelisted` и TLD.
-- Пункт 29: wildcard-ключи в `cosmetic-map.json`.
-- Пункт 31: throttle в `hideAdMarkers`.
-- Пункт 32: дублирование строк сообщений.
-- Пункт 33: `file://`, `ftp://` в `matches`.
-- Пункт 34: `all_frames`.
-- Пункт 35: `#version-label v0.7`.
-- Пункт 36: `res.ok` в `toggleEnabled`.
-- Пункт 37: комментарий про путь в `service_worker.js`.
 - Пункт 39: порядок команд в README.
 - Пункт 41: ZIP в корне.
 - Bundler (Vite/Rollup) если понадобится.

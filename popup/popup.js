@@ -120,42 +120,62 @@ async function reloadActiveTab() {
 // ------------------------------------------------------------
 
 async function toggleEnabled() {
-    const checked = getElementById("enabled-toggle").checked;
-    getElementById("toggle-label").textContent = checked ? "Включено" : "Выключено";
+    const toggle = getElementById("enabled-toggle");
+    const label = getElementById("toggle-label");
+    const checked = toggle.checked;
 
-    await chrome.runtime.sendMessage({
-        type: MSG.POPUP_SET_ENABLED,
-        value: checked
-    });
+    try {
+        const res = await chrome.runtime.sendMessage({
+            type: MSG.POPUP_SET_ENABLED,
+            value: checked
+        });
 
-    showReloadButton();
+        if (!res || !res.ok) {
+            throw new Error("setEnabled returned not ok");
+        }
+
+        label.textContent = checked ? "Включено" : "Выключено";
+        showReloadButton();
+    } catch (e) {
+        console.error("toggleEnabled failed:", e);
+        // Откатываем UI в исходное состояние
+        toggle.checked = !checked;
+    }
 }
 
 async function addCurrent() {
     if (!currentDomain) return;
 
-    const res = await chrome.runtime.sendMessage({
-        type: MSG.POPUP_WHITELIST_ADD,
-        domain: currentDomain
-    });
+    try {
+        const res = await chrome.runtime.sendMessage({
+            type: MSG.POPUP_WHITELIST_ADD,
+            domain: currentDomain
+        });
 
-    if (res?.ok) {
-        renderWhitelist(res.whitelist);
-        updateAddButton(res.whitelist);
-        showReloadButton();
+        if (res?.ok) {
+            renderWhitelist(res.whitelist);
+            updateAddButton(res.whitelist);
+            showReloadButton();
+        }
+    } catch (e) {
+        console.error("addCurrent failed:", e);
     }
 }
 
 async function removeDomain(domain) {
-    const res = await chrome.runtime.sendMessage({
-        type: MSG.POPUP_WHITELIST_REMOVE,
-        domain
-    });
+    try {
+        const res = await chrome.runtime.sendMessage({
+            type: MSG.POPUP_WHITELIST_REMOVE,
+            domain
+        });
 
-    if (res?.ok) {
-        renderWhitelist(res.whitelist);
-        updateAddButton(res.whitelist);
-        showReloadButton();
+        if (res?.ok) {
+            renderWhitelist(res.whitelist);
+            updateAddButton(res.whitelist);
+            showReloadButton();
+        }
+    } catch (e) {
+        console.error("removeDomain failed:", e);
     }
 }
 

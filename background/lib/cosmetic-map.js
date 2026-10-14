@@ -5,7 +5,7 @@
    - один раз загружает rules/cosmetic-map.json в память
    - один раз загружает rules/cosmetic-exclude.json в память
    - по hostname находит все подходящие селекторы (учитывая
-     поддомены: для www.rbc.ru проверит www.rbc.ru, rbc.ru, ru)
+     поддомены и wildcard-ключи)
 
    Кто зовёт:
    - message-handler.js при запросе от content script
@@ -51,8 +51,15 @@ export async function loadCosmeticExclude() {
 
 /**
  * Ищет селекторы для конкретного hostname.
- * Учитывает поддомены: для "www.rbc.ru" вернёт селекторы
- * для "www.rbc.ru", "rbc.ru", "ru" (что найдётся в карте).
+ *
+ * Учитывает:
+ * - поддомены: для "www.rbc.ru" проверяет www.rbc.ru, rbc.ru, ru.
+ * - однозвенный wildcard: для "yandex.ru" дополнительно проверяет "yandex.*".
+ *
+ * ВАЖНО: wildcard-кандидаты собираются в отдельный массив,
+ * потом конкатенируются. Мутировать candidates во время for...of
+ * нельзя — это приводит к бесконечному циклу (каждый новый
+ * wildcard "rbc.*" породит "rbc.*.*" и так далее).
  *
  * @param {Object} map - карта domain → [selectors]
  * @param {string} hostname
@@ -60,13 +67,27 @@ export async function loadCosmeticExclude() {
  */
 export function findSelectorsForDomain(map, hostname) {
     const parts = hostname.split(".");
+
+    // Базовые кандидаты: "www.rbc.ru", "rbc.ru", "ru".
     const candidates = [];
     for (let i = 0; i < parts.length; i++) {
         candidates.push(parts.slice(i).join("."));
     }
 
-    const result = new Set();
+    // Wildcard-кандидаты: "www.rbc.*", "rbc.*".
+    // Собираем в ОТДЕЛЬНЫЙ массив, чтобы не мутировать candidates.
+    const wildcards = [];
     for (const c of candidates) {
+        const lastDot = c.lastIndexOf(".");
+        if (lastDot !== -1) {
+            wildcards.push(c.slice(0, lastDot) + ".*");
+        }
+    }
+
+    const all = candidates.concat(wildcards);
+
+    const result = new Set();
+    for (const c of all) {
         const list = map[c];
         if (list) for (const s of list) result.add(s);
     }

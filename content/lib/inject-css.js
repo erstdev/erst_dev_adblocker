@@ -28,6 +28,10 @@
 
 const STYLE_ID = "erst-domain-cosmetic";
 const EXCLUDE_STYLE_ID = "erst-domain-exclude";
+
+// ⚠️ Типы сообщений дублируют shared/messages.js → MSG.CS_GET_DOMAIN_SELECTORS
+// и MSG.CS_GET_DOMAIN_EXCLUDE. Content scripts не поддерживают ESM,
+// поэтому import невозможен. При изменении типа — обновить здесь И в shared/messages.js.
 const MSG_GET_SELECTORS = "cs→sw:getDomainSelectors";
 const MSG_GET_EXCLUDE = "cs→sw:getDomainExclude";
 

@@ -13,6 +13,11 @@ export const DIR = {
     CS_TO_SW:   "cs→sw",
 };
 
+/*
+   ⚠️ Типы сообщений дублируются в content/lib/inject-css.js
+   (content scripts не поддерживают ESM).
+   При изменении строк — обновить здесь И в inject-css.js.
+*/
 export const MSG = {
     // content script → service worker
     CS_GET_DOMAIN_SELECTORS: `${DIR.CS_TO_SW}:getDomainSelectors`,
