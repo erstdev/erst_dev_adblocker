@@ -378,165 +378,27 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 
 ### Отложено на 1.2.0
 
-1. **Поддержка `#@#` (исключения косметики).**
-  - Сейчас `cosmetic.js` отбрасывает ~539 правил `#@#`.
-  - Из-за этого возможны ложные срабатывания: если EasyList запрещает скрывать селектор на конкретном домене, мы это игнорируем.
-  - Полное решение: отдельный файл `rules/cosmetic-exclude.json`, отдача исключений через SW, отдельный `<style>` в content script с `display: revert !important`.
-  - Оценка работы — 2–3 часа.
-  - Затрагивает: `tools/lib/cosmetic.js`, `tools/convert.js`, `tools/lib/config.js`, `shared/messages.js`, `background/lib/message-handler.js`, `content/lib/inject-css.js`.
-
-2. **Поддержка `:has-text(...)` (uBlock).**
+1. **Поддержка `:has-text(...)` (uBlock).**
   - Сейчас ~287 правил в `easylist.txt` с `#?#` и `:has-text(...)` не обрабатываются: `classifier.js` кладёт их в `network`, `network.js` не берёт, в выходные файлы они не попадают.
   - Реализовать: парсинг `:has-text`, обход DOM, скрытие подходящих элементов.
   - Пока — известное ограничение, не задокументировано в README/CHANGELOG.
 
-3. **Разделение DNR-набора на core/extra.**
+2. **Разделение DNR-набора на core/extra.**
   - После конвертации `$domain=` в `initiatorDomains` (1.1.0) общее число правил выросло до 29 594 из 30 000 (98.6% лимита Chrome).
   - Следующее крупное обновление EasyList/RU AdList упрётся в лимит, и `capRules` начнёт подрезать этапы.
   - Решение: разделить статические правила на два набора: `core` (всегда включён) и `extra` (включается программно). Тогда основной набор будет меньше и не будет упираться в лимит.
 
-4. **Порт на Firefox.**
+3. **Порт на Firefox.**
   - MV3 в Firefox отличается: `browser.*` вместо `chrome.*`, `declarativeNetRequest` с ограничениями, `webNavigation` не полностью.
   - Требует отдельной ветки и тестирования.
 
-5. **TypeScript, Prettier, ESLint.**
+4. **TypeScript, Prettier, ESLint.**
   - Миграция поэтапная: сначала ESLint на текущий JS, потом TypeScript.
   - Bundler (Vite/Rollup) — если понадобится после миграции.
 
-### Открытые задачи по доке и публикации
-
-6. **`description` в манифесте — сделано.**
-  - Решено через i18n: `_locales/en/messages.json` и `_locales/ru/messages.json`, в манифесте `__MSG_appName__` и `__MSG_appDescription__`, `default_locale: "en"`.
-  - Английский: `Ad blocker for Chromium browsers. Network filtering, cosmetic rules, video ad skip, whitelist.`
-  - Русский: `Блокировщик рекламы для браузеров на Chromium: DNR, косметика, авто-скип видео, белый список.`
-
-7. **`web_accessible_resources` — сделано.**
-  - Удалён из манифеста.
-  - Причина: `rules/cosmetic-map.json` читается только из service worker через `chrome.runtime.getURL`, WAR для этого не требуется.
-
-8. **`minimum_chrome_version` — сделано.**
-  - Добавлено `"minimum_chrome_version": "105"` в манифест.
-  - Причина: `:has()` в CSS (Chrome 105+), `allowAllRequests` в DNR (Chrome 96+).
-
-9. **`npm run screenshots` — сделано.**
-  - Добавлено `"screenshots": "node tools/resize-screenshots.js"` в `package.json`.
-
-10. **`tabs` → `activeTab` — сделано.**
-  - В манифесте `tabs` заменён на `activeTab`.
-  - Причина: доступ к `tab.url` только после клика по иконке расширения; CWS-ревью чище.
-
-11. **CHANGELOG 1.1.0 — сделано.**
-  - Дополнен всеми правками 1.1.0: `hideAdInElement`, `isRotatedAdLabel`, `findRotatedContainer`, `cosmetic-injector.js`, `FORBIDDEN_HOSTS`, `handleCommitted`, `syncWhitelistRules`, i18n, `minimum_chrome_version`, `activeTab`, удаление WAR, `npm run screenshots`, фильтр extended CSS.
-  - Badge перенесён из `[1.0.0] Added` в `[1.1.0] Removed`.
-  - `[0.0.0]` удалён.
-  - Числа в `[1.0.0]` уточнены: 28 024 / 501 / 14 116 / 31 310 / 12 832.
-
-12. **Формат CHANGELOG — оставлено как есть.**
-  - Секция `Technical` не по Keep a Changelog, но оставлена как осознанное отклонение.
-  - `[Unreleased] — 1.1.0` — при публикации заменить на `[1.1.0] — YYYY-MM-DD`.
-
-13. **README.md — обрывается на `npm run build`.**
-  - Дописать: описание команд после сборки, структуру проекта, ссылку на `docs/`, порядок команд (`convert → icons → build`), как загрузить unpacked в Chrome.
-  - Уточнить: `Chrome 105+` в README, но `minimum_chrome_version` в манифесте уже есть — согласовано.
-  - Добавить `npm run screenshots` в список команд.
-
-14. **PRIVACY.md — правки после изменений в манифесте.**
-  - Заменить `tabs` на `activeTab` в разделе «Разрешения».
-  - Уточнить формулировку: `activeTab` используется для чтения `tab.url` активной вкладки после открытия popup и для перезагрузки активной вкладки.
-  - Убрать из PRIVACY упоминание `web_accessible_resources` (если было) — WAR больше нет.
-  - Добавить ссылку на GitHub Pages: `https://erstdev.github.io/erst_dev_adblocker_privacy/`.
-  - Уточнить, что `lists/*.txt` не попадают в ZIP, в архив идут только сгенерированные `rules/*.json` и `content/cosmetic.css`.
-  - Проверить дату: 28 сентября (в PRIVACY) vs 29 сентября (релиз 1.0.0 в CHANGELOG).
-
-15. **CONTEXT.md — эта правка.**
-  - Файл переписан, все противоречия убраны, раздел «Работы» добавлен в конец.
-
-### Открытые задачи по коду
-
-16. **Фильтр extended-синтаксиса в `cosmetic.js` — сделано.**
-  - Добавлен массив `EXTENDED_MARKERS` и функция `isExtendedSelector`.
-  - Отфильтровано 1 135 правил, domain-map уменьшилась с 12 832 до 12 510 доменов, число domain-specific селекторов — с 31 310 до 29 515.
-
-17. **`+js(...)` без `##` — закрыто как неактуальное.**
-  - Проверка `grep` показала 0 совпадений в `easylist.txt` и `adguard-russian.txt`.
-  - В текущих списках таких строк нет, проблема теоретическая.
-
-18. **`#?#` / `:has-text(...)` — закрыто, отложено в 1.2.0.**
-  - См. пункт 1 в разделе «Отложено на 1.2.0».
-  - В текущих списках 287 правил с `#?#` в `easylist.txt` и 1 (закомментированное) в `adguard-russian.txt`.
-
-19. **`#@#` (исключения косметики) — закрыто, отложено в 1.2.0.**
-  - См. пункт 1 в разделе «Отложено на 1.2.0».
-
-20. **Проверки диапазонов id в `limiter.js` — сделано.**
-  - Добавлена функция `assertIdRanges(adsCount, exceptionsCount)`.
-  - Бросает ошибку при пересечении `ads.json` и `exceptions.json`, а также при пересечении с dynamic-диапазоном (200..9999).
-  - Логирует `[id-check] ads ids: …`, `[id-check] exceptions ids: …`, `[id-check] dynamic ids: …`.
-
-21. **`$domain=` → `initiatorDomains` — сделано.**
-  - Реализовано в `parseModifiers` (`tools/lib/network.js`).
-  - По итогам 1.1.0: 596 правил Этапа 2 получили `domain=`, из них 428 с `initiatorDomains`, 87 с `excludedInitiatorDomains`, остальные — смешанные.
-  - `exceptions.js` использует тот же `parseModifiers`, allow-правила с `domain=` тоже заработали (501 → 1 094).
-
-22. **`capRules` обрезка — оставлено как есть.**
-  - `slice(0, max)` сохраняет порядок чтения EasyList. Гарантии иерархической сортировки нет, но критерия «важности» правила у нас нет. См. раздел «Лимиты и квоты».
-
-23. **`startId` в `convert.js` — отложено.**
-  - Параметр `startId` в `modifierRulesToDnr`, `pathRulesToDnr`, `exceptionRulesToDnr` фактически мёртвый: `applyQuotas` в `limiter.js` всё равно переиндексирует id в диапазоны `10000..` и `100000..`.
-  - Варианты: (A) убрать параметр, (B) оставить с комментариями, (C) оставить как есть.
-  - Решение не принято, работа отложена.
-
-24. **`writer.js` — JSON с отступами — оставлено как есть.**
-  - `JSON.stringify(data, null, 2)` даёт читаемые файлы для отладки.
-  - Размер ZIP не критичен: Chrome принимает до 2 ГБ, `compressionOptions: { level: 9 }` в `build-prod.js` уже жмёт.
-  - `ads.json` ~4–5 МБ → в ZIP ~500 КБ–1 МБ.
-  -
-
-### Открытые задачи по сборке
-
-41. **`build-prod.js` кладёт ZIP в корень проекта.**
-  - Не в `dist/`, а в корень: `erst_dev_adblocker-1.1.0.zip`.
-  - В README про сборку стоит указать: ZIP в корне, `dist/` — распакованная сборка.
-
-42. **`build-prod.js` не включает `_locales/` в `INCLUDE`.**
-  - После добавления i18n папка `_locales/` обязательна для загрузки расширения.
-  - В `INCLUDE` сейчас: `["manifest.json", "icons", "background", "content", "popup", "shared", "rules"]`.
-  - Надо добавить `"_locales"`.
-  - **Критично для 1.1.0.**
-
-### Оставшиеся пункты из начального списка (53 из 53)
-
-Ниже — пункты, которые не вошли в разделы выше, потому что либо закрыты как неактуальные, либо не требуют действий.
-
-46. **`PRIVACY.md` — правки после изменений в манифесте.** См. пункт 14.
-
-47. **`[0.0.0]` в CHANGELOG — удалён.** См. пункт 11.
-
-48. **Формат CHANGELOG — оставлен как есть.** См. пункт 12.
-
-49. **Числа в CHANGELOG — уточнены.** См. пункт 11.
-
-50. **Badge в `[1.0.0] Added` — перенесён в `[1.1.0] Removed`.** См. пункт 11.
-
-51. **Проверка `:has-text` в EasyList — закрыто как неактуальное.** См. пункт 18.
-
-52. **Проверка `+js(...)` без `##` — закрыто как неактуальное.** См. пункт 17.
-
-53. **Фильтр extended CSS — сделано.** См. пункт 16.
 
 ### Сводка по открытым задачам
 
 **Блокеры для публикации 1.1.0:**
 
 - Пункт 12: заменить `[Unreleased] — 1.1.0` на `[1.1.0] — YYYY-MM-DD` при публикации.
-
-**Отложено на 1.2.0:**
-
-- Пункт 2: `:has-text(...)`.
-- Пункт 3: разделение DNR на core/extra.
-- Пункт 4: порт на Firefox.
-- Пункт 5: TypeScript / Prettier / ESLint.
-
-**Отложено без версии:**
-- Пункт 41: ZIP в корне.
-- Bundler (Vite/Rollup) если понадобится.

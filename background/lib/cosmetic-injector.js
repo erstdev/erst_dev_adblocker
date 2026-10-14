@@ -69,6 +69,6 @@ export async function handleCommitted(details) {
             files: COSMETIC_CSS
         });
     } catch (e) {
-        console.error("[erst_dev_adblocker] insertCSS failed:", e);
+        console.error(`[erst_dev_adblocker] insertCSS failed (tabId=${details.tabId}, url=${details.url}):`, e);
     }
 }
