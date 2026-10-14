@@ -8,9 +8,9 @@
    4. Регистрирует обработчик сообщений от popup и content script.
 
    Что НЕ делает (вынесено в background/lib/):
-   - вставка CSS            → lib/cosmetic-injector.js
-   - загрузка карты          → lib/cosmetic-map.js
-   - обработка сообщений     → lib/message-handler.js
+   - вставка CSS            → background/lib/cosmetic-injector.js
+   - загрузка карты          → background/lib/cosmetic-map.js
+   - обработка сообщений     → background/lib/message-handler.js
 
    ВАЖНО про syncDnrState:
    - вызываем один раз при старте

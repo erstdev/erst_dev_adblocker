@@ -500,11 +500,6 @@ npm run screenshots   # ресайз скриншотов до 1280×800
   - Для `www.example.com` проверяются `www.example.com`, `example.com`, `com`.
   - Если пользователь внесёт `com` — блокировка отключится на всём.
   - Поведение осознанное, но не задокументировано в README/PRIVACY.
-
-27. **`addToWhitelist` не нормализует домен.**
-  - Нет `trim()` и `toLowerCase()`.
-  - На практике домен приходит чистым из `extractDomain` в SW, но защиты в `storage.js` нет.
-  - Мелочь, можно не править.
   - 
 ### Открытые задачи по косметике и content scripts
 
@@ -602,7 +597,6 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 
 - Пункт 25: оптимизация `syncWhitelistRules`.
 - Пункт 26: `isWhitelisted` и TLD.
-- Пункт 27: нормализация домена.
 - Пункт 29: wildcard-ключи в `cosmetic-map.json`.
 - Пункт 31: throttle в `hideAdMarkers`.
 - Пункт 32: дублирование строк сообщений.
@@ -613,9 +607,4 @@ npm run screenshots   # ресайз скриншотов до 1280×800
 - Пункт 37: комментарий про путь в `service_worker.js`.
 - Пункт 39: порядок команд в README.
 - Пункт 41: ZIP в корне.
-- TypeScript.
-- Prettier.
-- ESLint.
 - Bundler (Vite/Rollup) если понадобится.
-- Порт на Firefox.
-- Публикация в Яндекс.Браузер (подтягивает из Chrome и Opera — отдельная публикация не нужна).
