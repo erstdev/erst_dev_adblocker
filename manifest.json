@@ -15,8 +15,7 @@
     "declarativeNetRequest",
     "scripting",
     "storage",
-    "webNavigation",
-    "activeTab"
+    "webNavigation"
   ],
   "host_permissions": ["<all_urls>"],
   "background": {
