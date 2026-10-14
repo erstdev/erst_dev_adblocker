@@ -45,13 +45,37 @@ function isForbiddenHost(url) {
 
 /**
  * Обработчик события onCommitted.
- * Вставляем CSS в главный фрейм, если разрешено.
+ * Вставляем CSS, если расширение включено и сайт не в белом списке.
+ *
+ * Особенности работы с фреймами (важно, не путать):
+ *
+ * 1. chrome.webNavigation.onCommitted срабатывает для КАЖДОГО фрейма
+ *    (main_frame + все sub_frame). Это событие навигации, а не вставки.
+ *    Проверка details.frameId !== 0 отбрасывает события от sub_frame,
+ *    чтобы не выполнять одну и ту же логику N раз на одну страницу.
+ *
+ * 2. chrome.scripting.insertCSS с target: { tabId } БЕЗ frameIds
+ *    вставляет CSS сразу во ВСЕ фреймы вкладки за один вызов.
+ *    Это не «одна вставка на iframe» — это один вызов, покрывающий
+ *    все фреймы. Поэтому дополнительно обрабатывать sub_frame-события
+ *    не нужно: CSS в iframe всё равно попадёт.
+ *
+ * 3. Если когда-нибудь потребуется вставлять CSS ТОЛЬКО в main_frame —
+ *    добавить frameIds: [0] в target. Сейчас этого нет намеренно:
+ *    общий cosmetic.css должен работать и в iframe.
+ *
+ * 4. Content scripts (content/*.js) в iframe НЕ работают, потому что
+ *    в manifest.json не указан all_frames: true. Это осознанное
+ *    ограничение (см. README → «Известные ограничения»).
+ *    Следствие: в iframe работает только общий CSS, а domain-specific
+ *    селекторы, text-based hiding, observer и auto-skip — только
+ *    в main_frame.
  *
  * @param {Object} details - объект события от chrome.webNavigation
  */
 export async function handleCommitted(details) {
-    // Нас интересует только главный фрейм.
-    // Проверка защищает от 11 вставок CSS подряд (по одной на каждый iframe).
+    // onCommitted срабатывает по разу на каждый фрейм. Нас интересует
+    // только main_frame — см. пункты 1 и 2 в комментарии выше.
     if (details.frameId !== 0) return;
 
     // Chrome Web Store / extensions gallery — пропускаем.
