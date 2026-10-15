@@ -17,13 +17,13 @@ findRotatedContainer и findAdContainer возвращают null,
 
 const AD_TEXT_MARKERS = [
     "реклама",
+    "реклам",
     "промо",
     "спонсор",
     "рекламный",
     "партнёрскийматериал",
     "advertisement",
     "sponsored",
-    // Mail.ru нативные карточки
     "объявлениескрыто",
     "рекламноеобъявление",
 ];
@@ -46,8 +46,12 @@ const AD_CONTAINER_SELECTORS = [
     '[id^="yandex_ad_R-"]',
     '[data-testid$="-ad"]',
     '[data-testid*="-ad-"]',
+    '[data-new-adtune="true"]',
+    '[data-cv3dnq1w-click="imageGallery"]',
+    '[data-cv3dnq1w-click="title"]',
+    '.sc-1v5ykgi',
+    '.sc-1ymix5g',
 ];
-
 const STRUCTURAL_SELECTORS = [
     "html",
     "body",

@@ -11,6 +11,8 @@
 
 - **RuTube: реклама глушила основной плеер.** Селектор `[id^="raichu"] video` из `RUTUBE_AD_VIDEO_SELECTORS` матчил основной `<video data-testid="video">` внутри `raichuContainerWithPlayer_...` — `muteAdVideos()` ставил его на паузу и глушил. Селектор убран. `muteAdVideos()` работает только по точечным `video[data-testid="advert-video"]` и `video.raichu-adver-tag`.
 - **RuTube: кнопка «Отключить рекламу» больше не в SKIP_SELECTORS.** `[data-testid="disableAdsButton"]` — это кнопка подписки RuTube, а не «Пропустить». Клик по ней не выполнялся, но находился в списке.
+- **Dzen: рекламные карточки в ленте не скрывались.** Классы Dzen обфусцированы и меняются при каждом билде. Добавлены стабильные якоря в `AD_CONTAINER_SELECTORS`: `[data-new-adtune="true"]`, `[data-cv3dnq1w-click="imageGallery"]`, `[data-cv3dnq1w-click="title"]`.
+- **Mail.ru: нативная реклама с лейблом «реклам» + «а» ловилась не всегда.** В `AD_TEXT_MARKERS` добавлен маркер `реклам` (без окончания). Покрывает случай, когда `реклама` разбита на несколько `<div>`.
 
 ### Changed
 
@@ -18,6 +20,7 @@
 - **`auto-skip.js`: `periodicCheck` ограничен YouTube-хостами.** Список `YT_HOSTS`, функция `isYoutubeHost()`. Раньше страховочный интервал выполнялся везде.
 - **`auto-skip.js`: добавлена `isClickableButton()`.** Клик выполняется только по `button` / `a` / `input[type=button|submit]`, видимым (`getBoundingClientRect` > 0) и не `disabled`.
 - **`auto-skip.js`: `attachObserverToPlayer` сбрасывает `wasAdShowing` при смене плеера.** Раньше при пересоздании плеера на YouTube первый `check()` не запускал обработку рекламы.
+- **`ad-markers.js`: `AD_CONTAINER_SELECTORS` расширен.** Добавлены Dzen-якоря и Mail.ru-классы `.sc-1v5ykgi`, `.sc-1ymix5g`.
 
 ### Removed
 

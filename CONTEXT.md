@@ -208,7 +208,7 @@
 1. Обычный матчер (matchMarker):
 - схлопывает el.textContent (lowercase, без пробелов);
 - проверяет includes() по списку AD_TEXT_MARKERS:
-  реклама, промо, спонсор, рекламный, партнёрскийматериал,
+  реклама, реклам, промо, спонсор, рекламный, партнёрскийматериал,
   advertisement, sponsored, объявлениескрыто, рекламноеобъявление;
 - ограничения: MIN_CANDIDATE_TEXT_LENGTH = 4,
   MAX_CANDIDATE_TEXT_LENGTH = 200.
@@ -231,6 +231,9 @@
   - по семантическим селекторам [id^="trg-b-"],
     [id^="b"][data-rendertype="native"], [id^="yandex_ad_R-"],
     [data-testid$="-ad"], [data-testid*="-ad-"];
+  - по Dzen-якорям [data-new-adtune="true"],
+    [data-cv3dnq1w-click="imageGallery"], [data-cv3dnq1w-click="title"];
+  - по Mail.ru-классам .sc-1v5ykgi, .sc-1ymix5g;
   - по inline-стилю width: 160px (слот Mail.ru);
   - иначе — сам el.
 

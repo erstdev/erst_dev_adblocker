@@ -49,39 +49,43 @@ npm run build
 4. Выбрать папку `dist/` (после `npm run build`) или корень проекта (если `dist/` нет).
 
 ## Структура проекта
+```
+## Структура проекта
 
-manifest.json — манифест MV3
-_locales/ — i18n: name и description (en, ru)
-icons/ — иконки (генерируются)
-store-assets/ — скриншоты и промо для CWS
-docs/ — 11 глав документации: архитектура, код, решения
+manifest.json            — манифест MV3
+_locales/                — i18n: name и description (en, ru)
+icons/                   — иконки (генерируются)
+store-assets/            — скриншоты и промо для CWS
+docs/                    — 11 глав документации: архитектура, код, решения
 
-background/ — service worker
-service_worker.js — оркестратор
-lib/ — модули SW: cosmetic-injector, cosmetic-map, message-handler
+background/              — service worker
+  service_worker.js      — оркестратор
+  lib/                   — модули SW: cosmetic-injector, cosmetic-map, message-handler
 
-content/ — content scripts (не ESM, порядок в manifest.json)
-domain-cosmetic.js — точка входа
-cosmetic.css — генерируется
-cosmetic-manual.css — ручные правила
-lib/ — state, inject-css, spa, ad-markers, observer, auto-skip
+content/                 — content scripts (не ESM, порядок в manifest.json)
+  domain-cosmetic.js     — точка входа
+  cosmetic.css           — генерируется
+  cosmetic-manual.css    — ручные правила
+  lib/                   — state, inject-css, spa, ad-markers, observer, auto-skip
 
-popup/ — popup (ESM)
-popup.html, popup.css, popup.js
+popup/                   — popup (ESM)
+  popup.html, popup.css, popup.js
 
-shared/ — общий код
-messages.js — типы сообщений
-storage.js — chrome.storage + DNR-синхронизация
+shared/                  — общий код
+  messages.js            — типы сообщений
+  storage.js             — chrome.storage + DNR-синхронизация
+  utils.js               — extractHostname
 
-rules/ — DNR-правила и карты косметики
-ads.json — блокирующие (генерируется)
-exceptions.json — allow (генерируется)
-manual.json — ручные правила (не перезаписывается)
-cosmetic-map.json — domain-specific селекторы (генерируется)
-cosmetic-exclude.json — исключения #@# (генерируется)
+rules/                   — DNR-правила и карты косметики
+  ads.json               — блокирующие (генерируется)
+  exceptions.json        — allow (генерируется)
+  manual.json            — ручные правила (не перезаписывается)
+  cosmetic-map.json      — domain-specific селекторы (генерируется)
+  cosmetic-exclude.json  — исключения #@# (генерируется)
 
-lists/ — исходники EasyList и RU AdList (не в ZIP)
-tools/ — Node.js: конвертер, сборка, иконки, скриншоты (не в ZIP)
+lists/                   — исходники EasyList и RU AdList (не в ZIP)
+tools/                   — Node.js: конвертер, сборка, иконки, скриншоты (не в ZIP)
+```
 
 ## Как это работает
 
@@ -90,7 +94,7 @@ tools/ — Node.js: конвертер, сборка, иконки, скринш
 - **Исключения косметики (`#@#`).** Отдельный файл `rules/cosmetic-exclude.json` (706 доменов, 872 селектора). Content script вставляет второй `<style>` с `display: revert !important`, который перекрывает скрытие по правилам EasyList.
 - **Whitelist.** Список доменов, где блокировка не работает. Реализован через динамические правила `allowAllRequests` с priority 100. Управляется из popup.
 - **Авто-скип видео.** Работает на YouTube (ускорение 16x + mute + клик + оверлей), VK Video (клик по кнопке «Пропустить»), RuTube (клик по кнопке + mute + ускорение рекламного `<video>`).
-- **Text-based hiding.** Скрытие рекламных блоков по текстовым маркерам («реклама», «промо», «спонсор») и по структуре (разбитый лейбл Mail.ru).
+- **Text-based hiding.** Скрытие рекламных блоков по текстовым маркерам («реклама», «реклам», «промо», «спонсор»), по структуре (разбитый лейбл Mail.ru) и по стабильным атрибутам рекламных площадок Dzen (`data-new-adtune`, `data-cv3dnq1w-click`).
 
 ## Лимиты Chrome
 
