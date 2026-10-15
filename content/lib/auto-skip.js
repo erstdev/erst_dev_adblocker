@@ -47,7 +47,6 @@ const LOG = "[erst_dev_adblocker]";
 
 const SKIP_SELECTORS = [
     '[data-testid="ad-skip-button"]',            // VK Video
-    '[data-testid="disableAdsButton"]',          // RuTube
     '.ytp-ad-skip-button',                       // YouTube (старый)
     '.ytp-skip-ad-button',                       // YouTube (новый)
     '.ytp-ad-skip-button-modern',                // YouTube (modern)
@@ -83,8 +82,7 @@ const RUTUBE_HOSTS = [
 // эти селекторы нужны, чтобы замьютить и ускорить.
 const RUTUBE_AD_VIDEO_SELECTORS = [
     'video[data-testid="advert-video"]',
-    'video.raichu-adver-tag',
-    '[id^="raichu"] video'
+    'video.raichu-adver-tag'
 ];
 
 function isYoutubeHost() {
@@ -205,7 +203,6 @@ function muteAdVideos() {
             if (!v || v.tagName !== "VIDEO") continue;
             if (!v.muted) v.muted = true;
             if (v.playbackRate !== YT_SPEED) v.playbackRate = YT_SPEED;
-            try { v.pause(); } catch (e) {}
         }
     }
 }

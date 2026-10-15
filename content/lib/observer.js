@@ -16,10 +16,6 @@
    ============================================================ */
 
 function startObserver() {
-    if (state.currentSelectors.length === 0 && typeof hideAdInElement === "undefined") {
-        return;
-    }
-
     const observer = new MutationObserver((mutations) => {
         // combinedSelector пересчитывается один раз на батч мутаций.
         // Это нормально: батч приходит пачкой, между батчами состояние

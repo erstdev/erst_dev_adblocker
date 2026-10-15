@@ -53,110 +53,89 @@
 ### Конвертер
 
 1. **Устранено дублирование `||domain^` между этапом 1 и этапом 3.**
-  - `selectSimpleRules` теперь явно исключает `$` (`!r.includes("$")`).
-  - `selectPathRules` теперь исключает `||` (`!r.startsWith("||")`).
-  - Раньше правило `||example.com^` попадало и в simple, и в path, создавая два одинаковых DNR-правила.
-  - Результат: этап 3 уменьшился с ~15 000 до 566 правил (остались только настоящие path-правила).
+- `selectSimpleRules` теперь явно исключает `$` (`!r.includes("$")`).
+- `selectPathRules` теперь исключает `||` (`!r.startsWith("||")`).
+- Раньше правило `||example.com^` попадало и в simple, и в path, создавая два одинаковых DNR-правила.
+- Результат: этап 3 уменьшился с ~15 000 до 566 правил (остались только настоящие path-правила).
 
 2. **Пересчитаны квоты конвертера.**
-  - Было: STAGE_2=5000, STAGE_3=15000, STAGE_1=8500, EXCEPTIONS=1500.
-  - Стало: STAGE_2=5200, STAGE_3=1000, STAGE_1=22300, EXCEPTIONS=1500.
-  - Итог: 27 000 блокирующих + 1 094 allow = 28 094 из 30 000 (93.6%).
-  - Раньше этап 1 (simple) резался с 50 038 до 8 500 (83% потерь). Теперь — до 22 300 (55% потерь).
+- Было: STAGE_2=5000, STAGE_3=15000, STAGE_1=8500, EXCEPTIONS=1500.
+- Стало: STAGE_2=5200, STAGE_3=1000, STAGE_1=22300, EXCEPTIONS=1500.
+- Итог: 27 000 блокирующих + 1 094 allow = 28 094 из 30 000 (93.6%).
+- Раньше этап 1 (simple) резался с 50 038 до 8 500 (83% потерь). Теперь — до 22 300 (55% потерь).
 
 3. **Добавлены синонимы модификаторов в `RESOURCE_TYPE_MAP`.**
-  - `xhr` → `xmlhttprequest`.
-  - `object`, `object-subrequest` → `object`.
+- `xhr` → `xmlhttprequest`.
+- `object`, `object-subrequest` → `object`.
 
 4. **Расширен `UNSUPPORTED_MODIFIERS`.**
-  - Добавлены: `important`, `badfilter`, `match-case`, `rewrite`, `redirect`, `redirect-rule`, `denyallow`, `header`, `method`, `to`, `from`, `inline-script`, `inline-font`.
-  - Проверка идёт по `baseName` — части до знака `=` (для `csp=...`, `redirect=...`, `denyallow=...`).
+- Добавлены: `important`, `badfilter`, `match-case`, `rewrite`, `redirect`, `redirect-rule`, `denyallow`, `header`, `method`, `to`, `from`, `inline-script`, `inline-font`.
+- Проверка идёт по `baseName` — части до знака `=` (для `csp=...`, `redirect=...`, `denyallow=...`).
 
 5. **Неизвестные модификаторы теперь отбрасывают правило целиком.**
-  - Раньше молча игнорировались, правило конвертировалось без них — становилось шире задуманного.
-  - Теперь `parseModifiers` возвращает `unsupported: true` и правило пропускается.
+- Раньше молча игнорировались, правило конвертировалось без них — становилось шире задуманного.
+- Теперь `parseModifiers` возвращает `unsupported: true` и правило пропускается.
 
 6. **Regexp-правила AdGuard/uBlock отсеиваются до парсинга.**
-  - В `modifierRulesToDnr` добавлена проверка `if (easyRule.startsWith("/"))`.
-  - Раньше `lastIndexOf("$")` мог найти `$` внутри regexp (например, `/foo$/`) и ошибочно решить, что это модификаторы.
-  - По итогам: `[stage 2] ... regexp: 1025`.
+- В `modifierRulesToDnr` добавлена проверка `if (easyRule.startsWith("/"))`.
+- Раньше `lastIndexOf("$")` мог найти `$` внутри regexp (например, `/foo$/`) и ошибочно решить, что это модификаторы.
+- По итогам: `[stage 2] ... regexp: 1025`.
 
 7. **`parseModifiers` обрабатывает `$first-party` / `$1p` / `$~first-party` / `$~1p`.**
-  - Маппинг: `firstParty = isNegated`, `~first-party` = `thirdParty`.
+- Маппинг: `firstParty = isNegated`, `~first-party` = `thirdParty`.
 
 ### Runtime / storage
 
 8. **`assertIdRanges` в `limiter.js` расширен.**
-  - Проверяет все шесть пар: manual↔dynamic, manual↔ads, dynamic↔ads, ads↔exceptions, dynamic↔exceptions, manual↔exceptions.
-  - Добавлены константы `DYN_RULE_ID_BASE = 200`, `DYN_RULE_ID_MAX = 9999`, `MANUAL_ID_MAX = 199`.
-  - Лог `[id-check]` теперь показывает все четыре диапазона.
+- Проверяет все шесть пар: manual↔dynamic, manual↔ads, dynamic↔ads, ads↔exceptions, dynamic↔exceptions, manual↔exceptions.
+- Добавлены константы `DYN_RULE_ID_BASE = 200`, `DYN_RULE_ID_MAX = 9999`, `MANUAL_ID_MAX = 199`.
+- Лог `[id-check]` теперь показывает все четыре диапазона.
+- `MANUAL_ID_MAX = 199` — это запас, а не фактический размер `manual.json` (там сейчас 6 правил).
 
 9. **`syncWhitelistRules` фильтрует по диапазону id.**
-  - Удаляет только правила в `DYN_RULE_ID_BASE..DYN_RULE_ID_MAX`.
-  - Диагностика `foreignIds` — предупреждает, если в `getDynamicRules` есть правила вне диапазона.
-  - Логи честнее: `old whitelist rules` вместо `old dynamic rules`.
+- Удаляет только правила в `DYN_RULE_ID_BASE..DYN_RULE_ID_MAX`.
+- Диагностика `foreignIds` — предупреждает, если в `getDynamicRules` есть правила вне диапазона.
+- Логи честнее: `old whitelist rules` вместо `old dynamic rules`.
 
 10. **Убран `activeTab` из `manifest.json`.**
-  - Он не использовался: `<all_urls>` в `host_permissions` даёт всё, что нужно.
-  - Чтение `tab.url` в popup работает через `<all_urls>`.
+- Он не использовался: `<all_urls>` в `host_permissions` даёт всё, что нужно.
+- Чтение `tab.url` в popup работает через `<all_urls>`.
 
 11. **Исправлен комментарий в `cosmetic-injector.js` про фреймы.**
-  - `onCommitted` срабатывает для каждого фрейма, `frameId !== 0` отбрасывает sub_frame.
-  - `insertCSS` без `frameIds` вставляет CSS во ВСЕ фреймы вкладки за один вызов.
-  - Content scripts в iframe не работают (нет `all_frames: true`) — осознанное ограничение.
+- `onCommitted` срабатывает для каждого фрейма, `frameId !== 0` отбрасывает sub_frame.
+- `insertCSS` без `frameIds` вставляет CSS во ВСЕ фреймы вкладки за один вызов.
+- Content scripts в iframe не работают (нет `all_frames: true`) — осознанное ограничение.
 
 ### Content scripts
 
 12. **`auto-skip.js` — убран широкий селектор `[class*="skip-ad"]`.**
-  - Он матчил любой элемент с подстрокой в class (`skip-ads-info`, `no-skip-ad`, `dont-skip-ad`, `skip-ad-signup`) и кликал по нему каждые 500 мс на всех сайтах.
-  - Заменён на точечные селекторы для VK Video, RuTube, YouTube.
+- Он матчил любой элемент с подстрокой в class (`skip-ads-info`, `no-skip-ad`, `dont-skip-ad`, `skip-ad-signup`) и кликал по нему каждые 500 мс на всех сайтах.
+- Заменён на точечные селекторы для VK Video, RuTube, YouTube.
 
 13. **`auto-skip.js` — добавлена функция `isClickableButton`.**
-  - Клик выполняется только по `button` / `a` / `input[type=button|submit]`.
-  - Проверка видимости через `getBoundingClientRect()` (width/height > 0).
-  - `disabled` проверяется.
+- Клик выполняется только по `button` / `a` / `input[type=button|submit]`.
+- Проверка видимости через `getBoundingClientRect()` (width/height > 0).
+- `disabled` проверяется.
 
-14. **`auto-skip.js` — `periodicCheck` ограничен YouTube-хостами.**
-  - Добавлены константы `YT_HOSTS` и функция `isYoutubeHost`.
-  - На других сайтах страховочный интервал не работает, чтобы не давать ложных кликов.
+14. **`auto-skip.js` — `periodicCheck` и `trySkipButton` ограничены хостами.**
+- Добавлены константы `YT_HOSTS`, `RUTUBE_HOSTS`, функции `isYoutubeHost`, `isRutubeHost`.
+- `startAutoSkip` разветвлён по хостам: YouTube — observer + интервалы, RuTube — клик + mute, VK — только клик.
+- На остальных сайтах страховочные интервалы не работают.
 
 15. **`auto-skip.js` — `attachObserverToPlayer` сбрасывает `wasAdShowing` при смене плеера.**
-  - Если `currentPlayer !== player` и `wasAdShowing = true` — сбрасываем флаг и скрываем оверлей.
-  - Затем `check()` на новом плеере корректно стартует рекламу с нуля.
+- Если `currentPlayer !== player` и `wasAdShowing = true` — сбрасываем флаг и скрываем оверлей.
+- Затем `check()` на новом плеере корректно стартует рекламу с нуля.
 
 16. **`ad-markers.js` — защита от ложных срабатываний (RuTube-фикс).**
-  - `MAX_CONTAINER_CHILDREN = 20` — `findRotatedContainer` не поднимается к layout-контейнерам с > 20 детьми.
-  - `findRotatedContainer` и `findAdContainer` возвращают `null`, если не нашли подходящий контейнер (раньше возвращали `el`).
-  - Добавлена `isStructuralElement` — не скрываем `html`, `body`, `main`, `header`, `footer`, `nav`, `#root`, `#app`.
-  - Добавлена `isInsidePlayer` — не скрываем элементы внутри `<video>`, `[class*="player"]`, `#movie_player`, `[class*="player-container"]` и т.п.
-  - `hideAdInElement` проверяет `el` и `target` на структурность и нахождение внутри плеера.
+- `MAX_CONTAINER_CHILDREN = 20` — `findRotatedContainer` не поднимается к layout-контейнерам с > 20 детьми.
+- `findRotatedContainer` и `findAdContainer` возвращают `null`, если не нашли подходящий контейнер (раньше возвращали `el`).
+- Добавлена `isStructuralElement` — не скрываем `html`, `body`, `main`, `header`, `footer`, `nav`, `#root`, `#app`.
+- Добавлена `isInsidePlayer` — не скрываем элементы внутри `<video>`, `[class*="player"]`, `#movie_player`, `[class*="player-container"]` и т.п.
+- `hideAdInElement` проверяет `el` и `target` на структурность и нахождение внутри плеера.
 
-    Причина: на главной RuTube лейбл «Реклама» внутри блока AdFox заставлял `findRotatedContainer` подниматься до `section.wdp-wrapper-module__wdp-common-wrapper`, и скрывалась вся страница.
+  Причина: на главной RuTube лейбл «Реклама» внутри блока AdFox заставлял `findRotatedContainer` подниматься до `section.wdp-wrapper-module__wdp-common-wrapper`, и скрывалась вся страница.
 
 ### Известные ограничения (не решены)
-
-- **RuTube видео-реклама.** Косметика скрывает видео, но звук остаётся — `<video>` продолжает играть.
-  - Нужно: добавить в `auto-skip.js` функцию `muteAdVideos()`, которая глушит и проматывает рекламные видео по селекторам:
-    - `video[data-testid="advert-video"]`
-    - `video.raichu-adver-tag`
-    - `[id^="raichu"] video`
-  - Нужно: добавить `[data-testid="disableAdsButton"]` в `SKIP_SELECTORS`.
-  - Нужно: расширить `periodicCheck` на `rutube.ru` (сейчас только YouTube).
-  - Нужно: добавить в `cosmetic-manual.css` селекторы:
-    .wdp-feed-top-ad-module__ad-banner,
-    .r-ad-sdk-adfox-wrapper,
-    [id^="ra_"],
-    [data-testid="advert"],
-    .yandex-advert-module__SDKWrapper___WMfXh,
-    [id="raichu_yasdk_container"],
-    [data-testid="advert-video"],
-    .raichu-adver-tag,
-    .advert-timeline-module__timeline___banQn,
-    .advert-skip-module__container___aDiIw {
-    display: none !important;
-    }
-
-text
 
 - **Конвертер:** не поддерживаются модификаторы:
 - `$redirect`, `$redirect-rule`, `$rewrite` (нужны файлы-заглушки и `web_accessible_resources`).
@@ -164,19 +143,11 @@ text
 - `$csp`, `$removeparam`, `$replace`, `$header`, `$method`, `$to`, `$from`, `$important`, `$badfilter`, `$match-case`, `$inline-script`, `$inline-font`.
 - `$generichide`, `$elemhide`, `$genericblock` (управляют применением generic-правил).
 - Regexp-правила `/regexp/$mods` — 1025 штук отсеиваются.
+- Regexp-исключения `@@/regexp/$mods` — отсеиваются.
 - Правила вида `||example.com/path` (без `^`, без `$`) теряются.
 
 - **Content scripts** не работают в iframe (нет `all_frames: true`) — осознанное ограничение.
 - **Не поддерживается `:has-text(...)`** (uBlock) — 287 правил в EasyList.
-
-### Мелкие замечания (не критично, не исправлено)
-
-- `observer.js` — условие `state.currentSelectors.length === 0 && typeof hideAdInElement === "undefined"` почти всегда false. Логика работает, но условие сбивает.
-- `ad-markers.js` — `hideAdMarkers` пробегает по всем `span, div, a` на странице. На больших страницах может быть медленно.
-- `ad-markers.js` — `isRotatedAdLabel` использует `el.children`, а не `el.childNodes`.
-- `ad-markers.js` — проверка `target.style.display === "none"` читает только inline-стиль, не computed.
-- `message-handler.js`, `storage.js` — мелкие замечания.
-- `cosmetic.js` — `#@#` исключения для домена без правил всё равно пишутся в `domainExclude`.
 
 ## Ключевые архитектурные решения
 
@@ -199,6 +170,7 @@ text
 - main_frame НИКОГДА не указывается в resourceTypes блокирующих правил.
 - hostNotEquals в UrlFilter у webNavigation НЕ поддерживается — исключение хостов делается вручную в handleCommitted.
 - Диапазоны id проверяются в limiter.js → assertIdRanges() (все шесть пар).
+- MANUAL_ID_MAX = 199 — это запас, а не фактический размер manual.json (там сейчас 6 правил). Если manual.json вырастет выше 199 — придётся поднять DYN_RULE_ID_BASE в shared/storage.js.
 
 ### Whitelist (динамические allowAllRequests)
 - shared/storage.js — syncWhitelistRules создаёт по одному правилу allowAllRequests (priority 100) на каждый whitelisted домен.
@@ -221,8 +193,7 @@ text
 - run_at: "document_start".
 - all_frames НЕ указан — скрипты работают только в main_frame.
 
-
-### Детектор рекламы в content (обновлено в 1.1.0)
+### Детектор рекламы в content
 
 Основной вход — hideAdInElement(el, logPrefix) в ad-markers.js.
 
@@ -251,6 +222,8 @@ text
   детей текст 1..5 символов.
 - отсекает ложные срабатывания на «Убрать рекламу за 1₽»,
   «О рекламодателе», обычные посты.
+- использует el.children (только Element-узлы), не el.childNodes —
+  куски текста всегда обёрнуты в теги.
 
 Подъём к контейнеру:
 
@@ -268,6 +241,10 @@ text
   - используется для коротких маркеров (≤ 20 символов)
     и для isRotatedAdLabel.
 
+Установка display: none — идемпотентна, повторная запись
+не меняет inline-стиль. Отдельная проверка display === "none"
+не нужна (читает только inline, не computed, выигрыша не даёт).
+
 ### Popup (ESM, type="module")
 - import { MSG } from "../shared/messages.js" работает.
 - getElementById (не $, не byId).
@@ -283,7 +260,6 @@ text
 - popup→sw:whitelistAdd
 - popup→sw:whitelistRemove
 - isValidMessageType — проверка через Set.
-
 
 ### Конвертер
 
@@ -316,6 +292,7 @@ text
 Этап 5 (exceptions): `@@...`.
 - selectExceptionRules: уникальные.
 - exceptionRulesToDnr: allow, priority 2.
+- Пропускает regexp-исключения (`startsWith("@@/")`).
 
 ### Конвертация $domain=
 Модификатор $domain=a|b|~c|~d конвертируется в initiatorDomains
@@ -353,28 +330,17 @@ resourceTypes: script, image, xmlhttprequest, sub_frame, media, ping, other (д�
 
 - AdFox (Яндекс) — [data-role^="fox-tail"], [data-role^="fox::"], div.fox-tail, div[class*="fox-tail"].
 - Яндекс.Директ / РСЯ — div[id^="yandex_ad"], div[id^="yandex_rtb"], div[class^="yandex_ad"], [id^="ya_partner_R-A-"].
+- Яндекс — РСЯ (карты, поиск, сервисы) — [id*="R-I-"], [data-r-i].
+- Яндекс — РСЯ (гарантийные показы на поиске) — [data-layout-part="cr"], [id^="advRsyaReact_"], [id^="advRsyaReact_rsya-guarantee"].
 - Google Publisher Tag — div[id^="div-gpt-ad"], div[id^="gpt-passback"].
 - Mail.ru — [isfullscreen="true"], [id^="trg-b-"].
+- Mail.ru — рекламные блоки через data-mnemo.
 - Mail.ru VK Ads — [id*="R-I-"], [data-r-i].
-- Mail.ru data-mnemo — служебные.
 - Dzen — [data-testid$="-ad"], [data-testid*="-ad-"], [id^="auto-slide-ad"], [id*="-ad-item_"], [class*="auto-slide-ad"], [class*="dzen-desktop--auto-slide-ad"], a.yrw-url[href*="yandex.ru/an/count"].
 - ВК Видео — [data-testid="ad-container"], [class*="ads-container"], [class*="rb-adman-ad-actions"].
 - Яндекс.Погода — [class*="AppMoney_container"], [class*="AppMoney_wrap"], [class*="AppMoneySidebar"], [id^="money-main-"], [data-name="adWrapper"].
-
-**RuTube — НЕ добавлено (задача на следующий чат):**
-.wdp-feed-top-ad-module__ad-banner,
-.r-ad-sdk-adfox-wrapper,
-[id^="ra_"],
-[data-testid="advert"],
-.yandex-advert-module__SDKWrapper___WMfXh,
-[id="raichu_yasdk_container"],
-[data-testid="advert-video"],
-.raichu-adver-tag,
-.advert-timeline-module__timeline___banQn,
-.advert-skip-module__container___aDiIw {
-display: none !important;
-}
-
+- RuTube — .wdp-feed-top-ad-module__ad-banner, .r-ad-sdk-adfox-wrapper, [id^="ra_"].
+- RuTube — видео-реклама (AdFox SDK) — [data-testid="advert"], .advert-module__advert___tQh3l, .yandex-advert-module__SDKWrapper___WMfXh, [id="raichu_yasdk_container"], [data-testid="advert-video"], .raichu-adver-tag, .advert-timeline-module__timeline___banQn, .advert-skip-module__container___aDiIw.
 
 ## Обратная связь (popup)
 
@@ -420,6 +386,11 @@ display: none !important;
 
 Если любая пара пересекается — конвертер падает с понятной ошибкой.
 
+MANUAL_ID_MAX = 199 — это запас, а не фактический размер manual.json
+(там сейчас 6 правил). Если manual.json вырастет выше 199 — придётся
+поднять DYN_RULE_ID_BASE в shared/storage.js и синхронизировать
+константы в обоих файлах.
+
 ## Заметки по прошлым проблемам (решены)
 
 - Rule with id N does not have a unique ID — Chrome смешивает пространства id статических и динамических правил. Решено разделением диапазонов.
@@ -437,28 +408,14 @@ display: none !important;
 - Квоты конвертера не соответствовали содержимому списков — пересчитаны.
 - activeTab + <all_urls> — activeTab убран.
 - RuTube главная страница скрывалась — findRotatedContainer больше не поднимается к layout-контейнерам, добавлены isStructuralElement и isInsidePlayer.
+- RuTube видео-реклама глушила основной плеер — селектор [id^="raichu"] video матчил <video data-testid="video"> внутри raichuContainerWithPlayer_... и ставил его на паузу. Убран из RUTUBE_AD_VIDEO_SELECTORS; muteAdVideos теперь только mute + playbackRate по точечным селекторам advert-video и raichu-adver-tag.
 
 ## Работы (открытые задачи)
 
-### Приоритет 1 — RuTube
-
-1. Добавить в cosmetic-manual.css селекторы RuTube (см. раздел «Ручная косметика»).
-2. В auto-skip.js:
-  - добавить [data-testid="disableAdsButton"] в SKIP_SELECTORS;
-  - расширить periodicCheck на rutube.ru (сейчас только YouTube);
-  - добавить функцию muteAdVideos(), которая находит видео по селекторам:
-    - video[data-testid="advert-video"]
-    - video.raichu-adver-tag
-    - [id^="raichu"] video
-      и вызывает v.muted = true, v.playbackRate = 16, v.pause().
-3. Протестировать:
-  - главная RuTube отображается полностью;
-  - видео RuTube играет;
-  - реклама RuTube не звучит и скипается.
-
-### Приоритет 2 — документация
+### Приоритет 1 — документация
 
 Обновить числа:
+
 | Параметр | Было | Стало |
 |---|---|---|
 | Blocking rules | 28 500 | 27 000 |

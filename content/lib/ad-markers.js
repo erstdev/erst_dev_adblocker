@@ -180,8 +180,12 @@ function hideAdInElement(el, logPrefix) {
     if (!target) return null;
     if (isStructuralElement(target)) return null;
     if (isInsidePlayer(target)) return null;
-    if (target.style.display === "none") return null;
+
+    // setProperty идемпотентна: повторная установка того же значения
+    // не меняет inline-стиль. Отдельная проверка display === "none"
+    // не нужна — она читает только inline, не computed, и не даёт выигрыша
     target.style.setProperty("display", "none", "important");
+
     console.log(logPrefix + ' "' + marker + '"');
     return marker;
 }
