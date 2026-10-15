@@ -1,33 +1,19 @@
 /* ============================================================
-   Скрытие блоков с текстовой меткой «Реклама» / «Промо» / «Спонсор».
 
-   Что делает:
-   - ищет элементы, чей схлопнутый textContent содержит маркер
-   - умеет распознавать «рекламу с мусором», когда Mail.ru
-     вклинивает посторонние буквы внутрь слова
-   - поднимается к ближайшему контейнеру рекламы и скрывает его
+ЗАЩИТА ОТ ЛОЖНЫХ СРАБАТЫВАНИЙ:
 
-   Про разбитый текст Mail.ru:
-   - вариант 1: слово режется на куски без мусора
-     («Рек» + «ла» + «ма» → «реклама»)
-   - вариант 2: внутрь слова вклиниваются посторонние буквы
-     («амалк» + «рекла» + «ер» + «ма» → «амалкреклаерма»)
+Не скрываем структурные элементы: html, body, main,
+header, footer, nav, #root, #app.
 
-   Вариант 2 распознаётся не по регэкспу, а по структуре:
-   лейбл = короткий текст (5-20 символов) + 3+ дочерних
-   <div>, каждый с 1-5 символами текста + содержит буквы
-   р, к, м, а в правильном порядке. Это отсекает ложные
-   срабатывания на «Убрать рекламу за 1₽», «О рекламодателе»
-   и обычных постах.
+Не скрываем элементы внутри плееров (video,
+class*=player, #movie_player и т.п.).
 
-   Точки входа:
-   - hideAdInElement(el, logPrefix)
-   - startAdMarkerHiding()
-   - hideAdInElement, startAdMarkerHiding, AD_TEXT_MARKERS —
-     глобальные, используются в observer.js.
+findRotatedContainer не поднимается к контейнерам
+с более чем MAX_CONTAINER_CHILDREN детьми.
 
-   Динамика ловится MutationObserver'ом (см. observer.js).
-   ============================================================ */
+findRotatedContainer и findAdContainer возвращают null,
+если не нашли подходящий контейнер.
+============================================================ */
 
 const AD_TEXT_MARKERS = [
     "реклама",
@@ -51,6 +37,7 @@ const MIN_CANDIDATE_TEXT_LENGTH = 4;
 // Границы длины текста разбитого лейбла.
 const ROTATED_LABEL_MIN_LENGTH = 5;
 const ROTATED_LABEL_MAX_LENGTH = 20;
+const MAX_CONTAINER_CHILDREN = 20;
 
 // Признаки контейнера рекламы.
 const AD_CONTAINER_SELECTORS = [
@@ -61,16 +48,31 @@ const AD_CONTAINER_SELECTORS = [
     '[data-testid*="-ad-"]',
 ];
 
-/**
- * Схлопывает текст: lowercase, без пробелов и переносов.
- */
+const STRUCTURAL_SELECTORS = [
+    "html",
+    "body",
+    "main",
+    "header",
+    "footer",
+    "nav",
+    "#root",
+    "#app",
+];
+
+const PLAYER_SELECTORS = [
+    "video",
+    "[class='video-player']",
+    "[class='player-wrapper']",
+    "[class*='player-container']",
+    "#movie_player",
+    ".html5-video-player",
+    "[data-testid='video-player']",
+];
+
 function collapseText(str) {
     return (str || "").toLowerCase().replace(/\s+/g, "");
 }
 
-/**
- * Обычный матчер: точная подстрока одного из маркеров.
- */
 function matchMarker(collapsed) {
     for (const marker of AD_TEXT_MARKERS) {
         if (collapsed.includes(marker)) return marker;
@@ -78,26 +80,13 @@ function matchMarker(collapsed) {
     return null;
 }
 
-/**
- * Структурная проверка: является ли элемент разбитым
- * лейблом «реклама» (случай 2 с мусором внутри).
- *
- * Признаки:
- * - схлопнутый текст 5-20 символов;
- * - 3+ дочерних элемента;
- * - большинство детей с текстом 1-5 символов;
- * - содержит р, к, м, а в правильном порядке.
- */
 function isRotatedAdLabel(el) {
     const collapsed = collapseText(el.textContent);
     if (collapsed.length < ROTATED_LABEL_MIN_LENGTH) return false;
     if (collapsed.length > ROTATED_LABEL_MAX_LENGTH) return false;
-
-    if (!/р.*к.*м.*а/.test(collapsed)) return false;
-
+    if (!/р.к.м.*а/.test(collapsed)) return false;
     const childElements = el.children;
     if (childElements.length < 3) return false;
-
     let shortKids = 0;
     for (const child of childElements) {
         const ct = collapseText(child.textContent);
@@ -106,38 +95,57 @@ function isRotatedAdLabel(el) {
     return shortKids >= 3;
 }
 
-/**
- * Поднимается вверх до ближайшего контейнера рекламы.
- * Сначала — по семантическим селекторам и width: 160px.
- */
+function isStructuralElement(el) {
+    if (!el) return true;
+    for (const sel of STRUCTURAL_SELECTORS) {
+        try {
+            if (el.matches(sel)) return true;
+        } catch (e) {}
+    }
+    return false;
+}
+
+function isInsidePlayer(el) {
+    if (!el) return false;
+    for (const sel of PLAYER_SELECTORS) {
+        try {
+            if (el.closest(sel)) return true;
+        } catch (e) {}
+    }
+    return false;
+}
+
 function findAdContainer(el) {
     for (const sel of AD_CONTAINER_SELECTORS) {
         const container = el.closest(sel);
-        if (container) return container;
+        if (container) {
+            if (isStructuralElement(container)) return null;
+            if (isInsidePlayer(container)) return null;
+            return container;
+        }
     }
-
     let cur = el;
     for (let i = 0; i < 8 && cur; i++) {
         if (cur.style && cur.style.width === "160px") {
+            if (isStructuralElement(cur)) return null;
+            if (isInsidePlayer(cur)) return null;
             return cur;
         }
         cur = cur.parentElement;
     }
-
+    if (isStructuralElement(el)) return null;
+    if (isInsidePlayer(el)) return null;
     return el;
 }
 
-/**
- * Поднимается вверх от разбитого лейбла до контейнера рекламы.
- * Признак контейнера: у него 2+ дочерних элемента с текстом
- * длиннее 20 символов (скрытый блок с лейблами + карточка).
- */
 function findRotatedContainer(el) {
     let cur = el;
     for (let i = 0; i < 6 && cur; i++) {
         const parent = cur.parentElement;
-        if (!parent) return cur;
-
+        if (!parent) return null;
+        if (parent.children.length > MAX_CONTAINER_CHILDREN) return null;
+        if (isStructuralElement(parent)) return null;
+        if (isInsidePlayer(parent)) return null;
         let meaningfulChildren = 0;
         for (const child of parent.children) {
             const t = collapseText(child.textContent);
@@ -146,59 +154,46 @@ function findRotatedContainer(el) {
         if (meaningfulChildren >= 2) return parent;
         cur = parent;
     }
-    return el;
+    return null;
 }
 
-/**
- * Пытается скрыть рекламу внутри одного элемента.
- */
 function hideAdInElement(el, logPrefix) {
     if (!el || !el.style) return null;
-
+    if (isInsidePlayer(el)) return null;
     const collapsed = collapseText(el.textContent);
     if (collapsed.length < MIN_CANDIDATE_TEXT_LENGTH) return null;
     if (collapsed.length > MAX_CANDIDATE_TEXT_LENGTH) return null;
-
     let marker = matchMarker(collapsed);
     let target;
-
     if (marker) {
-        // Короткий текст — вероятно лейбл «реклама 16+» или
-        // «реклама» в контейнере. Ищем контейнер по структуре.
         if (collapsed.length <= ROTATED_LABEL_MAX_LENGTH) {
             const structural = findRotatedContainer(el);
-            target = structural !== el ? structural : findAdContainer(el);
+            target = structural !== null ? structural : findAdContainer(el);
         } else {
             target = findAdContainer(el);
         }
     } else {
         if (!isRotatedAdLabel(el)) return null;
-        marker = "реклама(rotated)";
+
         target = findRotatedContainer(el);
     }
-
-    if (!target || target.style.display === "none") return null;
-
+    if (!target) return null;
+    if (isStructuralElement(target)) return null;
+    if (isInsidePlayer(target)) return null;
+    if (target.style.display === "none") return null;
     target.style.setProperty("display", "none", "important");
-    console.log(`${logPrefix} "${marker}"`);
+    console.log(logPrefix + ' "' + marker + '"');
     return marker;
 }
 
-/**
- * Одна попытка поиска и скрытия блоков по тексту.
- */
 function hideAdMarkers() {
     if (!document.body) return;
-
     const candidates = document.querySelectorAll("span, div, a");
     for (const el of candidates) {
         hideAdInElement(el, "[erst_dev_adblocker] hid ad marker block:");
     }
 }
 
-/**
- * Одноразовый запуск скрытия по текстовым маркерам.
- */
 function startAdMarkerHiding() {
     const run = () => {
         try {
@@ -207,10 +202,10 @@ function startAdMarkerHiding() {
             console.error("[erst_dev_adblocker] hideAdMarkers failed:", e);
         }
     };
-
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", run, { once: true });
     } else {
         run();
     }
 }
+

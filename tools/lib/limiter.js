@@ -50,6 +50,14 @@ import { capRules } from "./utils.js";
 //   dynamic (whitelist): 200..9999
 //   ads.json:          10000..
 //   exceptions.json:   100000..
+//
+// MANUAL_ID_MAX = 199 — это ЗАПАС, а не фактический размер manual.json.
+// Сейчас в rules/manual.json шесть правил с id 1..6. Константа 199
+// нужна, чтобы assertIdRanges гарантировал: если manual.json вырастет
+// (например, до 150 правил), он всё ещё не пересечётся с динамическими
+// id (DYN_RULE_ID_BASE = 200). Если ты когда-нибудь поднимешь
+// MANUAL_ID_MAX выше 199 — придётся поднять и DYN_RULE_ID_BASE
+// (в shared/storage.js) и синхронизировать оба места.
 const DYN_RULE_ID_BASE = 200;
 const DYN_RULE_ID_MAX = 9999;
 const MANUAL_ID_MAX = 199;

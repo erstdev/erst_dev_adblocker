@@ -21,6 +21,11 @@ function startObserver() {
     }
 
     const observer = new MutationObserver((mutations) => {
+        // combinedSelector пересчитывается один раз на батч мутаций.
+        // Это нормально: батч приходит пачкой, между батчами состояние
+        // currentSelectors не меняется (обновляется только через
+        // refreshSelectors при смене URL). Проверка state.currentSelectors.length > 0
+        // ниже защищает от пустого селектора — matches("") кинул бы исключение.
         const combinedSelector = state.currentSelectors.join(",");
 
         for (const mutation of mutations) {

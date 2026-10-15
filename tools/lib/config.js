@@ -34,7 +34,7 @@ export const MAX_DNR_RULES = 30000;
 // Новое распределение отдаёт неиспользуемые слоты этапа 3
 // в этап 1 (наибольший дефицит) и этап 2 (небольшой запас).
 //
-// Ожидаемый итог: ~28100 блокирующих + ~1100 allow = ~29200 из 30000.
+// Ожидаемый итог: ~28000 блокирующих + ~1100 allow = ~29100 из 30000.
 export const QUOTA_STAGE_2 = 5200;
 export const QUOTA_STAGE_3 = 1000;
 export const QUOTA_STAGE_1 = 22300;
@@ -54,23 +54,73 @@ export const ALL_RESOURCE_TYPES = [
     "media", "font", "ping", "other", "stylesheet", "websocket"
 ];
 
-// Соответствие EasyList → DNR resourceTypes
+// Соответствие EasyList → DNR resourceTypes.
+//
+// Поддерживаемые типы и их синонимы:
+//   script          → script
+//   image           → image
+//   subdocument     → sub_frame
+//   xmlhttprequest  → xmlhttprequest
+//   xhr             → xmlhttprequest (синоним AdGuard/uBlock)
+//   stylesheet      → stylesheet
+//   font            → font
+//   media           → media
+//   ping            → ping
+//   websocket       → websocket
+//   other           → other
+//   object          → object (AdGuard: плагины, Java, Flash)
+//   object-subrequest → object
+//
+// НЕ поддерживаются (отбрасываются через UNSUPPORTED_MODIFIERS):
+//   document, popup, replace, csp, removeparam, generichide,
+//   elemhide, empty, important, badfilter, match-case,
+//   rewrite, redirect, redirect-rule, denyallow, header,
+//   method, to, from, inline-script, inline-font.
+//
+// $all обрабатывается отдельно в parseModifiers — просто игнорируется.
 export const RESOURCE_TYPE_MAP = {
     "script": "script",
     "image": "image",
     "subdocument": "sub_frame",
     "xmlhttprequest": "xmlhttprequest",
+    "xhr": "xmlhttprequest",
     "stylesheet": "stylesheet",
     "font": "font",
     "media": "media",
     "ping": "ping",
     "websocket": "websocket",
-    "other": "other"
+    "other": "other",
+    "object": "object",
+    "object-subrequest": "object"
 };
 
-// Модификаторы EasyList, которые DNR НЕ поддерживает.
-// Правило с любым из них — пропускаем.
+// Модификаторы EasyList / AdGuard / uBlock Origin, которые DNR НЕ поддерживает.
+// Правило с любым из них — пропускается целиком.
+//
+// Проверка идёт по baseName — части до знака "=" (например,
+// csp=script-src ... → baseName "csp", redirect=noop.js → baseName "redirect").
 export const UNSUPPORTED_MODIFIERS = new Set([
-    "document", "popup", "replace", "csp", "rewrite",
-    "redirect", "removeparam", "generichide", "elemhide", "empty"
+    // EasyList / Adblock Plus
+    "document",
+    "popup",
+    "replace",
+    "csp",
+    "removeparam",
+    "generichide",
+    "elemhide",
+    "empty",
+    "important",
+    "badfilter",
+    "match-case",
+    // AdGuard / uBlock Origin
+    "rewrite",
+    "redirect",
+    "redirect-rule",
+    "denyallow",
+    "header",
+    "method",
+    "to",
+    "from",
+    "inline-script",
+    "inline-font"
 ]);

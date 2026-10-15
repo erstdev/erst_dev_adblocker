@@ -17,8 +17,17 @@
 /**
  * Регистрирует все слушатели смены URL.
  * Вызывается один раз при старте content script.
+ *
+ * Флаг __erstUrlWatcherInstalled защищает от повторной установки,
+ * если content script будет инжектирован дважды (например, через
+ * chrome.scripting.executeScript в будущем). При повторной установке
+ * history.pushState/replaceState обернулись бы второй раз, и notify()
+ * вызывался бы N раз на каждое изменение URL.
  */
 function watchUrlChanges() {
+    if (window.__erstUrlWatcherInstalled) return;
+    window.__erstUrlWatcherInstalled = true;
+
     const notify = () => refreshSelectors(window.location.href);
 
     // Перехватываем pushState/replaceState
@@ -27,7 +36,7 @@ function watchUrlChanges() {
 
     history.pushState = function (...args) {
         originalPush.apply(this, args);
-        notify();
+        void notify();
     };
     history.replaceState = function (...args) {
         originalReplace.apply(this, args);
