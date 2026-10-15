@@ -9,11 +9,6 @@
 Почта для обратной связи в расширении: erst_dev@mail.ru
 Приватная политика: https://erstdev.github.io/erst_dev_adblocker_privacy/
 
-## Текущий статус
-
-Версия 1.0.0 опубликована в Chrome Web Store и Opera Addons (29 сентября 2026).
-Версия 1.1.0 нужно опубликовать.
-
 ## Что уже умеет
 
 - Блокировка рекламных и трекерных запросов через DNR (27 000 блокирующих правил + 1 094 allow).
@@ -48,7 +43,7 @@
 9. Поддержка `:has-text(...)` (uBlock).
 10. Разделение DNR-набора на core/extra.
 
-## Изменения версии 1.1.0 (этот чат)
+## Изменения версии 1.1.0
 
 ### Конвертер
 
@@ -412,21 +407,6 @@ MANUAL_ID_MAX = 199 — это запас, а не фактический раз
 - activeTab + <all_urls> — activeTab убран.
 - RuTube главная страница скрывалась — findRotatedContainer больше не поднимается к layout-контейнерам, добавлены isStructuralElement и isInsidePlayer.
 - RuTube видео-реклама глушила основной плеер — селектор [id^="raichu"] video матчил <video data-testid="video"> внутри raichuContainerWithPlayer_... и ставил его на паузу. Убран из RUTUBE_AD_VIDEO_SELECTORS; muteAdVideos теперь только mute + playbackRate по точечным селекторам advert-video и raichu-adver-tag.
-
-## Работы (открытые задачи)
-
-### Приоритет 1 — документация
-
-Обновить числа:
-
-| Параметр | Было | Стало |
-|---|---|---|
-| Blocking rules | 28 500 | 27 000 |
-| Allow rules | 1 094 | 1 094 |
-| Total | 29 594 | 28 094 |
-| Квоты | 5000/15000/8500/1500 | 5200/1000/22300/1500 |
-
-Файлы: CONTEXT.md, README.md, CHANGELOG.md.
 
 ### Отложено на 1.2.0
 
