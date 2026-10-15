@@ -9,15 +9,10 @@
 Почта для обратной связи в расширении: erst_dev@mail.ru
 Приватная политика: https://erstdev.github.io/erst_dev_adblocker_privacy/
 
-## Текущий статус
-
-Версия 1.0.0 опубликована в Chrome Web Store и Opera Addons (29 сентября 2026).
-Версия 1.1.0 нужно опубликовать.
-
 ## Что уже умеет
 
-- Блокировка рекламных и трекерных запросов через DNR (28 500 блокирующих правил + 1 094 allow).
-- Косметика: 14 116 общих CSS-селекторов + 29 515 domain-specific для 12 510 доменов.
+- Блокировка рекламных и трекерных запросов через DNR (27 000 блокирующих правил + 1 094 allow).
+- Косметика: 14 116 общих CSS-селекторов + 29 512 domain-specific для 12 510 доменов.
 - Ручные правила для отдельных сайтов (manual.json):
   - AdFox (Яндекс),
   - РСЯ,
@@ -28,7 +23,7 @@
   - Яндекс.Поиск (гарантийные показы РСЯ).
 - Whitelist — сайты, где блокировка не работает.
 - Глобальный вкл/выкл через свитчер в popup.
-- Авто-скип рекламы в видео (VK Video, YouTube, RuTube). YouTube работает — ускорение 16x + mute + клик + оверлей «Пропуск рекламы».
+- Авто-скип рекламы в видео (VK Video, YouTube, RuTube).
 - SPA-навигация (pushState, popstate, hashchange).
 - MutationObserver для динамической рекламы.
 - Text-based hiding (обычные маркеры + структурный детектор разбитого текста).
@@ -47,93 +42,107 @@
 8. Поддержка `#@#` (исключения косметики).
 9. Поддержка `:has-text(...)` (uBlock).
 10. Разделение DNR-набора на core/extra.
-11. 
-## Структура проекта
 
-```
-adblocker/
-├── manifest.json
-├── package.json (type: "module")
-├── icon-source.png (исходник иконки, 512×512)
-├── icon-source-small.png (упрощённая иконка без текста)
-├── CHANGELOG.md
-├── README.md
-├── PRIVACY.md
-│
-├── _locales/ (i18n: name и description)
-│ ├── en/messages.json
-│ └── ru/messages.json
-│
-├── docs/ (11 глав учебника, готовы)
-│ ├── 00-INTRO.md
-│ ├── 01-ARCHITECTURE.md
-│ ├── 02-MANIFEST.md
-│ ├── 03-SERVICE-WORKER.md
-│ ├── 04-CONTENT-SCRIPTS.md
-│ ├── 05-POPUP.md
-│ ├── 06-SHARED.md
-│ ├── 07-RULES-CONVERTER.md
-│ ├── 08-WHITELIST-TOGGLE.md
-│ ├── 09-GLOSSARY.md
-│ └── 10-FAQ.md
-│
-├── icons/ (генерируется, 16/32/48/128 + store-icon-128)
+## Изменения версии 1.1.0
 
-│
-├── background/ (SERVICE WORKER)
-│ ├── service_worker.js (оркестратор)
-│ └── lib/
-│ ├── cosmetic-injector.js (вставка общего CSS через insertCSS)
-│ ├── cosmetic-map.js (загрузка карты domain-селекторов)
-│ └── message-handler.js (обработчик сообщений)
-├── content/ (CONTENT SCRIPTS)
-│ ├── domain-cosmetic.js (точка входа, IIFE)
-│ ├── cosmetic.css (генерируется конвертером)
-│ ├── cosmetic-manual.css (ручные правила, не перезаписывается)
-│ └── lib/
-│ ├── state.js (глобальный объект state)
-│ ├── inject-css.js (запрос селекторов + вставка style)
-│ ├── spa.js (SPA-навигация)
-│ ├── ad-markers.js (text-based hiding + структурный детектор)
-│ ├── observer.js (MutationObserver, использует hideAdInElement)
-│ ├── auto-skip.js (авто-скип рекламы в видео)
-│ └── (порядок в manifest.json важен)
-│
-├── popup/
-│ ├── popup.html
-│ ├── popup.css
-│ └── popup.js (getElementById, не byId)
-│
-├── shared/
-│ ├── messages.js (типы сообщений)
-│ └── storage.js (chrome.storage + DNR-синхронизация)
-│
-├── rules/ (генерируется конвертером, кроме manual.json)
-│ ├── ads.json (28 500 блокирующих, id с 10000)
-│ ├── exceptions.json (1 094 allow, id с 100000)
-│ ├── manual.json (ручные правила, id 1..100)
-│ └── cosmetic-map.json (12 510 доменов, 29 515 селекторов)
-│
-├── lists/ (исходники EasyList, не в ZIP)
-│ ├── easylist.txt
-│ └── adguard-russian.txt
-│
-└── tools/ (Node.js, не в ZIP)
-├── convert.js (main, оркестратор)
-├── build-prod.js (сборка ZIP через jszip)
-├── build-icons.js (нарезка иконок через sharp)
-├── resize-screenshots.js (ресайз скриншотов до 1280×800)
-└── lib/
-├── config.js
-├── utils.js
-├── reader.js
-├── classifier.js
-├── network.js (этапы 1, 2, 3)
-├── exceptions.js (этап 5)
-├── cosmetic.js (этап 4)
-├── limiter.js (квоты)
-└── writer.js
-```
+### Конвертер
+
+1. **Устранено дублирование `||domain^` между этапом 1 и этапом 3.**
+- `selectSimpleRules` теперь явно исключает `$` (`!r.includes("$")`).
+- `selectPathRules` теперь исключает `||` (`!r.startsWith("||")`).
+- Раньше правило `||example.com^` попадало и в simple, и в path, создавая два одинаковых DNR-правила.
+- Результат: этап 3 уменьшился с ~15 000 до 566 правил (остались только настоящие path-правила).
+
+2. **Пересчитаны квоты конвертера.**
+- Было: STAGE_2=5000, STAGE_3=15000, STAGE_1=8500, EXCEPTIONS=1500.
+- Стало: STAGE_2=5200, STAGE_3=1000, STAGE_1=22300, EXCEPTIONS=1500.
+- Итог: 27 000 блокирующих + 1 094 allow = 28 094 из 30 000 (93.6%).
+- Раньше этап 1 (simple) резался с 50 038 до 8 500 (83% потерь). Теперь — до 22 300 (55% потерь).
+
+3. **Добавлены синонимы модификаторов в `RESOURCE_TYPE_MAP`.**
+- `xhr` → `xmlhttprequest`.
+- `object`, `object-subrequest` → `object`.
+
+4. **Расширен `UNSUPPORTED_MODIFIERS`.**
+- Добавлены: `important`, `badfilter`, `match-case`, `rewrite`, `redirect`, `redirect-rule`, `denyallow`, `header`, `method`, `to`, `from`, `inline-script`, `inline-font`.
+- Проверка идёт по `baseName` — части до знака `=` (для `csp=...`, `redirect=...`, `denyallow=...`).
+
+5. **Неизвестные модификаторы теперь отбрасывают правило целиком.**
+- Раньше молча игнорировались, правило конвертировалось без них — становилось шире задуманного.
+- Теперь `parseModifiers` возвращает `unsupported: true` и правило пропускается.
+
+6. **Regexp-правила AdGuard/uBlock отсеиваются до парсинга.**
+- В `modifierRulesToDnr` добавлена проверка `if (easyRule.startsWith("/"))`.
+- Раньше `lastIndexOf("$")` мог найти `$` внутри regexp (например, `/foo$/`) и ошибочно решить, что это модификаторы.
+- По итогам: `[stage 2] ... regexp: 1025`.
+
+7. **`parseModifiers` обрабатывает `$first-party` / `$1p` / `$~first-party` / `$~1p`.**
+- Маппинг: `firstParty = isNegated`, `~first-party` = `thirdParty`.
+
+### Runtime / storage
+
+8. **`assertIdRanges` в `limiter.js` расширен.**
+- Проверяет все шесть пар: manual↔dynamic, manual↔ads, dynamic↔ads, ads↔exceptions, dynamic↔exceptions, manual↔exceptions.
+- Добавлены константы `DYN_RULE_ID_BASE = 200`, `DYN_RULE_ID_MAX = 9999`, `MANUAL_ID_MAX = 199`.
+- Лог `[id-check]` теперь показывает все четыре диапазона.
+- `MANUAL_ID_MAX = 199` — это запас, а не фактический размер `manual.json` (там сейчас 6 правил).
+
+9. **`syncWhitelistRules` фильтрует по диапазону id.**
+- Удаляет только правила в `DYN_RULE_ID_BASE..DYN_RULE_ID_MAX`.
+- Диагностика `foreignIds` — предупреждает, если в `getDynamicRules` есть правила вне диапазона.
+- Логи честнее: `old whitelist rules` вместо `old dynamic rules`.
+
+10. **Убран `activeTab` из `manifest.json`.**
+- Он не использовался: `<all_urls>` в `host_permissions` даёт всё, что нужно.
+- Чтение `tab.url` в popup работает через `<all_urls>`.
+
+11. **Исправлен комментарий в `cosmetic-injector.js` про фреймы.**
+- `onCommitted` срабатывает для каждого фрейма, `frameId !== 0` отбрасывает sub_frame.
+- `insertCSS` без `frameIds` вставляет CSS во ВСЕ фреймы вкладки за один вызов.
+- Content scripts в iframe не работают (нет `all_frames: true`) — осознанное ограничение.
+
+### Content scripts
+
+12. **`auto-skip.js` — убран широкий селектор `[class*="skip-ad"]`.**
+- Он матчил любой элемент с подстрокой в class (`skip-ads-info`, `no-skip-ad`, `dont-skip-ad`, `skip-ad-signup`) и кликал по нему каждые 500 мс на всех сайтах.
+- Заменён на точечные селекторы для VK Video, RuTube, YouTube.
+
+13. **`auto-skip.js` — добавлена функция `isClickableButton`.**
+- Клик выполняется только по `button` / `a` / `input[type=button|submit]`.
+- Проверка видимости через `getBoundingClientRect()` (width/height > 0).
+- `disabled` проверяется.
+
+14. **`auto-skip.js` — `periodicCheck` и `trySkipButton` ограничены хостами.**
+- Добавлены константы `YT_HOSTS`, `RUTUBE_HOSTS`, функции `isYoutubeHost`, `isRutubeHost`.
+- `startAutoSkip` разветвлён по хостам: YouTube — observer + интервалы, RuTube — клик + mute, VK — только клик.
+- На остальных сайтах страховочные интервалы не работают.
+
+15. **`auto-skip.js` — `attachObserverToPlayer` сбрасывает `wasAdShowing` при смене плеера.**
+- Если `currentPlayer !== player` и `wasAdShowing = true` — сбрасываем флаг и скрываем оверлей.
+- Затем `check()` на новом плеере корректно стартует рекламу с нуля.
+
+16. **`ad-markers.js` — защита от ложных срабатываний (RuTube-фикс).**
+- `MAX_CONTAINER_CHILDREN = 20` — `findRotatedContainer` не поднимается к layout-контейнерам с > 20 детьми.
+- `findRotatedContainer` и `findAdContainer` возвращают `null`, если не нашли подходящий контейнер (раньше возвращали `el`).
+- Добавлена `isStructuralElement` — не скрываем `html`, `body`, `main`, `header`, `footer`, `nav`, `#root`, `#app`.
+- Добавлена `isInsidePlayer` — не скрываем элементы внутри `<video>`, `[class*="player"]`, `#movie_player`, `[class*="player-container"]` и т.п.
+- `hideAdInElement` проверяет `el` и `target` на структурность и нахождение внутри плеера.
+
+  Причина: на главной RuTube лейбл «Реклама» внутри блока AdFox заставлял `findRotatedContainer` подниматься до `section.wdp-wrapper-module__wdp-common-wrapper`, и скрывалась вся страница.
+
+### Известные ограничения (не решены)
+
+- **Конвертер:** не поддерживаются модификаторы:
+- `$redirect`, `$redirect-rule`, `$rewrite` (нужны файлы-заглушки и `web_accessible_resources`).
+- `$denyallow` (нет прямого аналога в DNR).
+- `$csp`, `$removeparam`, `$replace`, `$header`, `$method`, `$to`, `$from`, `$important`, `$badfilter`, `$match-case`, `$inline-script`, `$inline-font`.
+- `$generichide`, `$elemhide`, `$genericblock` (управляют применением generic-правил).
+- Regexp-правила `/regexp/$mods` — 1025 штук отсеиваются.
+- Regexp-исключения `@@/regexp/$mods` — отсеиваются.
+- Правила вида `||example.com/path` (без `^`, без `$`) теряются.
+
+- **Content scripts** не работают в iframe (нет `all_frames: true`) — осознанное ограничение.
+- **Не поддерживается `:has-text(...)`** (uBlock) — 287 правил в EasyList.
 
 ## Ключевые архитектурные решения
 
@@ -150,17 +159,19 @@ adblocker/
   - dynamic (whitelist): id 200..9999 (DYN_RULE_ID_BASE = 200)
   - ads.json:           id 10000+
   - exceptions.json:    id 100000+
-  - 101..199 — запас на расширение manual.json.
+  - 101..199 — запас на расширение manual.json (MANUAL_ID_MAX = 199).
 - Лимит статических: 30 000 суммарно.
 - Лимит динамических: 5000.
 - main_frame НИКОГДА не указывается в resourceTypes блокирующих правил.
 - hostNotEquals в UrlFilter у webNavigation НЕ поддерживается — исключение хостов делается вручную в handleCommitted.
-- Диапазоны id проверяются в limiter.js → assertIdRanges().
+- Диапазоны id проверяются в limiter.js → assertIdRanges() (все шесть пар).
+- MANUAL_ID_MAX = 199 — это запас, а не фактический размер manual.json (там сейчас 6 правил). Если manual.json вырастет выше 199 — придётся поднять DYN_RULE_ID_BASE в shared/storage.js.
 
 ### Whitelist (динамические allowAllRequests)
 - shared/storage.js — syncWhitelistRules создаёт по одному правилу allowAllRequests (priority 100) на каждый whitelisted домен.
 - Диапазон id динамических: 200..9999.
 - Удаление и добавление — двумя отдельными вызовами updateDynamicRules (Chrome не гарантирует порядок в одном вызове).
+- Удаляются только правила в диапазоне DYN_RULE_ID_BASE..DYN_RULE_ID_MAX.
 - Мьютекс в syncDnrState через syncInFlight — защита от параллельных вызовов.
 - syncDnrState вызывается только из service_worker.js (при старте и через storage.onChanged). НЕ вызывается из message-handler.
 
@@ -175,18 +186,24 @@ adblocker/
   6. auto-skip.js — авто-скип
   7. domain-cosmetic.js — точка входа IIFE
 - run_at: "document_start".
+- all_frames НЕ указан — скрипты работают только в main_frame.
 
-### Детектор рекламы в content (обновлено в 1.1.0)
+### Детектор рекламы в content
 
 Основной вход — hideAdInElement(el, logPrefix) в ad-markers.js.
-Все остальные места (hideAdMarkers, checkNodeForMarkers) — тонкие обёртки.
+
+Защита от ложных срабатываний:
+- isStructuralElement(el) — не скрываем html, body, main, header, footer, nav, #root, #app.
+- isInsidePlayer(el) — не скрываем элементы внутри video, [class*="player"], #movie_player, [class*="player-container"], .html5-video-player, [data-testid='video-player'].
+- MAX_CONTAINER_CHILDREN = 20 — findRotatedContainer не поднимается к layout-контейнерам с > 20 детей.
+- findAdContainer и findRotatedContainer возвращают null, если не нашли подходящий контейнер.
 
 Два типа маркеров:
 
 1. Обычный матчер (matchMarker):
 - схлопывает el.textContent (lowercase, без пробелов);
 - проверяет includes() по списку AD_TEXT_MARKERS:
-  реклама, промо, спонсор, рекламный, партнёрскийматериал,
+  реклама, реклам, промо, спонсор, рекламный, партнёрскийматериал,
   advertisement, sponsored, объявлениескрыто, рекламноеобъявление;
 - ограничения: MIN_CANDIDATE_TEXT_LENGTH = 4,
   MAX_CANDIDATE_TEXT_LENGTH = 200.
@@ -200,6 +217,8 @@ adblocker/
   детей текст 1..5 символов.
 - отсекает ложные срабатывания на «Убрать рекламу за 1₽»,
   «О рекламодателе», обычные посты.
+- использует el.children (только Element-узлы), не el.childNodes —
+  куски текста всегда обёрнуты в теги.
 
 Подъём к контейнеру:
 
@@ -207,14 +226,22 @@ adblocker/
   - по семантическим селекторам [id^="trg-b-"],
     [id^="b"][data-rendertype="native"], [id^="yandex_ad_R-"],
     [data-testid$="-ad"], [data-testid*="-ad-"];
+  - по Dzen-якорям [data-new-adtune="true"],
+    [data-cv3dnq1w-click="imageGallery"], [data-cv3dnq1w-click="title"];
+  - по Mail.ru-классам .sc-1v5ykgi, .sc-1ymix5g;
   - по inline-стилю width: 160px (слот Mail.ru);
   - иначе — сам el.
 
 - findRotatedContainer(el):
   - поднимается до родителя с 2+ детьми,
     у которых textContent > 20 символов;
+  - не поднимается выше MAX_CONTAINER_CHILDREN = 20 детей;
   - используется для коротких маркеров (≤ 20 символов)
     и для isRotatedAdLabel.
+
+Установка display: none — идемпотентна, повторная запись
+не меняет inline-стиль. Отдельная проверка display === "none"
+не нужна (читает только inline, не computed, выигрыша не даёт).
 
 ### Popup (ESM, type="module")
 - import { MSG } from "../shared/messages.js" работает.
@@ -225,42 +252,54 @@ adblocker/
 ### Сообщения (shared/messages.js)
 Формат: <откуда>→<куда>:<действие>
 - cs→sw:getDomainSelectors — content script просит селекторы
+- cs→sw:getDomainExclude — content script просит исключения
 - popup→sw:getState
 - popup→sw:setEnabled
 - popup→sw:whitelistAdd
 - popup→sw:whitelistRemove
-  isValidMessageType — проверка через Set.
+- isValidMessageType — проверка через Set.
 
 ### Конвертер
+
 - ESM ("type": "module" в package.json).
 - Команды: npm run convert, npm run icons, npm run build, npm run screenshots.
 - Квоты (сумма ≤ 30000):
-  - Этап 2 ($-модификаторы): 5000
-  - Этап 3 (|http/path): 15000
-  - Этап 1 (||domain^): 8500
+  - Этап 2 ($-модификаторы): 5200
+  - Этап 3 (|http/path): 1000
+  - Этап 1 (||domain^): 22300
   - Исключения: 1500
 - jszip вместо archiver.
 - sharp для иконок и ресайза.
 - Конвертер не трогает manual.json и cosmetic-manual.css.
 
+### Этапы конвертации (select + ToDnr)
+
+Этап 1 (simple): `||domain^` без `$`.
+- selectSimpleRules: `startsWith("||") && endsWith("^") && !includes("$")`.
+- simpleRulesToDnr: block, priority 1, resourceTypes = ALL_RESOURCE_TYPES.
+
+Этап 2 (modifiers): правила с `$`.
+- selectModifierRules: `includes("$")`.
+- modifierRulesToDnr: пропускает regexp (`startsWith("/")`).
+- parseModifiers: см. выше.
+
+Этап 3 (path): `|http://` и `/path` без `||` и без `$`.
+- selectPathRules: `(startsWith("|") || startsWith("/")) && !startsWith("||") && !includes("$")`.
+- pathRulesToDnr: block, priority 1, resourceTypes = ALL_RESOURCE_TYPES.
+
+Этап 5 (exceptions): `@@...`.
+- selectExceptionRules: уникальные.
+- exceptionRulesToDnr: allow, priority 2.
+- Пропускает regexp-исключения (`startsWith("@@/")`).
+
 ### Конвертация $domain=
 Модификатор $domain=a|b|~c|~d конвертируется в initiatorDomains
-и excludedInitiatorDomains DNR-правила:
-- включающие домены (a, b) → initiatorDomains: ["a", "b"]
-- исключающие (~c, ~d) → excludedInitiatorDomains: ["c", "d"]
-- смешанные → оба поля
-  Chrome проверяет: initiator ∈ initiatorDomains AND initiator ∉ excludedInitiatorDomains.
-  Реализовано в parseModifiers (tools/lib/network.js).
-  Используется и для block-правил (Этап 2), и для allow-правил
-  (exceptions.js импортирует тот же parseModifiers).
+и excludedInitiatorDomains DNR-правила.
 
 ### Фильтр extended CSS
-В cosmetic.js добавлен фильтр extended-синтаксиса.
-Правила, содержащие :style(), :remove(), :upward(), :matches-path(),
-:matches-css(), :matches-attr(), :contains(), :xpath(),
-:-abp-properties(), +js(), отбрасываются на этапе конвертации.
-Это не валидный CSS, браузер молча игнорирует его при insertCSS.
-По итогам 1.1.0 отфильтровано 1 135 правил.
+В cosmetic.js отбрасываются правила с :style(), :remove(), :upward(),
+:matches-path(), :matches-css(), :matches-attr(), :contains(), :xpath(),
+:-abp-properties(), +js(). По итогам 1.1.0 отфильтровано 1136 правил.
 
 ### Иконки
 - icon-source.png — полная иконка с текстом.
@@ -289,13 +328,17 @@ resourceTypes: script, image, xmlhttprequest, sub_frame, media, ping, other (д�
 
 - AdFox (Яндекс) — [data-role^="fox-tail"], [data-role^="fox::"], div.fox-tail, div[class*="fox-tail"].
 - Яндекс.Директ / РСЯ — div[id^="yandex_ad"], div[id^="yandex_rtb"], div[class^="yandex_ad"], [id^="ya_partner_R-A-"].
+- Яндекс — РСЯ (карты, поиск, сервисы) — [id*="R-I-"], [data-r-i].
+- Яндекс — РСЯ (гарантийные показы на поиске) — [data-layout-part="cr"], [id^="advRsyaReact_"], [id^="advRsyaReact_rsya-guarantee"].
 - Google Publisher Tag — div[id^="div-gpt-ad"], div[id^="gpt-passback"].
 - Mail.ru — [isfullscreen="true"], [id^="trg-b-"].
-- Mail.ru VK Ads — [id*="R-I-"], [data-r-i] (для карт, поиска, сервисов Яндекса).
-- Mail.ru data-mnemo — служебные.
+- Mail.ru — рекламные блоки через data-mnemo.
+- Mail.ru VK Ads — [id*="R-I-"], [data-r-i].
 - Dzen — [data-testid$="-ad"], [data-testid*="-ad-"], [id^="auto-slide-ad"], [id*="-ad-item_"], [class*="auto-slide-ad"], [class*="dzen-desktop--auto-slide-ad"], a.yrw-url[href*="yandex.ru/an/count"].
 - ВК Видео — [data-testid="ad-container"], [class*="ads-container"], [class*="rb-adman-ad-actions"].
 - Яндекс.Погода — [class*="AppMoney_container"], [class*="AppMoney_wrap"], [class*="AppMoneySidebar"], [id^="money-main-"], [data-name="adWrapper"].
+- RuTube — .wdp-feed-top-ad-module__ad-banner, .r-ad-sdk-adfox-wrapper, [id^="ra_"].
+- RuTube — видео-реклама (AdFox SDK) — [data-testid="advert"], .advert-module__advert___tQh3l, .yandex-advert-module__SDKWrapper___WMfXh, [id="raichu_yasdk_container"], [data-testid="advert-video"], .raichu-adver-tag, .advert-timeline-module__timeline___banQn, .advert-skip-module__container___aDiIw.
 
 ## Обратная связь (popup)
 
@@ -319,86 +362,59 @@ resourceTypes: script, image, xmlhttprequest, sub_frame, media, ping, other (д�
 
 Сумма квот должна быть ≤ 30 000 (лимит Chrome на статические DNR-правила):
 
-- Этап 2 ($-модификаторы): 5 000
-- Этап 3 (|http / /path): 15 000
-- Этап 1 (||domain^): 8 500
+- Этап 2 ($-модификаторы): 5 200
+- Этап 3 (|http / /path): 1 000
+- Этап 1 (||domain^): 22 300
 - Исключения (@@): 1 500
 - Итого: 30 000
 
 По итогам 1.1.0:
-- блокирующих правил: 28 500
+- блокирующих правил: 27 000
 - allow-правил: 1 094
-- итого: 29 594 (98.6% лимита)
-
-### Обрезка до квоты (capRules)
-
-Обрезка до квоты (capRules в limiter.js) делается с начала массива — приоритет отдаётся правилам, которые пришли раньше в порядке чтения EasyList/RU AdList. EasyList разбит на секции (General, Specific, Allow, Anti-Adblock, Adult), внутри секций порядок обычно соответствует важности, но гарантии иерархической сортировки нет. Случайная выборка или сортировка по эвристикам не улучшат ситуацию — критерия «важности» правила у нас нет. slice(0, max) — разумный дефолт.
+- итого: 28 094 (93.6% лимита)
 
 ### Проверка диапазонов id
 
-В limiter.js → assertIdRanges() проверяется, что диапазоны id не пересекаются:
+В limiter.js → assertIdRanges() проверяются все шесть пар:
 
-- manual.json:       1..100
-- динамические:      200..9999 (см. shared/storage.js)
+- manual.json:       1..199
+- динамические:      200..9999
 - ads.json:          10000..
 - exceptions.json:   100000..
 
-Если ads.json дорастёт до 100000, или exceptions.json начнётся раньше 10000 — конвертер упадёт с понятной ошибкой, а не создаст файл, который Chrome откажется загружать.
+Если любая пара пересекается — конвертер падает с понятной ошибкой.
+
+MANUAL_ID_MAX = 199 — это запас, а не фактический размер manual.json
+(там сейчас 6 правил). Если manual.json вырастет выше 199 — придётся
+поднять DYN_RULE_ID_BASE в shared/storage.js и синхронизировать
+константы в обоих файлах.
 
 ## Заметки по прошлым проблемам (решены)
 
-- Rule with id N does not have a unique ID — Chrome смешивает пространства id статических и динамических правил. Решено разделением диапазонов (manual 1..100, dynamic 200..9999, ads 10000+, exceptions 100000+). Проверяется в limiter.js → assertIdRanges().
+- Rule with id N does not have a unique ID — Chrome смешивает пространства id статических и динамических правил. Решено разделением диапазонов.
 - MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL quota — отказ от getMatchedRules для счётчика.
 - Race condition в syncDnrState — мьютекс + единый источник вызовов (storage.onChanged).
-- insertCSS failed: The extensions gallery cannot be scripted — добавить в фильтр onCommitted исключение хостов chrome.google.com и chromewebstore.google.com. Реализовано вручную в handleCommitted (см. cosmetic-injector.js), массив FORBIDDEN_HOSTS.
+- insertCSS failed: The extensions gallery cannot be scripted — FORBIDDEN_HOSTS = [chrome.google.com, chromewebstore.google.com].
 - archiver is not a function — перешли на jszip.
 - ESM в конвертере — import/export вместо require.
 - __dirname в ESM — через fileURLToPath(import.meta.url).
-- Service worker registration failed. Status code: 15 — был из-за hostNotEquals внутри schemes в webNavigation UrlFilter (не поддерживается). Исправлено: фильтр onCommitted только по schemes, исключение хостов — вручную в handleCommitted.
-- Mail.ru мигание рекламы — решено: структурный детектор разбитого лейбла (isRotatedAdLabel) + findRotatedContainer. Задержка ~5 секунд при ротации — принимаем как особенность Mail.ru.
-- YouTube авто-скип — работает: ускорение 16x + mute + клик по кнопке + оверлей.
-- Whiteline-логотип Mail.ru отображался как битая картинка — блокировался трекер-домен mradx.net, используемый Mail.ru как CDN для логотипа. Добавлено allow-правило в rules/manual.json (id 6) для ||r.mradx.net/imgs/.
-
-## Полезные команды
-
-npm run convert       # сконвертировать списки
-npm run icons         # нарезать иконки из исходников
-npm run build         # собрать ZIP
-npm run screenshots   # ресайз скриншотов до 1280×800
-
-## Ссылки
-
-- Chrome Web Store Dashboard: https://chrome.google.com/webstore/devconsole
-- Opera Developer Dashboard: https://addons.opera.com/developer
-- GitHub Pages (privacy policy): https://erstdev.github.io/erst_dev_adblocker_privacy/
-
-## Работы
-
-Раздел содержит планы на будущее и открытые задачи. После завершения пункта — переносить в «Заметки по прошлым проблемам» или удалять.
+- Service worker registration failed. Status code: 15 — был из-за hostNotEquals внутри schemes в webNavigation UrlFilter.
+- Mail.ru мигание рекламы — решено: структурный детектор разбитого лейбла.
+- YouTube авто-скип — работает.
+- Whiteline-логотип Mail.ru — добавлено allow-правило в rules/manual.json (id 6).
+- Дублирование ||domain^ между этапом 1 и 3 — устранено.
+- Квоты конвертера не соответствовали содержимому списков — пересчитаны.
+- activeTab + <all_urls> — activeTab убран.
+- RuTube главная страница скрывалась — findRotatedContainer больше не поднимается к layout-контейнерам, добавлены isStructuralElement и isInsidePlayer.
+- RuTube видео-реклама глушила основной плеер — селектор [id^="raichu"] video матчил <video data-testid="video"> внутри raichuContainerWithPlayer_... и ставил его на паузу. Убран из RUTUBE_AD_VIDEO_SELECTORS; muteAdVideos теперь только mute + playbackRate по точечным селекторам advert-video и raichu-adver-tag.
 
 ### Отложено на 1.2.0
 
-1. **Поддержка `:has-text(...)` (uBlock).**
-  - Сейчас ~287 правил в `easylist.txt` с `#?#` и `:has-text(...)` не обрабатываются: `classifier.js` кладёт их в `network`, `network.js` не берёт, в выходные файлы они не попадают.
-  - Реализовать: парсинг `:has-text`, обход DOM, скрытие подходящих элементов.
-  - Пока — известное ограничение, не задокументировано в README/CHANGELOG.
-
-2. **Разделение DNR-набора на core/extra.**
-  - После конвертации `$domain=` в `initiatorDomains` (1.1.0) общее число правил выросло до 29 594 из 30 000 (98.6% лимита Chrome).
-  - Следующее крупное обновление EasyList/RU AdList упрётся в лимит, и `capRules` начнёт подрезать этапы.
-  - Решение: разделить статические правила на два набора: `core` (всегда включён) и `extra` (включается программно). Тогда основной набор будет меньше и не будет упираться в лимит.
-
-3. **Порт на Firefox.**
-  - MV3 в Firefox отличается: `browser.*` вместо `chrome.*`, `declarativeNetRequest` с ограничениями, `webNavigation` не полностью.
-  - Требует отдельной ветки и тестирования.
-
+1. **Поддержка :has-text(...) (uBlock).** ~287 правил не обрабатываются.
+2. **Разделение DNR-набора на core/extra.** 28 094 из 30 000 (93.6%), запас есть, но небольшой.
+3. **Порт на Firefox.** Требует отдельной ветки.
 4. **TypeScript, Prettier, ESLint.**
-  - Миграция поэтапная: сначала ESLint на текущий JS, потом TypeScript.
-  - Bundler (Vite/Rollup) — если понадобится после миграции.
-
-
-### Сводка по открытым задачам
-
-**Блокеры для публикации 1.1.0:**
-
-- Пункт 12: заменить `[Unreleased] — 1.1.0` на `[1.1.0] — YYYY-MM-DD` при публикации.
+5. **Поддержка $redirect / $redirect-rule / $rewrite.** Требует файлов-заглушек и web_accessible_resources.
+6. **Поддержка regexp-правил (/regexp/$mods).** 1025 правил отсеиваются.
+7. **Поддержка ||example.com/path.** Правила без ^ и без $ теряются.
+8. **Поддержка $denyallow.** Нет прямого аналога в DNR.

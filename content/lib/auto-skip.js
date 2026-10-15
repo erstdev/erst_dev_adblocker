@@ -3,7 +3,7 @@
 
    Поддерживаемые сайты:
    - YouTube (приоритет) — три механизма
-   - VK Video, RuTube — только клик по кнопке
+   - VK Video, RuTube — только клик по кнопке + mute/ускорение RuTube
 
    Механизмы для YouTube:
 
@@ -26,17 +26,31 @@
    - YouTube держит его на #movie_player и на .html5-video-player.
    - В SPA плеер может пересоздаваться — observer нужно
      перевешивать на новый элемент.
+
+   ВАЖНО про селекторы:
+   - НЕ используем широкие селекторы вида [class*="skip-ad"].
+     Такой селектор матчит любой элемент с подстрокой в class
+     (skip-ads-info, no-skip-ad, dont-skip-ad, skip-ad-signup)
+     и кликает по нему каждые 500 мс на всех сайтах.
+     Только точечные селекторы для конкретных плееров.
+
+   ВАЖНО про хосты:
+   - periodicCheck работает только на YouTube-хостах.
+   - muteAdVideos работает только на RuTube.
+   - trySkipButton вызывается из periodicCheck, поэтому на
+     не-YouTube сайтах страховочный клик не выполняется.
+     На VK Video / RuTube клик идёт через RuTube-ветку и через
+     MutationObserver — точечно.
    ============================================================ */
 
 const LOG = "[erst_dev_adblocker]";
 
 const SKIP_SELECTORS = [
-    '[data-testid="ad-skip-button"]',    // VK Video
-    '.ytp-ad-skip-button',               // YouTube (старый)
-    '.ytp-skip-ad-button',               // YouTube (новый)
-    '.ytp-ad-skip-button-modern',        // YouTube (modern)
-    '.ytp-ad-skip-button-container button',
-    '[class*="skip-ad"]',                // generic
+    '[data-testid="ad-skip-button"]',            // VK Video
+    '.ytp-ad-skip-button',                       // YouTube (старый)
+    '.ytp-skip-ad-button',                       // YouTube (новый)
+    '.ytp-ad-skip-button-modern',                // YouTube (modern)
+    '.ytp-ad-skip-button-container button'       // YouTube (modern, обёртка)
 ];
 
 const YT_SPEED = 16;
@@ -46,6 +60,38 @@ const YT_PLAYER_SELECTORS = [
 ];
 const YT_AD_CLASS = "ad-showing";
 const OVERLAY_ID = "erst-yt-ad-overlay";
+
+// Хосты YouTube. periodicCheck выполняется только на них —
+// чтобы страховочный интервал не давал ложных кликов на других сайтах.
+const YT_HOSTS = [
+    "youtube.com",
+    "www.youtube.com",
+    "m.youtube.com",
+    "music.youtube.com",
+    "youtu.be"
+];
+
+// Хосты RuTube.
+const RUTUBE_HOSTS = [
+    "rutube.ru",
+    "www.rutube.ru"
+];
+
+// Селекторы рекламных видео на RuTube. AdFox SDK вставляет <video>
+// поверх основного плеера. Косметика его скрывает, но звук остаётся —
+// эти селекторы нужны, чтобы замьютить и ускорить.
+const RUTUBE_AD_VIDEO_SELECTORS = [
+    'video[data-testid="advert-video"]',
+    'video.raichu-adver-tag'
+];
+
+function isYoutubeHost() {
+    return YT_HOSTS.includes(window.location.hostname);
+}
+
+function isRutubeHost() {
+    return RUTUBE_HOSTS.includes(window.location.hostname);
+}
 
 // ------------------------------------------------------------
 // Оверлей «Пропуск рекламы»
@@ -91,8 +137,30 @@ function hideAdOverlay() {
 }
 
 // ------------------------------------------------------------
-// Клик по кнопке «Пропустить» (VK, YouTube, generic)
+// Клик по кнопке «Пропустить».
+//
+// Клик выполняется только по кликабельным элементам (button,
+// a, input[type=button|submit]) и только если элемент видим
+// (getBoundingClientRect width/height > 0) и не disabled.
 // ------------------------------------------------------------
+
+function isClickableButton(el) {
+    if (!el) return false;
+    if (el.disabled) return false;
+
+    const tag = el.tagName;
+    const isButton =
+        tag === "BUTTON" ||
+        tag === "A" ||
+        (tag === "INPUT" && (el.type === "button" || el.type === "submit"));
+
+    if (!isButton) return false;
+
+    const rect = el.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return false;
+
+    return true;
+}
 
 function trySkipButton() {
     for (const sel of SKIP_SELECTORS) {
@@ -103,7 +171,7 @@ function trySkipButton() {
             continue;
         }
         for (const el of elements) {
-            if (!el || el.disabled) continue;
+            if (!isClickableButton(el)) continue;
 
             el.click();
             console.log(`${LOG} ad skipped: ${sel}`);
@@ -111,6 +179,32 @@ function trySkipButton() {
         }
     }
     return false;
+}
+
+// ------------------------------------------------------------
+// RuTube: mute + ускорение рекламных видео.
+//
+// Косметика скрывает <video>, но звук продолжает играть.
+// Проматываем рекламу на 16x и глушим — до клика по skip-кнопке
+// или до конца рекламного ролика.
+// ------------------------------------------------------------
+
+function muteAdVideos() {
+    if (!isRutubeHost()) return;
+
+    for (const sel of RUTUBE_AD_VIDEO_SELECTORS) {
+        let videos;
+        try {
+            videos = document.querySelectorAll(sel);
+        } catch (e) {
+            continue;
+        }
+        for (const v of videos) {
+            if (!v || v.tagName !== "VIDEO") continue;
+            if (!v.muted) v.muted = true;
+            if (v.playbackRate !== YT_SPEED) v.playbackRate = YT_SPEED;
+        }
+    }
 }
 
 // ------------------------------------------------------------
@@ -158,6 +252,11 @@ function handleYoutubeAdEnd() {
 //
 // Перевешиваем observer каждый раз, когда плеер
 // пересоздаётся (SPA-навигация на YouTube).
+//
+// Если currentPlayer !== player и wasAdShowing = true — сбрасываем
+// флаг и скрываем оверлей. Иначе на новом плеере первый check()
+// увидит ad-showing, но wasAdShowing уже true, и старт рекламы
+// не обработается.
 // ------------------------------------------------------------
 
 let currentPlayer = null;
@@ -169,6 +268,12 @@ function attachObserverToPlayer(player) {
         currentObserver.disconnect();
         currentObserver = null;
     }
+
+    if (currentPlayer !== player && wasAdShowing) {
+        wasAdShowing = false;
+        hideAdOverlay();
+    }
+
     currentPlayer = player;
 
     const check = () => {
@@ -195,6 +300,8 @@ function attachObserverToPlayer(player) {
 }
 
 function ensureObserver() {
+    if (!isYoutubeHost()) return;
+
     const player = getPlayer();
     if (!player) return;
     if (player === currentPlayer && currentObserver) return;
@@ -202,10 +309,15 @@ function ensureObserver() {
 }
 
 // ------------------------------------------------------------
-// Страховочный интервал (на случай если observer отвалился)
+// Страховочный интервал (на случай если observer отвалился).
+//
+// Работает только на YouTube-хостах, чтобы не давать ложных
+// кликов по кнопкам на других сайтах.
 // ------------------------------------------------------------
 
 function periodicCheck() {
+    if (!isYoutubeHost()) return;
+
     const player = getPlayer();
     if (!player) return;
 
@@ -235,17 +347,44 @@ function periodicCheck() {
 // ------------------------------------------------------------
 
 function startAutoSkip() {
-    // Пытаемся повесить observer прямо сейчас (если плеер уже есть).
-    ensureObserver();
+    // YouTube: observer + страховочные интервалы.
+    if (isYoutubeHost()) {
+        // Пытаемся повесить observer прямо сейчас (если плеер уже есть).
+        ensureObserver();
 
-    // Если плеера ещё нет (SPA) — пробуем до тех пор, пока он не появится.
-    // После появления плеера не выключаем интервал: YouTube может
-    // пересоздать плеер при переходе между видео.
-    setInterval(ensureObserver, 1000);
+        // Если плеера ещё нет (SPA) — пробуем до тех пор, пока он
+        // не появится. После появления плеера не выключаем интервал:
+        // YouTube может пересоздать плеер при переходе между видео.
+        setInterval(ensureObserver, 1000);
 
-    // Страховочный интервал
-    setInterval(() => {
-        trySkipButton();
-        periodicCheck();
-    }, 500);
+        // Страховочный интервал
+        setInterval(() => {
+            trySkipButton();
+            periodicCheck();
+        }, 500);
+        return;
+    }
+
+    // RuTube: клик по кнопке «Пропустить» + mute/ускорение
+    // рекламных видео. Без observer — плеер RuTube не даёт
+    // публичного класса вида ad-showing.
+    if (isRutubeHost()) {
+        setInterval(() => {
+            trySkipButton();
+            muteAdVideos();
+        }, 500);
+        return;
+    }
+
+    // VK Video: точечный клик по кнопке «Пропустить». Без интервалов
+    // по другим сайтам — чтобы не давать ложных кликов.
+    // VK Video — это vk.com/video. Проверяем по хосту.
+    if (window.location.hostname.endsWith("vk.com") ||
+        window.location.hostname.endsWith("vkvideo.ru")) {
+        setInterval(() => {
+            trySkipButton();
+        }, 500);
+    }
+
+    // На остальных сайтах не делаем ничего.
 }

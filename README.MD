@@ -49,8 +49,9 @@ npm run build
 4. Выбрать папку `dist/` (после `npm run build`) или корень проекта (если `dist/` нет).
 
 ## Структура проекта
-
 ```
+## Структура проекта
+
 manifest.json            — манифест MV3
 _locales/                — i18n: name и description (en, ru)
 icons/                   — иконки (генерируются)
@@ -73,6 +74,7 @@ popup/                   — popup (ESM)
 shared/                  — общий код
   messages.js            — типы сообщений
   storage.js             — chrome.storage + DNR-синхронизация
+  utils.js               — extractHostname
 
 rules/                   — DNR-правила и карты косметики
   ads.json               — блокирующие (генерируется)
@@ -87,23 +89,26 @@ tools/                   — Node.js: конвертер, сборка, икон
 
 ## Как это работает
 
-- **DNR (Declarative Net Request).** Три ruleset'а: `ads_ruleset`, `exceptions_ruleset`, `manual_ruleset`. Все три выключены в манифесте и включаются программно при старте service worker. Блокирующие правила — 28 500, allow — 1 094.
+- **DNR (Declarative Net Request).** Три ruleset'а: `ads_ruleset`, `exceptions_ruleset`, `manual_ruleset`. Все три выключены в манифесте и включаются программно при старте service worker. Блокирующие правила — 27 000, allow — 1 094.
 - **Косметика.** Общий CSS (14 116 селекторов) вставляется через `chrome.scripting.insertCSS` при навигации. Domain-specific селекторы (29 512 для 12 510 доменов) отдаются content script через сообщение по текущему домену.
 - **Исключения косметики (`#@#`).** Отдельный файл `rules/cosmetic-exclude.json` (706 доменов, 872 селектора). Content script вставляет второй `<style>` с `display: revert !important`, который перекрывает скрытие по правилам EasyList.
 - **Whitelist.** Список доменов, где блокировка не работает. Реализован через динамические правила `allowAllRequests` с priority 100. Управляется из popup.
-- **Авто-скип видео.** Работает на YouTube (ускорение 16x + mute + клик + оверлей), VK Video и RuTube (клик по кнопке «Пропустить»).
-- **Text-based hiding.** Скрытие рекламных блоков по текстовым маркерам («реклама», «промо», «спонсор») и по структуре (разбитый лейбл Mail.ru).
+- **Авто-скип видео.** Работает на YouTube (ускорение 16x + mute + клик + оверлей), VK Video (клик по кнопке «Пропустить»), RuTube (клик по кнопке + mute + ускорение рекламного `<video>`).
+- **Text-based hiding.** Скрытие рекламных блоков по текстовым маркерам («реклама», «реклам», «промо», «спонсор»), по структуре (разбитый лейбл Mail.ru) и по стабильным атрибутам рекламных площадок Dzen (`data-new-adtune`, `data-cv3dnq1w-click`).
 
 ## Лимиты Chrome
 
-- 30 000 статических DNR-правил суммарно. У нас 29 594 (98.6%).
+- 30 000 статических DNR-правил суммарно. У нас 28 094 (93.6%).
 - 5 000 динамических DNR-правил. Используется под whitelist (диапазон id 200..9999).
-- id статических и динамических правил должны быть уникальны в общем пространстве. Диапазоны: `manual.json` — 1..100, dynamic — 200..9999, `ads.json` — 10000+, `exceptions.json` — 100000+. Проверяется в `limiter.js` → `assertIdRanges()`.
+- id статических и динамических правил должны быть уникальны в общем пространстве. Диапазоны: `manual.json` — 1..100 (запас до 199), dynamic — 200..9999, `ads.json` — 10000+, `exceptions.json` — 100000+. Проверяется в `limiter.js` → `assertIdRanges()`.
 
 ## Известные ограничения
 
 - Не поддерживаются uBlock-специфичные селекторы `:has-text(...)` (287 правил в EasyList). Реализация требует отдельного content-script движка, отложена в 1.2.0.
 - Не поддерживается extended-синтаксис AdGuard/uBlock/ABP (`:style()`, `:remove()`, `:upward()`, `:matches-path()`, `:matches-css()`, `:matches-attr()`, `:contains()`, `:xpath()`, `:-abp-properties()`, `+js()`). Эти правила отбрасываются на этапе конвертации.
+- Не поддерживаются модификаторы `$redirect`, `$redirect-rule`, `$rewrite`, `$denyallow`, `$csp`, `$removeparam`, `$replace`, `$header`, `$method`, `$to`, `$from`, `$important`, `$badfilter`, `$match-case`, `$inline-script`, `$inline-font`, `$generichide`, `$elemhide`, `$genericblock`. Правила с ними отбрасываются целиком.
+- Regexp-правила `/regexp/$mods` и regexp-исключения `@@/regexp/$mods` — 1025 штук отсеиваются.
+- Правила вида `||example.com/path` (без `^`, без `$`) теряются.
 - Content scripts не выполняются в iframe (`all_frames` не указан).
 - Расширение не работает на `file://`, `ftp://` и внутренних страницах браузера.
 

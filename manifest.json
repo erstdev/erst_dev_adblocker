@@ -3,7 +3,7 @@
   "minimum_chrome_version": "105",
   "default_locale": "en",
   "name": "__MSG_appName__",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "__MSG_appDescription__",
   "icons": {
     "16": "icons/icon16.png",
@@ -15,8 +15,7 @@
     "declarativeNetRequest",
     "scripting",
     "storage",
-    "webNavigation",
-    "activeTab"
+    "webNavigation"
   ],
   "host_permissions": ["<all_urls>"],
   "background": {

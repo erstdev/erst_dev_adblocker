@@ -5,6 +5,49 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
 Версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [1.1.1] — 2026-10-15
+
+### Fixed
+
+- **RuTube: реклама глушила основной плеер.** Селектор `[id^="raichu"] video` из `RUTUBE_AD_VIDEO_SELECTORS` матчил основной `<video data-testid="video">` внутри `raichuContainerWithPlayer_...` — `muteAdVideos()` ставил его на паузу и глушил. Селектор убран. `muteAdVideos()` работает только по точечным `video[data-testid="advert-video"]` и `video.raichu-adver-tag`.
+- **RuTube: кнопка «Отключить рекламу» больше не в SKIP_SELECTORS.** `[data-testid="disableAdsButton"]` — это кнопка подписки RuTube, а не «Пропустить». Клик по ней не выполнялся, но находился в списке.
+- **Dzen: рекламные карточки в ленте не скрывались.** Классы Dzen обфусцированы и меняются при каждом билде. Добавлены стабильные якоря в `AD_CONTAINER_SELECTORS`: `[data-new-adtune="true"]`, `[data-cv3dnq1w-click="imageGallery"]`, `[data-cv3dnq1w-click="title"]`.
+- **Mail.ru: нативная реклама с лейблом «реклам» + «а» ловилась не всегда.** В `AD_TEXT_MARKERS` добавлен маркер `реклам` (без окончания). Покрывает случай, когда `реклама` разбита на несколько `<div>`.
+
+### Changed
+
+- **`auto-skip.js`: разветвление по хостам.** `startAutoSkip()` больше не вешает страховочные интервалы на все сайты. YouTube — observer + интервалы, RuTube — клик + mute/ускорение, VK Video — только клик. На остальных сайтах интервалов нет.
+- **`auto-skip.js`: `periodicCheck` ограничен YouTube-хостами.** Список `YT_HOSTS`, функция `isYoutubeHost()`. Раньше страховочный интервал выполнялся везде.
+- **`auto-skip.js`: добавлена `isClickableButton()`.** Клик выполняется только по `button` / `a` / `input[type=button|submit]`, видимым (`getBoundingClientRect` > 0) и не `disabled`.
+- **`auto-skip.js`: `attachObserverToPlayer` сбрасывает `wasAdShowing` при смене плеера.** Раньше при пересоздании плеера на YouTube первый `check()` не запускал обработку рекламы.
+- **`ad-markers.js`: `AD_CONTAINER_SELECTORS` расширен.** Добавлены Dzen-якоря и Mail.ru-классы `.sc-1v5ykgi`, `.sc-1ymix5g`.
+
+### Removed
+
+- **`auto-skip.js`: удалён широкий селектор `[class*="skip-ad"]`.** Он матчил любой элемент с подстрокой в `class` (`skip-ads-info`, `no-skip-ad`, `dont-skip-ad`, `skip-ad-signup`) и кликал по нему каждые 500 мс на всех сайтах. Заменён на точечные селекторы для YouTube, VK Video и RuTube.
+- **`auto-skip.js`: `muteAdVideos()` больше не вызывает `v.pause()`.** Оставлены только `muted = true` и `playbackRate = 16`. `pause()` мог останавливать основной плеер, если селектор случайно поймал его `<video>`.
+- **`ad-markers.js`: убрана проверка `target.style.display === "none"`.** Читала только inline-стиль (не computed), выигрыша не давала. `setProperty("display", "none", "important")` идемпотентна — повторная установка того же значения не меняет inline-стиль.
+- **`observer.js`: убрано условие `state.currentSelectors.length === 0 && typeof hideAdInElement === "undefined"`.** Вторая часть всегда false (`hideAdInElement` определена в `ad-markers.js`, который в manifest идёт раньше `observer.js`). Observer нужен для text-based hiding даже при пустом списке domain-селекторов, поэтому early-return убран целиком.
+
+### Fixed (продолжение)
+
+- **`exceptions.js`: regexp-исключения отсеиваются до парсинга.** Правило `@@/regexp/$mods` больше не проходит в DNR как literal. Раньше `lastIndexOf("$")` мог найти `$` внутри самого регэкспа (например, `/foo$/`) и ошибочно принять его за модификаторы.
+- **`spa.js`: защита от повторной установки watcher'а.** Флаг `__erstUrlWatcherInstalled` не даёт дважды обернуть `history.pushState` / `replaceState`, если content script будет инжектирован повторно.
+
+### Technical
+
+- **`limiter.js`: комментарий к `MANUAL_ID_MAX`.** Уточнено, что 199 — это запас, а не фактический размер `manual.json` (там 6 правил). Если `manual.json` вырастет выше 199 — поднять `DYN_RULE_ID_BASE` в `shared/storage.js` и синхронизировать константы.
+- **CONTEXT.md актуализирован.** RuTube-задача перенесена в решённые. Блок «Мелкие замечания» удалён (все пункты разобраны). Числа правил приведены к 27 000 / 1 094 / 28 094.
+- **README.md актуализирован.** Блок «Как это работает» и описывает текущее поведение авто-скипа. Блок «Известные ограничения» приведён к текущему набору неподдерживаемых модификаторов и фильтров.
+- **CHANGELOG.md.** Добавлена версия 1.1.1.
+
+# Changelog
+
+Все значимые изменения проекта erst_dev_adblocker.
+
+Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
+Версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
+
 ## [1.1.0] — 2026-10-14
 
 ### Added

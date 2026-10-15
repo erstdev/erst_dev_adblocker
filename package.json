@@ -2,7 +2,7 @@
   "author": "Абрамян Эрнест Каренович",
   "license": "UNLICENSED",
   "name": "erst_dev_adblocker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Блокировщик рекламы для Chrome (Manifest V3)",
   "private": true,
   "type": "module",

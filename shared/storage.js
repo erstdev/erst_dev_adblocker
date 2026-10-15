@@ -152,20 +152,45 @@ async function setRulesetsEnabled(enabled) {
 //
 // Удаление и добавление — двумя отдельными вызовами
 // updateDynamicRules. Chrome не гарантирует порядок операций
-// внутри одного вызова.
+// внутри одного вызова, и не принимает добавление правила
+// с id, которое уже существует.
+//
+// Удаляем только правила в диапазоне DYN_RULE_ID_BASE..DYN_RULE_ID_MAX
+// (наши whitelist-правила). Правила с другими id не трогаем —
+// их может добавить другая часть расширения в будущем.
+//
+// Race condition между remove и add остаётся: в этот короткий
+// промежуток whitelist-правил нет. Убрать его нельзя без
+// генерации новых уникальных id при каждом вызове. Принимаем
+// как известное ограничение.
 // ------------------------------------------------------------
 async function syncWhitelistRules(enabled) {
     const existing = await chrome.declarativeNetRequest.getDynamicRules();
-    const existingIds = existing.map((r) => r.id);
 
-    if (existingIds.length > 0) {
-        await chrome.declarativeNetRequest.updateDynamicRules({
-            removeRuleIds: existingIds
-        });
-        console.log(`[DNR] removed ${existingIds.length} old dynamic rules`);
+    // Удаляем только НАШИ динамические правила — те, что в диапазоне
+    // DYN_RULE_ID_BASE..DYN_RULE_ID_MAX. Правила с другими id
+    // (если появятся в будущем) не трогаем.
+    const existingIds = existing
+        .filter((r) => r.id >= DYN_RULE_ID_BASE && r.id <= DYN_RULE_ID_MAX)
+        .map((r) => r.id);
+
+    // Диагностика: если в getDynamicRules есть правила вне нашего
+    // диапазона — предупреждаем. Это не должно происходить в норме,
+    // но если произойдёт, полезно знать.
+    const foreignIds = existing
+        .filter((r) => r.id < DYN_RULE_ID_BASE || r.id > DYN_RULE_ID_MAX)
+        .map((r) => r.id);
+    if (foreignIds.length > 0) {
+        console.warn(`[DNR] found ${foreignIds.length} dynamic rules outside whitelist range:`, foreignIds);
     }
 
     if (!enabled) {
+        if (existingIds.length > 0) {
+            await chrome.declarativeNetRequest.updateDynamicRules({
+                removeRuleIds: existingIds
+            });
+            console.log(`[DNR] removed ${existingIds.length} old whitelist rules`);
+        }
         console.log("[DNR] whitelist rules: 0 (disabled)");
         return;
     }
@@ -187,6 +212,13 @@ async function syncWhitelistRules(enabled) {
                 resourceTypes: ["main_frame", "sub_frame"]
             }
         });
+    }
+
+    if (existingIds.length > 0) {
+        await chrome.declarativeNetRequest.updateDynamicRules({
+            removeRuleIds: existingIds
+        });
+        console.log(`[DNR] removed ${existingIds.length} old whitelist rules`);
     }
 
     if (newRules.length > 0) {
