@@ -22,11 +22,11 @@
   - Яндекс.Карты (через DNR),
   - Яндекс.Поиск (гарантийные показы РСЯ).
 - Whitelist — сайты, где блокировка не работает.
-- Глобальный вкл/выкл через свитчер в popup.
+- Глобальный вкл/выкл через свитчер в popup: выключение останавливает DNR и content scripts (text hiding, observer, авто-скип).
 - Авто-скип рекламы в видео (VK Video, YouTube, RuTube).
 - SPA-навигация (pushState, popstate, hashchange).
 - MutationObserver для динамической рекламы.
-- Text-based hiding (обычные маркеры + структурный детектор разбитого текста).
+- Text-based hiding (обычные маркеры + структурный детектор разбитого текста), с защитой от скрытия плеера, в том числе в shadow DOM.
 - Кнопка «Перезагрузить страницу» в popup.
 - Обратная связь: «Сообщить о проблеме» (mailto), «Скопировать email».
 
@@ -142,6 +142,7 @@
 - Правила вида `||example.com/path` (без `^`, без `$`) теряются.
 
 - **Content scripts** не работают в iframe (нет `all_frames: true`) — осознанное ограничение.
+- **Закрытый shadow root** (`attachShadow({ mode: "closed" })`) content script не видит: `<video>` и player-селекторы внутри него не обнаруживаются. Открытые shadow root (VKUI, VK Video) обходятся.
 - **Не поддерживается `:has-text(...)`** (uBlock) — 287 правил в EasyList.
 
 ## Ключевые архитектурные решения
@@ -187,6 +188,8 @@
   7. domain-cosmetic.js — точка входа IIFE
 - run_at: "document_start".
 - all_frames НЕ указан — скрипты работают только в main_frame.
+- domain-cosmetic.js читает enabled из chrome.storage.local: при false не запускаются ни text hiding, ни observer, ни auto-skip. Изменение тогла применяется после перезагрузки страницы.
+- refreshSelectors (inject-css.js) помечает URL обработанным только после успешного ответа service worker. При null — повтор через 1 с, state.currentUrl не меняется.
 
 ### Детектор рекламы в content
 
@@ -340,7 +343,7 @@ resourceTypes: script, image, xmlhttprequest, sub_frame, media, ping, other (д�
 - Mail.ru — рекламные блоки через data-mnemo.
 - Mail.ru VK Ads — [id*="R-I-"], [data-r-i].
 - Dzen — [data-testid$="-ad"], [data-testid*="-ad-"], [id^="auto-slide-ad"], [id*="-ad-item_"], [class*="auto-slide-ad"], [class*="dzen-desktop--auto-slide-ad"], a.yrw-url[href*="yandex.ru/an/count"].
-- ВК Видео — [data-testid="ad-container"], [class*="ads-container"], [class*="rb-adman-ad-actions"].
+- ВК Видео — [class*="rb-adman-ad-actions"]. Контейнеры ad-container / ads-container через CSS не скрываются: плеер в shadow DOM, :has(video) его не видит, правило скрывало плеер вместе со звуком. Остатки рекламы режет DNR и авто-скип.
 - Яндекс.Погода — [class*="AppMoney_container"], [class*="AppMoney_wrap"], [class*="AppMoneySidebar"], [id^="money-main-"], [data-name="adWrapper"].
 - RuTube — .wdp-feed-top-ad-module__ad-banner, .r-ad-sdk-adfox-wrapper, [id^="ra_"].
 - RuTube — видео-реклама (AdFox SDK) — [data-testid="advert"], .advert-module__advert___tQh3l, .yandex-advert-module__SDKWrapper___WMfXh, [id="raichu_yasdk_container"], [data-testid="advert-video"], .raichu-adver-tag, .advert-timeline-module__timeline___banQn, .advert-skip-module__container___aDiIw.
@@ -412,6 +415,9 @@ MANUAL_ID_MAX = 199 — это запас, а не фактический раз
 - activeTab + <all_urls> — activeTab убран.
 - RuTube главная страница скрывалась — findRotatedContainer больше не поднимается к layout-контейнерам, добавлены isStructuralElement и isInsidePlayer.
 - RuTube видео-реклама глушила основной плеер — селектор [id^="raichu"] video матчил <video data-testid="video"> внутри raichuContainerWithPlayer_... и ставил его на паузу. Убран из RUTUBE_AD_VIDEO_SELECTORS; muteAdVideos теперь только mute + playbackRate по точечным селекторам advert-video и raichu-adver-tag.
+- VK Video: пропадал <video> при играющем звуке — плеер в открытом shadow DOM, text-marker скрывал VKUI-обёртки до гидратации. Решено: рекурсивный обход shadow root, containsShadowHost, isPageLevelElement, hiddenByUs + unhideAncestorsOfPlayer.
+- Тогл не выключал text hiding — content scripts не проверяли enabled. Решено проверкой chrome.storage.local в domain-cosmetic.js.
+- refreshSelectors помечал URL обработанным до ответа service worker — при ошибке селекторы не запрашивались повторно. Решено: отметка после успеха + повтор через 1 с.
 
 ### Отложено на 1.2.0
 
