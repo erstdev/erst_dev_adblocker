@@ -5,6 +5,25 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
 Версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [1.1.2] — 2026-10-20
+
+### Fixed
+
+- **VK Video: пропадал `<video>` при играющем звуке.** Плеер VK живёт в открытом shadow DOM, а `querySelector("video")` и CSS `:has(video)` внутрь shadow root не смотрят. Text-based hiding поднимался от лейбла «Реклама» до VKUI-обёрток (`vkuiSplitLayout`, `vkuiDiv`) и скрывал их до гидратации, когда shadow root ещё не был создан. Видео исчезало, звук продолжал играть. Добавлены рекурсивный обход открытых shadow root (`collectShadowHosts`, `shadowHasPlayer`), `containsShadowHost`, `isPageLevelElement`, `hiddenByUs` + `unhideAncestorsOfPlayer`, интервальная проверка `scanForPlayerShadowHosts`. Из `cosmetic-manual.css` убраны `[data-testid="ad-container"]:not(:has(video))` и `[class*="ads-container"]:not(:has(video))`: `:has()` слеп к shadow DOM и мог навсегда скрыть контейнер с плеером.
+- **Тогл в popup не выключал text-based hiding, observer и авто-скип.** Content scripts запускались всегда, `enabled` не проверялся. `domain-cosmetic.js` теперь читает `enabled` из `chrome.storage.local` и при `false` не запускает ничего.
+- **`refreshSelectors` не повторял запрос селекторов после ошибки.** URL помечался обработанным до ответа service worker, и при сбое `sendMessage` селекторы не запрашивались до следующей навигации. Теперь отметка ставится после успешного ответа, при `null` — повтор через 1 с.
+- **`ad-markers.js`: лог писал `hid ad marker block: "null"`** в ветке структурного детектора. Печатается `rotated-label`.
+- **Документация: неверное число allow-правил.** В README и CONTEXT было 1 094 / 28 094 / 93.6%, фактически 1 034 / 28 034 / 93.4%.
+- **README: дублирующийся заголовок «Структура проекта»** и незакрытый fence — заголовок попадал внутрь код-блока.
+
+### Technical
+
+- **CHANGELOG:** убран второй заголовок `# Changelog` посреди файла.
+- **package-lock.json:** версия приведена к 1.1.2.
+- **.gitignore:** убраны правила для `package-lock.json` и `CONTEXT.md` — они уже отслеживались, ignore не действовал.
+- **CONTEXT.md:** детектор рекламы, content scripts, ручная косметика VK и известные ограничения приведены к текущему поведению; добавлено ограничение по закрытому shadow root.
+- **README.md:** text-based hiding не трогает плеер и shadow host'ы; добавлено ограничение по закрытому shadow root.
+
 ## [1.1.1] — 2026-10-15
 
 ### Fixed

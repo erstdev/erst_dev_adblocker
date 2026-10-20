@@ -43,6 +43,24 @@
 9. Поддержка `:has-text(...)` (uBlock).
 10. Разделение DNR-набора на core/extra.
 
+## Изменения версии 1.1.2
+
+### Content scripts
+
+1. **VK Video: плеер в открытом shadow DOM.**
+- text-based hiding не скрывает контейнеры, содержащие `<video>` в shadow root;
+- рекурсивный обход вложенных shadow root (`collectShadowHosts`, `shadowHasPlayer`);
+- `containsShadowHost` — не скрываем поддеревья с shadow host: это VKUI layout, а не рекламная карточка;
+- `isPageLevelElement` — не скрываем элементы ≥ 80% высоты и ≥ 40% ширины окна;
+- `hiddenByUs` + `unhideAncestorsOfPlayer` — снимаем `display` с предков, если плеер смонтировался позже;
+- из `cosmetic-manual.css` убраны VK-правила с `:has(video)`: `:has()` не видит shadow DOM.
+
+2. **Тогл.**
+- `domain-cosmetic.js` проверяет `enabled`; при `false` не запускаются text hiding, observer и авто-скип.
+
+3. **`refreshSelectors`.**
+- URL помечается обработанным только после успешного ответа service worker, при ошибке — повтор через 1 с.
+
 ## Изменения версии 1.1.0
 
 ### Конвертер
