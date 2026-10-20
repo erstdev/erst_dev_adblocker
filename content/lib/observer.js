@@ -10,9 +10,18 @@
    мы хотим ловить карточки рекламы по тексту, даже если
    классы обфусцированы.
 
+   ВАЖНО про плеер:
+   - узел с shadowRoot не скрываем никогда (внутри может быть плеер);
+   - узел, содержащий плеер (в светлом DOM или в shadow root),
+     не скрываем по domain-селектору;
+   - новые узлы сначала сканируются на shadow-хосты с плеером
+     (scanForPlayerShadowHosts из ad-markers.js), потом проверяются
+     на маркеры.
+
    Зависимости:
    - state.currentSelectors (inject-css.js / domain-cosmetic.js)
-   - hideAdInElement (ad-markers.js)
+   - hideAdInElement, containsPlayerDeep, scanForPlayerShadowHosts
+     (ad-markers.js)
    ============================================================ */
 
 function startObserver() {
@@ -38,6 +47,22 @@ function startObserver() {
             for (const node of mutation.addedNodes) {
                 if (node.nodeType !== 1) continue;
 
+                // 0. Новый shadow-хост с плеером — запомнить и,
+                // если мы успели скрыть предка, разскрыть его.
+                if (typeof scanForPlayerShadowHosts === "function") {
+                    scanForPlayerShadowHosts(node);
+                }
+
+                // Shadow-хост не скрываем: внутри может быть плеер.
+                if (node.shadowRoot) continue;
+
+                // Контейнер с плеером не скрываем по domain-селектору.
+                if (typeof containsPlayerDeep === "function" &&
+                    containsPlayerDeep(node)) {
+                    checkNodeForMarkers(node);
+                    continue;
+                }
+
                 // 1. Проверка по domain-селекторам
                 if (combinedSelector && state.currentSelectors.length > 0) {
                     try {
@@ -47,6 +72,9 @@ function startObserver() {
                         const matches = node.querySelectorAll?.(combinedSelector);
                         if (matches && matches.length > 0) {
                             matches.forEach((el) => {
+                                if (el.shadowRoot) return;
+                                if (typeof containsPlayerDeep === "function" &&
+                                    containsPlayerDeep(el)) return;
                                 el.style.setProperty("display", "none", "important");
                             });
                         }

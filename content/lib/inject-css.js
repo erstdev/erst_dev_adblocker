@@ -39,7 +39,7 @@ const MSG_GET_EXCLUDE = "cs→sw:getDomainExclude";
  * Запрашивает селекторы у service worker.
  *
  * @param {string} url - текущий URL страницы
- * @returns {Promise<string[]>} массив селекторов
+ * @returns {Promise<string[]|null>} массив селекторов или null при ошибке
  */
 async function fetchSelectors(url) {
     try {
@@ -47,11 +47,11 @@ async function fetchSelectors(url) {
             type: MSG_GET_SELECTORS,
             url
         });
-        if (!response || !Array.isArray(response.selectors)) return [];
+        if (!response || !Array.isArray(response.selectors)) return null;
         return response.selectors;
     } catch (e) {
         console.error("[erst_dev_adblocker] fetchSelectors failed:", e);
-        return [];
+        return null;
     }
 }
 
@@ -59,7 +59,7 @@ async function fetchSelectors(url) {
  * Запрашивает исключения (#@#) у service worker.
  *
  * @param {string} url - текущий URL страницы
- * @returns {Promise<string[]>} массив селекторов-исключений
+ * @returns {Promise<string[]|null>} массив селекторов-исключений или null при ошибке
  */
 async function fetchExclude(url) {
     try {
@@ -67,11 +67,11 @@ async function fetchExclude(url) {
             type: MSG_GET_EXCLUDE,
             url
         });
-        if (!response || !Array.isArray(response.exclude)) return [];
+        if (!response || !Array.isArray(response.exclude)) return null;
         return response.exclude;
     } catch (e) {
         console.error("[erst_dev_adblocker] fetchExclude failed:", e);
-        return [];
+        return null;
     }
 }
 
@@ -125,19 +125,41 @@ function applyExclude(exclude) {
 
 /**
  * Обновляет селекторы и исключения для нового URL, если он изменился.
- * Обновляет глобальный state.currentSelectors и state.currentUrl.
+ *
+ * URL помечается обработанным только после успешного ответа service
+ * worker. Если запрос упал, state.currentUrl не меняется и через
+ * секунду выполняется повторная попытка: иначе страница осталась бы
+ * без селекторов до следующей навигации.
  *
  * @param {string} url
  */
+let refreshRetryTimer = null;
+
+function scheduleRefreshRetry() {
+    if (refreshRetryTimer) return;
+    refreshRetryTimer = setTimeout(() => {
+        refreshRetryTimer = null;
+        void refreshSelectors(window.location.href);
+    }, 1000);
+}
+
 async function refreshSelectors(url) {
     if (url === state.currentUrl) return;
-    state.currentUrl = url;
 
-    const selectors = await fetchSelectors(url);
+    const [selectors, exclude] = await Promise.all([
+        fetchSelectors(url),
+        fetchExclude(url)
+    ]);
+
+    if (selectors === null || exclude === null) {
+        console.warn("[erst_dev_adblocker] selector request failed, retry in 1s:", url);
+        scheduleRefreshRetry();
+        return;
+    }
+
+    state.currentUrl = url;
     state.currentSelectors = selectors;
     applySelectors(selectors);
-
-    const exclude = await fetchExclude(url);
     applyExclude(exclude);
 
     if (selectors.length > 0) {

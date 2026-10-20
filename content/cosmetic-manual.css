@@ -64,9 +64,12 @@ a.yrw-url[href*="yandex.ru/an/count"] {
     display: none !important;
 }
 
-/* ---------- ВК Видео — реклама ---------- */
-[data-testid="ad-container"],
-[class*="ads-container"],
+/* ---------- ВК Видео — реклама ----------
+   Контейнеры ad-container / ads-container не скрываем через CSS.
+   Плеер VK держит <video> в shadow DOM, а :has(video) внутрь
+   shadow root не смотрит: правило скрывало контейнер с плеером
+   навсегда (звук продолжает играть). Остатки рекламы на VK
+   режет DNR и авто-скип. */
 [class*="rb-adman-ad-actions"] {
     display: none !important;
 }
