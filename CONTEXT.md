@@ -11,7 +11,7 @@
 
 ## Что уже умеет
 
-- Блокировка рекламных и трекерных запросов через DNR (27 000 блокирующих правил + 1 094 allow).
+- Блокировка рекламных и трекерных запросов через DNR (27 000 блокирующих правил + 1 034 allow).
 - Косметика: 14 116 общих CSS-селекторов + 29 512 domain-specific для 12 510 доменов.
 - Ручные правила для отдельных сайтов (manual.json):
   - AdFox (Яндекс),
@@ -56,7 +56,7 @@
 2. **Пересчитаны квоты конвертера.**
 - Было: STAGE_2=5000, STAGE_3=15000, STAGE_1=8500, EXCEPTIONS=1500.
 - Стало: STAGE_2=5200, STAGE_3=1000, STAGE_1=22300, EXCEPTIONS=1500.
-- Итог: 27 000 блокирующих + 1 094 allow = 28 094 из 30 000 (93.6%).
+- Итог: 27 000 блокирующих + 1 034 allow = 28 034 из 30 000 (93.4%).
 - Раньше этап 1 (simple) резался с 50 038 до 8 500 (83% потерь). Теперь — до 22 300 (55% потерь).
 
 3. **Добавлены синонимы модификаторов в `RESOURCE_TYPE_MAP`.**
@@ -193,10 +193,15 @@
 Основной вход — hideAdInElement(el, logPrefix) в ad-markers.js.
 
 Защита от ложных срабатываний:
-- isStructuralElement(el) — не скрываем html, body, main, header, footer, nav, #root, #app.
-- isInsidePlayer(el) — не скрываем элементы внутри video, [class*="player"], #movie_player, [class*="player-container"], .html5-video-player, [data-testid='video-player'].
+- isStructuralElement(el) — не скрываем html, body, main, header, footer, nav, #root, #app, #react-root, #__next и любой shadow-хост.
+- isInsidePlayer(el) — не скрываем элементы внутри video, [class*="player"], #movie_player, [class*="player-container"], .html5-video-player, [data-testid='video-player']; поднимается через границы shadow root.
+- containsPlayerDeep(el) — не скрываем контейнер, содержащий плеер, в том числе внутри открытого shadow DOM (VK Video).
+- containsShadowHost(el) — не скрываем поддерево, в котором есть shadow host: это компоненты и layout VKUI, а не рекламная карточка.
 - MAX_CONTAINER_CHILDREN = 20 — findRotatedContainer не поднимается к layout-контейнерам с > 20 детей.
+- isPageLevelElement(el) — не скрываем элемент ≥ 80% высоты и ≥ 40% ширины окна (layout-обёртки).
 - findAdContainer и findRotatedContainer возвращают null, если не нашли подходящий контейнер.
+
+Скрытые элементы запоминаются в hiddenByUs. Если в shadow-хосте появляется <video>, unhideAncestorsOfPlayer снимает display со всех скрытых нами предков. MutationObserver не видит мутации внутри shadow root, поэтому раз в секунду выполняется scanForPlayerShadowHosts — только пока hiddenByUs не пуст.
 
 Два типа маркеров:
 
@@ -240,8 +245,8 @@
     и для isRotatedAdLabel.
 
 Установка display: none — идемпотентна, повторная запись
-не меняет inline-стиль. Отдельная проверка display === "none"
-не нужна (читает только inline, не computed, выигрыша не даёт).
+не меняет inline-стиль. Элемент попадает в hiddenByUs, чтобы
+его можно было разскрыть при появлении плеера.
 
 ### Popup (ESM, type="module")
 - import { MSG } from "../shared/messages.js" работает.
@@ -370,8 +375,8 @@ resourceTypes: script, image, xmlhttprequest, sub_frame, media, ping, other (д�
 
 По итогам 1.1.0:
 - блокирующих правил: 27 000
-- allow-правил: 1 094
-- итого: 28 094 (93.6% лимита)
+- allow-правил: 1 034
+- итого: 28 034 (93.4% лимита)
 
 ### Проверка диапазонов id
 
@@ -411,7 +416,7 @@ MANUAL_ID_MAX = 199 — это запас, а не фактический раз
 ### Отложено на 1.2.0
 
 1. **Поддержка :has-text(...) (uBlock).** ~287 правил не обрабатываются.
-2. **Разделение DNR-набора на core/extra.** 28 094 из 30 000 (93.6%), запас есть, но небольшой.
+2. **Разделение DNR-набора на core/extra.** 28 034 из 30 000 (93.4%), запас есть, но небольшой.
 3. **Порт на Firefox.** Требует отдельной ветки.
 4. **TypeScript, Prettier, ESLint.**
 5. **Поддержка $redirect / $redirect-rule / $rewrite.** Требует файлов-заглушек и web_accessible_resources.

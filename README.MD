@@ -49,9 +49,8 @@ npm run build
 4. Выбрать папку `dist/` (после `npm run build`) или корень проекта (если `dist/` нет).
 
 ## Структура проекта
-```
-## Структура проекта
 
+```
 manifest.json            — манифест MV3
 _locales/                — i18n: name и description (en, ru)
 icons/                   — иконки (генерируются)
@@ -89,7 +88,7 @@ tools/                   — Node.js: конвертер, сборка, икон
 
 ## Как это работает
 
-- **DNR (Declarative Net Request).** Три ruleset'а: `ads_ruleset`, `exceptions_ruleset`, `manual_ruleset`. Все три выключены в манифесте и включаются программно при старте service worker. Блокирующие правила — 27 000, allow — 1 094.
+- **DNR (Declarative Net Request).** Три ruleset'а: `ads_ruleset`, `exceptions_ruleset`, `manual_ruleset`. Все три выключены в манифесте и включаются программно при старте service worker. Блокирующие правила — 27 000, allow — 1 034.
 - **Косметика.** Общий CSS (14 116 селекторов) вставляется через `chrome.scripting.insertCSS` при навигации. Domain-specific селекторы (29 512 для 12 510 доменов) отдаются content script через сообщение по текущему домену.
 - **Исключения косметики (`#@#`).** Отдельный файл `rules/cosmetic-exclude.json` (706 доменов, 872 селектора). Content script вставляет второй `<style>` с `display: revert !important`, который перекрывает скрытие по правилам EasyList.
 - **Whitelist.** Список доменов, где блокировка не работает. Реализован через динамические правила `allowAllRequests` с priority 100. Управляется из popup.
@@ -98,7 +97,7 @@ tools/                   — Node.js: конвертер, сборка, икон
 
 ## Лимиты Chrome
 
-- 30 000 статических DNR-правил суммарно. У нас 28 094 (93.6%).
+- 30 000 статических DNR-правил суммарно. У нас 28 034 (93.4%).
 - 5 000 динамических DNR-правил. Используется под whitelist (диапазон id 200..9999).
 - id статических и динамических правил должны быть уникальны в общем пространстве. Диапазоны: `manual.json` — 1..100 (запас до 199), dynamic — 200..9999, `ads.json` — 10000+, `exceptions.json` — 100000+. Проверяется в `limiter.js` → `assertIdRanges()`.
 
