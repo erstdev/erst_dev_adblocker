@@ -1,6 +1,5 @@
 # Node
 node_modules/
-package-lock.json
 _metadata
 
 # Скачанные списки (большие, регенерируются)
@@ -22,7 +21,5 @@ content/cosmetic.css
 # Сборки
 dist/
 *.zip
-
-CONTEXT.md
 
 erst_dev_adblocker-*.zip
