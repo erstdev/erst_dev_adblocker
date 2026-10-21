@@ -43,6 +43,18 @@
 9. Поддержка `:has-text(...)` (uBlock).
 10. Разделение DNR-набора на core/extra.
 
+## Изменения версии 1.1.3
+
+### Content scripts
+
+1. **Яндекс Маркет.**
+- на `market.yandex.*` text-based hiding отключён (`TEXT_HIDING_DISABLED_HOSTS`): лейбл «Реклама» стоит в карточках товара, и скрывалась обёртка изображения;
+- реклама Маркета режется DNR и domain-селекторами по `data-apiary-widget-name`.
+
+2. **VK Video: правая колонка рекомендаций.**
+- на `vkvideo.ru` text-based hiding отключён: лейбл «Реклама» в рекомендациях скрывал всю колонку с другими видео;
+- общий `isContentContainer` не даёт скрывать контейнеры с ≥ 8 ссылками или ≥ 4 картинками.
+
 ## Изменения версии 1.1.2
 
 ### Content scripts
@@ -52,7 +64,6 @@
 - рекурсивный обход вложенных shadow root (`collectShadowHosts`, `shadowHasPlayer`);
 - `containsShadowHost` — не скрываем поддеревья с shadow host: это VKUI layout, а не рекламная карточка;
 - `isPageLevelElement` — не скрываем элементы ≥ 80% высоты и ≥ 40% ширины окна;
-- `isContentContainer` — не скрываем контейнеры с ≥ 8 ссылками или ≥ 4 картинками (навигация, рекомендации, сетки);
 - `hiddenByUs` + `unhideAncestorsOfPlayer` — снимаем `display` с предков, если плеер смонтировался позже;
 - из `cosmetic-manual.css` убраны VK-правила с `:has(video)`: `:has()` не видит shadow DOM.
 
@@ -61,14 +72,6 @@
 
 3. **`refreshSelectors`.**
 - URL помечается обработанным только после успешного ответа service worker, при ошибке — повтор через 1 с.
-
-4. **Яндекс Маркет.**
-- на `market.yandex.*` text-based hiding отключён (`TEXT_HIDING_DISABLED_HOSTS`): лейбл «Реклама» стоит в карточках товара, и скрывалась обёртка изображения;
-- реклама Маркета режется DNR и domain-селекторами по `data-apiary-widget-name`.
-
-5. **VK Video: правая колонка рекомендаций.**
-- на `vkvideo.ru` text-based hiding отключён: лейбл «Реклама» в рекомендациях скрывал всю колонку с другими видео;
-- общий `isContentContainer` не даёт скрывать контейнеры с ≥ 8 ссылками или ≥ 4 картинками.
 
 ## Изменения версии 1.1.0
 
