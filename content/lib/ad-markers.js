@@ -54,7 +54,18 @@ const MAX_CONTAINER_CHILDREN = 20;
 // товара, findRotatedContainer поднимается до обёртки изображения
 // и скрывает его. Реклама Маркета режется DNR и domain-селекторами
 // по data-apiary-widget-name.
-const TEXT_HIDING_DISABLED_HOSTS = /^market\.yandex\./;
+// vkvideo.ru: лейбл «Реклама» встречается в рекомендациях, и
+// скрывается правая колонка с другими видео. Преролл режется DNR,
+// авто-скипом и manual CSS.
+const TEXT_HIDING_DISABLED_HOSTS = [
+    /^market\.yandex\./,
+    /(^|\.)vkvideo\.ru$/,
+];
+
+function isTextHidingDisabled() {
+    const host = window.location.hostname;
+    return TEXT_HIDING_DISABLED_HOSTS.some((re) => re.test(host));
+}
 
 // Признаки контейнера рекламы.
 const AD_CONTAINER_SELECTORS = [
@@ -396,8 +407,28 @@ function isPageLevelElement(el) {
     return rect.height >= vh * 0.8 && rect.width >= vw * 0.4;
 }
 
+/**
+ * Контейнер с большим числом ссылок или картинок — это навигация,
+ * список рекомендаций или сетка товаров, а не рекламный блок.
+ * Скрытие такого контейнера ломает страницу: на VK Video так
+ * пропадала правая колонка с другими видео.
+ */
+const MAX_LINKS_IN_HIDDEN_TARGET = 8;
+const MAX_IMAGES_IN_HIDDEN_TARGET = 4;
+
+function isContentContainer(el) {
+    if (!el || !el.querySelectorAll) return false;
+    try {
+        if (el.querySelectorAll("a[href]").length >= MAX_LINKS_IN_HIDDEN_TARGET) return true;
+        if (el.querySelectorAll("img").length >= MAX_IMAGES_IN_HIDDEN_TARGET) return true;
+    } catch (e) {
+        return false;
+    }
+    return false;
+}
+
 function hideAdInElement(el, logPrefix) {
-    if (TEXT_HIDING_DISABLED_HOSTS.test(window.location.hostname)) return null;
+    if (isTextHidingDisabled()) return null;
     if (!el || !el.style) return null;
     if (el.shadowRoot) return null;
     if (isStructuralElement(el)) return null;
@@ -433,6 +464,10 @@ function hideAdInElement(el, logPrefix) {
     if (containsPlayerDeep(target)) return null;
     if (isPageLevelElement(target)) {
         console.warn("[erst_dev_adblocker] skip page-level element:", target);
+        return null;
+    }
+    if (isContentContainer(target)) {
+        console.warn("[erst_dev_adblocker] skip content container:", target);
         return null;
     }
 

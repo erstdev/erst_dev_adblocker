@@ -52,6 +52,7 @@
 - рекурсивный обход вложенных shadow root (`collectShadowHosts`, `shadowHasPlayer`);
 - `containsShadowHost` — не скрываем поддеревья с shadow host: это VKUI layout, а не рекламная карточка;
 - `isPageLevelElement` — не скрываем элементы ≥ 80% высоты и ≥ 40% ширины окна;
+- `isContentContainer` — не скрываем контейнеры с ≥ 8 ссылками или ≥ 4 картинками (навигация, рекомендации, сетки);
 - `hiddenByUs` + `unhideAncestorsOfPlayer` — снимаем `display` с предков, если плеер смонтировался позже;
 - из `cosmetic-manual.css` убраны VK-правила с `:has(video)`: `:has()` не видит shadow DOM.
 
@@ -64,6 +65,10 @@
 4. **Яндекс Маркет.**
 - на `market.yandex.*` text-based hiding отключён (`TEXT_HIDING_DISABLED_HOSTS`): лейбл «Реклама» стоит в карточках товара, и скрывалась обёртка изображения;
 - реклама Маркета режется DNR и domain-селекторами по `data-apiary-widget-name`.
+
+5. **VK Video: правая колонка рекомендаций.**
+- на `vkvideo.ru` text-based hiding отключён: лейбл «Реклама» в рекомендациях скрывал всю колонку с другими видео;
+- общий `isContentContainer` не даёт скрывать контейнеры с ≥ 8 ссылками или ≥ 4 картинками.
 
 ## Изменения версии 1.1.0
 
@@ -224,6 +229,8 @@
 - containsShadowHost(el) — не скрываем поддерево, в котором есть shadow host: это компоненты и layout VKUI, а не рекламная карточка.
 - MAX_CONTAINER_CHILDREN = 20 — findRotatedContainer не поднимается к layout-контейнерам с > 20 детей.
 - isPageLevelElement(el) — не скрываем элемент ≥ 80% высоты и ≥ 40% ширины окна (layout-обёртки).
+- isContentContainer(el) — не скрываем контейнеры с ≥ 8 ссылками или ≥ 4 картинками (навигация, рекомендации, сетки).
+- text-based hiding отключён на market.yandex.* и vkvideo.ru (TEXT_HIDING_DISABLED_HOSTS).
 - findAdContainer и findRotatedContainer возвращают null, если не нашли подходящий контейнер.
 
 Скрытые элементы запоминаются в hiddenByUs. Если в shadow-хосте появляется <video>, unhideAncestorsOfPlayer снимает display со всех скрытых нами предков. MutationObserver не видит мутации внутри shadow root, поэтому раз в секунду выполняется scanForPlayerShadowHosts — только пока hiddenByUs не пуст.
