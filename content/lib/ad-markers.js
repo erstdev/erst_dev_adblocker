@@ -49,6 +49,13 @@ const ROTATED_LABEL_MIN_LENGTH = 5;
 const ROTATED_LABEL_MAX_LENGTH = 20;
 const MAX_CONTAINER_CHILDREN = 20;
 
+// Хосты, где text-based hiding отключён.
+// market.yandex.*: лейбл «Реклама» стоит почти в каждой карточке
+// товара, findRotatedContainer поднимается до обёртки изображения
+// и скрывает его. Реклама Маркета режется DNR и domain-селекторами
+// по data-apiary-widget-name.
+const TEXT_HIDING_DISABLED_HOSTS = /^market\.yandex\./;
+
 // Признаки контейнера рекламы.
 const AD_CONTAINER_SELECTORS = [
     '[id^="trg-b-"]',
@@ -390,6 +397,7 @@ function isPageLevelElement(el) {
 }
 
 function hideAdInElement(el, logPrefix) {
+    if (TEXT_HIDING_DISABLED_HOSTS.test(window.location.hostname)) return null;
     if (!el || !el.style) return null;
     if (el.shadowRoot) return null;
     if (isStructuralElement(el)) return null;
