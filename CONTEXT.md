@@ -43,6 +43,16 @@
 9. Поддержка `:has-text(...)` (uBlock).
 10. Разделение DNR-набора на core/extra.
 
+## Изменения версии 1.1.4
+
+### Content scripts
+
+1. **Text-based hiding: только лейблы.**
+- `isStandaloneLabel` — скрываем, только если весь текст элемента является маркером («Реклама», «Реклама 18+», «Рекламное объявление»); «Это реклама» и текст статьи с этим словом не скрываются;
+- `isNoHideZone` — не трогаем `input`, `textarea`, `contenteditable`, `[role=textbox|combobox|search|listbox|option]` и `form`;
+- `TEXT_BLOCK_TAGS` — не скрываем `P`, `ARTICLE`, `H1`–`H6`, `LI`, `BLOCKQUOTE`, `PRE`, `CODE`, `TD`, `TH`;
+- для target и родителей в `findRotatedContainer` проверяется наличие no-hide зон.
+
 ## Изменения версии 1.1.3
 
 ### Content scripts

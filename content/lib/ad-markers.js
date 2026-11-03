@@ -49,6 +49,41 @@ const ROTATED_LABEL_MIN_LENGTH = 5;
 const ROTATED_LABEL_MAX_LENGTH = 20;
 const MAX_CONTAINER_CHILDREN = 20;
 
+// Зоны, в которых ничего не скрываем: поля ввода, редактируемые
+// области, поиск, списки автодополнения и формы. Пользователь
+// набирает слово «реклама» — это не рекламный блок.
+const NO_HIDE_SELECTOR = [
+    "input",
+    "textarea",
+    "[contenteditable='']",
+    "[contenteditable='true']",
+    "[contenteditable='plaintext-only']",
+    "[role='textbox']",
+    "[role='combobox']",
+    "[role='search']",
+    "[role='listbox']",
+    "[role='option']",
+    "form",
+].join(",");
+
+// Текстовые блоки статьи: скрывать их по слову «реклама» нельзя.
+const TEXT_BLOCK_TAGS = new Set([
+    "P",
+    "ARTICLE",
+    "H1",
+    "H2",
+    "H3",
+    "H4",
+    "H5",
+    "H6",
+    "LI",
+    "BLOCKQUOTE",
+    "PRE",
+    "CODE",
+    "TD",
+    "TH",
+]);
+
 // Хосты, где text-based hiding отключён.
 // market.yandex.*: лейбл «Реклама» стоит почти в каждой карточке
 // товара, findRotatedContainer поднимается до обёртки изображения
@@ -372,6 +407,9 @@ function findRotatedContainer(el) {
         if (isStructuralElement(parent)) return null;
         if (parent.shadowRoot) return null;
         if (containsShadowHost(parent)) return null;
+        if (isNoHideZone(parent)) return null;
+        if (isTextBlockElement(parent)) return null;
+        if (parent.querySelector(NO_HIDE_SELECTOR)) return null;
         if (isInsidePlayer(parent)) return null;
         // Не поднимаемся через границу плеера: если родитель уже
         // содержит <video> (в том числе в shadow DOM), скрывать его
@@ -427,11 +465,47 @@ function isContentContainer(el) {
     return false;
 }
 
+function isNoHideZone(el) {
+    if (!el || el.nodeType !== 1) return false;
+    if (el.isContentEditable) return true;
+    try {
+        return Boolean(el.closest(NO_HIDE_SELECTOR));
+    } catch (e) {
+        return false;
+    }
+}
+
+function isTextBlockElement(el) {
+    return Boolean(el && TEXT_BLOCK_TAGS.has(el.tagName));
+}
+
+/**
+ * Текст элемента — самостоятельный лейбл, а не предложение.
+ * «Реклама», «Реклама 18+», «Рекламное объявление» — да.
+ * «Это реклама», «реклама в нашем сервисе» — нет.
+ */
+function isStandaloneLabel(collapsed) {
+    if (collapsed.length > ROTATED_LABEL_MAX_LENGTH) return false;
+
+    for (const marker of AD_TEXT_MARKERS) {
+        if (collapsed === marker) return true;
+        if (
+            collapsed.startsWith(marker) &&
+            !/[a-zа-яё]/.test(collapsed.slice(marker.length))
+        ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function hideAdInElement(el, logPrefix) {
     if (isTextHidingDisabled()) return null;
     if (!el || !el.style) return null;
     if (el.shadowRoot) return null;
     if (isStructuralElement(el)) return null;
+    if (isNoHideZone(el)) return null;
+    if (isTextBlockElement(el)) return null;
 
     // Длину проверяем до обхода дерева: querySelector("video")
     // на каждом узле страницы — дорого.
@@ -445,12 +519,11 @@ function hideAdInElement(el, logPrefix) {
     let marker = matchMarker(collapsed);
     let target;
     if (marker) {
-        if (collapsed.length <= ROTATED_LABEL_MAX_LENGTH) {
-            const structural = findRotatedContainer(el);
-            target = structural !== null ? structural : findAdContainer(el);
-        } else {
-            target = findAdContainer(el);
-        }
+        // Только самостоятельный лейбл. Если слово «реклама» стоит
+        // внутри предложения — это текст страницы, не блок рекламы.
+        if (!isStandaloneLabel(collapsed)) return null;
+        const structural = findRotatedContainer(el);
+        target = structural !== null ? structural : findAdContainer(el);
     } else {
         if (!isRotatedAdLabel(el)) return null;
 
@@ -470,6 +543,9 @@ function hideAdInElement(el, logPrefix) {
         console.warn("[erst_dev_adblocker] skip content container:", target);
         return null;
     }
+    if (isNoHideZone(target)) return null;
+    if (isTextBlockElement(target)) return null;
+    if (target.querySelector(NO_HIDE_SELECTOR)) return null;
 
     // setProperty идемпотентна: повторная установка того же значения
     // не меняет inline-стиль.
