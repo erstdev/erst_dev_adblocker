@@ -47,6 +47,7 @@ const MIN_CANDIDATE_TEXT_LENGTH = 4;
 // Границы длины текста разбитого лейбла.
 const ROTATED_LABEL_MIN_LENGTH = 5;
 const ROTATED_LABEL_MAX_LENGTH = 20;
+const ROTATED_CHUNK_MAX_LENGTH = 6;
 const MAX_CONTAINER_CHILDREN = 20;
 
 // Зоны, в которых ничего не скрываем: поля ввода, редактируемые
@@ -177,15 +178,24 @@ function isRotatedAdLabel(el) {
     const collapsed = collapseText(el.textContent);
     if (collapsed.length < ROTATED_LABEL_MIN_LENGTH) return false;
     if (collapsed.length > ROTATED_LABEL_MAX_LENGTH) return false;
-    if (!/р.к.м.*а/.test(collapsed)) return false;
-    const childElements = el.children;
-    if (childElements.length < 3) return false;
-    let shortKids = 0;
-    for (const child of childElements) {
-        const ct = collapseText(child.textContent);
-        if (ct.length >= 1 && ct.length <= 5) shortKids++;
+
+    // Лейбл режут не только на элементы, но и на текстовые узлы:
+    // <div>амалк</div>Рекла<div>ма</div>. Считаем childNodes, а не
+    // children. Все непустые куски должны быть короткими: обычный
+    // текст статьи разбит на длинные узлы и сюда не попадёт.
+    const nodes = [];
+    for (const node of el.childNodes) {
+        const text = collapseText(node.textContent);
+        if (text.length > 0) nodes.push(text);
     }
-    return shortKids >= 3;
+    if (nodes.length < 3) return false;
+    for (const text of nodes) {
+        if (text.length > ROTATED_CHUNK_MAX_LENGTH) return false;
+    }
+
+    // «реклама» может быть разрезана и перемешана: «амалкреклама»,
+    // «амалкреклаерма». Достаточно корня «рекл».
+    return collapsed.includes("рекл") || /р.к.м.*а/.test(collapsed);
 }
 
 function matchesAny(el, selectors) {
