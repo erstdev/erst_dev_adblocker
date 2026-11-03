@@ -537,6 +537,25 @@ function isStandaloneLabel(collapsed) {
     return false;
 }
 
+/**
+ * Лейбл с мусорным префиксом: «амалкереклама». Принимается только
+ * вместе с известным рекламным контейнером: иначе за рекламу можно
+ * принять обычный текст.
+ */
+function isJunkPrefixedLabel(collapsed) {
+    if (collapsed.length <= "реклама".length) return false;
+    if (collapsed.length > ROTATED_LABEL_MAX_LENGTH) return false;
+    return collapsed.endsWith("реклама") || collapsed.endsWith("реклам");
+}
+
+function findAdContainerStrict(el) {
+    for (const sel of AD_CONTAINER_SELECTORS) {
+        const container = el.closest(sel);
+        if (container) return container;
+    }
+    return null;
+}
+
 function hideAdInElement(el, logPrefix) {
     if (isTextHidingDisabled()) return null;
     if (!el || !el.style) return null;
@@ -556,18 +575,25 @@ function hideAdInElement(el, logPrefix) {
 
     let marker = matchMarker(collapsed);
     let target;
-    if (marker) {
-        // Только самостоятельный лейбл. Если слово «реклама» стоит
-        // внутри предложения — это текст страницы, не блок рекламы.
-        if (!isStandaloneLabel(collapsed)) return null;
+    if (marker && isStandaloneLabel(collapsed)) {
+        // Самостоятельный лейбл: «Реклама», «Реклама 18+».
         if (!isVisibleElement(el)) return null;
         const structural = findRotatedContainer(el);
         target = structural !== null ? structural : findAdContainer(el);
     } else {
-        if (!isRotatedAdLabel(el)) return null;
         if (!isVisibleElement(el)) return null;
 
-        target = findRotatedContainer(el);
+        if (isRotatedAdLabel(el)) {
+            target = findRotatedContainer(el);
+            // Rotated-детектор мог не найти контейнер: у Mail.ru
+            // рядом с лейблом есть .sc-1v5ykgi / .sc-1ymix5g.
+            if (!target) target = findAdContainerStrict(el);
+        } else if (isJunkPrefixedLabel(collapsed)) {
+            target = findAdContainerStrict(el);
+            if (!target) return null;
+        } else {
+            return null;
+        }
     }
     if (!target) return null;
     if (isStructuralElement(target)) return null;
