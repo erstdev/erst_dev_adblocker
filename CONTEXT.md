@@ -51,6 +51,7 @@
 - `isStandaloneLabel` — скрываем, только если весь текст элемента является маркером («Реклама», «Реклама 18+», «Рекламное объявление»); «Это реклама» и текст статьи с этим словом не скрываются;
 - `isNoHideZone` — не трогаем `input`, `textarea`, `contenteditable`, `[role=textbox|combobox|search|listbox|option]` и `form`;
 - `TEXT_BLOCK_TAGS` — не скрываем `P`, `ARTICLE`, `H1`–`H6`, `LI`, `BLOCKQUOTE`, `PRE`, `CODE`, `TD`, `TH`;
+- `isVisibleElement` — невидимые элементы (`visibility: hidden`, `opacity: 0`, нулевой размер, за пределами экрана, `aria-hidden`) не скрываются: это mirror-дивы авторазмера textarea;
 - для target и родителей в `findRotatedContainer` проверяется наличие no-hide зон.
 
 ## Изменения версии 1.1.3

@@ -480,6 +480,34 @@ function isTextBlockElement(el) {
 }
 
 /**
+ * Видимый элемент. Скрытые mirror-дивы (autosize textarea, измерения,
+ * aria-hidden) трогать нельзя: сайт читает их размер и пересчитывает
+ * layout, из-за чего поле ввода меняет высоту.
+ */
+function isVisibleElement(el) {
+    if (!el || !el.getBoundingClientRect) return false;
+    try {
+        if (el.closest('[aria-hidden="true"]')) return false;
+    } catch (e) {
+        return false;
+    }
+
+    const rect = el.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return false;
+    if (rect.right <= 0 || rect.bottom <= 0) return false;
+
+    let cs;
+    try {
+        cs = getComputedStyle(el);
+    } catch (e) {
+        return false;
+    }
+    if (cs.visibility === "hidden" || cs.opacity === "0") return false;
+
+    return true;
+}
+
+/**
  * Текст элемента — самостоятельный лейбл, а не предложение.
  * «Реклама», «Реклама 18+», «Рекламное объявление» — да.
  * «Это реклама», «реклама в нашем сервисе» — нет.
@@ -522,10 +550,12 @@ function hideAdInElement(el, logPrefix) {
         // Только самостоятельный лейбл. Если слово «реклама» стоит
         // внутри предложения — это текст страницы, не блок рекламы.
         if (!isStandaloneLabel(collapsed)) return null;
+        if (!isVisibleElement(el)) return null;
         const structural = findRotatedContainer(el);
         target = structural !== null ? structural : findAdContainer(el);
     } else {
         if (!isRotatedAdLabel(el)) return null;
+        if (!isVisibleElement(el)) return null;
 
         target = findRotatedContainer(el);
     }

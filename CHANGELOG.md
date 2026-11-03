@@ -9,7 +9,7 @@
 
 ### Fixed
 
-- **Text-based hiding скрывал текст статьи и поле ввода.** Матчер искал подстроку «реклама» в `textContent` любого `div`/`span`/`a`, поэтому набранное в contenteditable слово или абзац статьи с этим словом скрывались. Теперь скрывается только самостоятельный лейбл (`isStandaloneLabel`): «Реклама», «Реклама 18+», «Рекламное объявление», но не «Это реклама» и не текст с этим словом. Добавлен `isNoHideZone`: не трогаем `input`, `textarea`, `contenteditable`, `[role=textbox|combobox|search|listbox|option]` и `form`. Текстовые блоки (`P`, `ARTICLE`, `H1`–`H6`, `LI`, `BLOCKQUOTE`, `PRE`, `CODE`, `TD`, `TH`) не скрываются. Для target и промежуточных контейнеров проверяется наличие таких зон.
+- **Text-based hiding скрывал текст статьи и поле ввода.** Матчер искал подстроку «реклама» в `textContent` любого `div`/`span`/`a`, поэтому набранное в contenteditable слово или абзац статьи с этим словом скрывались. Теперь скрывается только самостоятельный лейбл (`isStandaloneLabel`): «Реклама», «Реклама 18+», «Рекламное объявление», но не «Это реклама» и не текст с этим словом. Добавлен `isNoHideZone`: не трогаем `input`, `textarea`, `contenteditable`, `[role=textbox|combobox|search|listbox|option]` и `form`. Текстовые блоки (`P`, `ARTICLE`, `H1`–`H6`, `LI`, `BLOCKQUOTE`, `PRE`, `CODE`, `TD`, `TH`) не скрываются. Для target и промежуточных контейнеров проверяется наличие таких зон. `isVisibleElement` не даёт скрывать невидимые элементы (`visibility: hidden`, `opacity: 0`, нулевой размер, за пределами экрана, `aria-hidden`): это mirror-дивы авторазмера textarea, по которым сайт пересчитывает высоту поля ввода.
 
 ## [1.1.3] — 2026-10-21
 
