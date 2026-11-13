@@ -1,0 +1,15 @@
+erst_dev_adblocker — Advertentieblokker voor Chrome: blokkeert advertenties en trackers, verbergt advertentie-elementen en slaat videoadvertenties over. De interface is beschikbaar in 44 talen.
+
+• Blokkeert advertentie- en trackingverzoeken op netwerkniveau.
+• Verbergt banners, native advertenties en gesponsorde blokken.
+• Slaat advertenties over op YouTube, VK Video en RuTube.
+• Witte lijst voor sites die je vertrouwt.
+• 44 interfacetalen met zoeken en vlaggen.
+
+1. Klik op het extensiepictogram in de werkbalk van Chrome.
+2. Zet blokkering aan of uit met de schakelaar.
+3. Open de instellingen om een taal te kiezen of een site aan de witte lijst toe te voegen.
+
+Er worden geen persoonsgegevens verzameld of verzonden. Instellingen worden lokaal opgeslagen en verwijderd met de extensie. Geen analytics en geen externe code.
+
+erst_dev@mail.ru

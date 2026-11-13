@@ -1,0 +1,15 @@
+erst_dev_adblocker — Bloqueador de anúncios para Chrome: bloqueia anúncios e rastreadores, oculta elementos publicitários e salta anúncios de vídeo. A interface está disponível em 44 idiomas.
+
+• Bloqueia pedidos de publicidade e de rastreamento ao nível da rede.
+• Oculta banners, anúncios nativos e blocos patrocinados.
+• Salta anúncios no YouTube, VK Video e RuTube.
+• Lista de permissões para sites em que confia.
+• 44 idiomas de interface com pesquisa e bandeiras.
+
+1. Clique no ícone da extensão na barra do Chrome.
+2. Ative ou desative o bloqueio com o interruptor.
+3. Abra as definições para escolher o idioma ou adicionar um site à lista de permissões.
+
+Não são recolhidos nem transmitidos dados pessoais. As definições são guardadas localmente e eliminadas com a extensão. Sem analítica e sem código remoto.
+
+erst_dev@mail.ru

@@ -1,0 +1,15 @@
+erst_dev_adblocker — Ad blocker for Chrome: blocks ads and trackers, hides ad elements, and skips video ads. The interface is available in 44 languages.
+
+• Blocks advertising and tracking requests at the network level.
+• Hides banners, native ads, and sponsored blocks.
+• Skips ads in YouTube, VK Video, and RuTube.
+• Whitelist for sites you trust.
+• 44 interface languages with search and flags.
+
+1. Click the extension icon in the Chrome toolbar.
+2. Turn blocking on or off with the switch.
+3. Open the gear menu to choose a language or add a site to the whitelist.
+
+No personal data is collected or transmitted. Settings are stored locally and deleted with the extension. No analytics, no remote code.
+
+erst_dev@mail.ru

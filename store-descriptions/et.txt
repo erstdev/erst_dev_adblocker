@@ -1,0 +1,15 @@
+erst_dev_adblocker — Reklaamiblokeerija Chrome'ile: blokeerib reklaame ja jälgijaid, peidab reklaamielemente ja jätab videoreklaami vahele. Kasutajaliides on 44 keeles.
+
+• Blokeerib reklaami- ja jälgimispäringud võrgu tasandil.
+• Peidab bännerid, loomuliku reklaami ja sponsorloendid.
+• Jätab vahele reklaami YouTube'is, VK Videos ja RuTube'is.
+• Valge nimekiri usaldusväärsetele saitidele.
+• 44 kasutajaliidese keelt otsingu ja lippudega.
+
+1. Klõpsake Chrome'i tööriistaribal laienduse ikooni.
+2. Lülitage blokeerimine lülitiga sisse või välja.
+3. Avage seaded, et valida keel või lisada sait valgesse nimekirja.
+
+Isikuandmeid ei koguta ega edastata. Seaded salvestatakse lokaalselt ja kustutatakse koos laiendusega. Analüütikat ja kaugkoodi ei ole.
+
+erst_dev@mail.ru

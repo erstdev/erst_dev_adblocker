@@ -1,0 +1,15 @@
+erst_dev_adblocker — Bloqueur de publicités pour Chrome : bloque les publicités et les traqueurs, masque les éléments publicitaires et saute les publicités vidéo. L’interface est disponible en 44 langues.
+
+• Bloque les requêtes publicitaires et de suivi au niveau du réseau.
+• Masque les bannières, les publicités natives et les blocs sponsorisés.
+• Saute les publicités sur YouTube, VK Video et RuTube.
+• Liste blanche pour les sites de confiance.
+• 44 langues d’interface avec recherche et drapeaux.
+
+1. Cliquez sur l’icône de l’extension dans la barre d’outils Chrome.
+2. Activez ou désactivez le blocage avec l’interrupteur.
+3. Ouvrez les paramètres pour choisir la langue ou ajouter un site à la liste blanche.
+
+Aucune donnée personnelle n’est collectée ni transmise. Les paramètres sont stockés localement et supprimés avec l’extension. Pas d’analytique, pas de code distant.
+
+erst_dev@mail.ru

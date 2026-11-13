@@ -42,6 +42,7 @@ npm run build
 - `npm run convert` — конвертирует EasyList и RU AdList в формат DNR (`rules/ads.json`, `rules/exceptions.json`), генерирует `content/cosmetic.css`, `rules/cosmetic-map.json` и `rules/cosmetic-exclude.json`.
 - `npm run icons` — нарезает иконки из `icon-source.png` и `icon-source-small.png` в `icons/` (16/32/48/128 + `store-icon-128`).
 - `npm run locales` — генерирует `_locales/<code>/messages.json` для 45 локалей из `shared/locales/descriptions.js`.
+- `npm run descriptions` — генерирует 44 текста `store-descriptions/<code>.txt` для полей Description в CWS.
 - `npm run build` — собирает ZIP для Chrome Web Store через `jszip`. Кладёт ZIP в корень, распакованную сборку — в `dist/`.
 - `npm run screenshots` — ресайзит PNG из `store-assets/raw/` до 1280×800 и кладёт в `store-assets/`. Для Chrome Web Store.
 
@@ -59,6 +60,7 @@ manifest.json            — манифест MV3
 _locales/                — name/description для 45 локалей (44 языка; pt_BR/pt_PT)
 icons/                   — иконки (генерируются)
 store-assets/            — скриншоты и промо для CWS
+store-descriptions/     — 44 текста Description для CWS (не в ZIP)
 docs/                    — 11 глав документации: архитектура, код, решения
 
 background/              — service worker

@@ -1,0 +1,15 @@
+erst_dev_adblocker — Bloquejador d’anuncis per a Chrome: bloqueja anuncis i rastrejadors, amaga elements publicitaris i omet anuncis de vídeo. La interfície està disponible en 44 idiomes.
+
+• Bloqueja sol·licituds de publicitat i seguiment a nivell de xarxa.
+• Amaga bàners, anuncis natius i blocs patrocinats.
+• Omet anuncis a YouTube, VK Video i RuTube.
+• Llista blanca per a llocs de confiança.
+• 44 idiomes d’interfície amb cerca i banderes.
+
+1. Fes clic a la icona de l’extensió a la barra del Chrome.
+2. Activa o desactiva el bloqueig amb l’interruptor.
+3. Obre la configuració per triar l’idioma o afegir un lloc a la llista blanca.
+
+No es recopilen ni es transmeten dades personals. La configuració es desa localment i s’elimina amb l’extensió. Sense analítica ni codi remot.
+
+erst_dev@mail.ru

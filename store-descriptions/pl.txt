@@ -1,0 +1,15 @@
+erst_dev_adblocker — Bloker reklam dla Chrome: blokuje reklamy i trackery, ukrywa elementy reklamowe i pomija reklamy wideo. Interfejs jest dostępny w 44 językach.
+
+• Blokuje żądania reklamowe i śledzące na poziomie sieci.
+• Ukrywa banery, reklamy natywne i bloki sponsorowane.
+• Pomija reklamy w YouTube, VK Video i RuTube.
+• Biała lista dla zaufanych witryn.
+• 44 języki interfejsu z wyszukiwaniem i flagami.
+
+1. Kliknij ikonę rozszerzenia na pasku Chrome.
+2. Włącz lub wyłącz blokowanie przełącznikiem.
+3. Otwórz ustawienia, aby wybrać język lub dodać witrynę do białej listy.
+
+Nie zbiera i nie przekazuje danych osobowych. Ustawienia są przechowywane lokalnie i usuwane wraz z rozszerzeniem. Bez analityki i zdalnego kodu.
+
+erst_dev@mail.ru

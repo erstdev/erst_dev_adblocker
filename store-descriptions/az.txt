@@ -1,0 +1,15 @@
+erst_dev_adblocker — Chrome üçün reklam bloklayıcı: reklam və trekerləri bloklayır, reklam bloklarını gizlədir və video reklamları atlayır. İnterfeys 44 dildədir.
+
+• Reklam və treker sorğularını şəbəkə səviyyəsində bloklayır.
+• Bannerləri, doğma reklamı və sponsorlu blokları gizlədir.
+• YouTube, VK Video və RuTube-də reklamları atlayır.
+• Etibar etdiyiniz saytlar üçün ağ siyahı.
+• Axtarış və bayraqlarla 44 interfeys dili.
+
+1. Chrome panelindəki uzantı ikonuna klikləyin.
+2. Bloklamanı açar ilə aktivləşdirin və ya söndürün.
+3. Dil seçmək və ya saytı ağ siyahıya əlavə etmək üçün parametrləri açın.
+
+Şəxsi məlumatlar toplanmır və ötürülmür. Parametrlər lokal saxlanılır və uzantı ilə birlikdə silinir. Analitika və uzaq kod yoxdur.
+
+erst_dev@mail.ru

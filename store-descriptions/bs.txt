@@ -1,0 +1,15 @@
+erst_dev_adblocker — Blokator reklama za Chrome: blokira reklame i trackere, skriva reklamne elemente i preskače video reklame. Interfejs je dostupan na 44 jezika.
+
+• Blokira reklamne i tracking zahtjeve na mrežnom nivou.
+• Skriva banere, native reklame i sponzorisane blokove.
+• Preskače reklame na YouTubeu, VK Videu i RuTubeu.
+• Bijela lista za stranice kojima vjerujete.
+• 44 jezika interfejsa s pretragom i zastavama.
+
+1. Kliknite ikonu proširenja na traci Chromea.
+2. Uključite ili isključite blokiranje prekidačem.
+3. Otvorite postavke da odaberete jezik ili dodate stranicu na bijelu listu.
+
+Lični podaci se ne prikupljaju niti prenose. Postavke se čuvaju lokalno i brišu se s proširenjem. Nema analitike ni udaljenog koda.
+
+erst_dev@mail.ru

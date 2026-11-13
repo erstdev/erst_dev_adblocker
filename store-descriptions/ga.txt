@@ -1,0 +1,15 @@
+erst_dev_adblocker — Blocálaí fógraí do Chrome: blocálann sé fógraí agus rianaitheoirí, folaíonn sé eilimintí fógraíochta agus scipeálann sé fógraí físe. Tá an chomhéadan ar fáil i 44 teanga.
+
+• Blocálann sé iarratais fógraíochta agus rianaithe ag leibhéal an líonra.
+• Folaíonn sé bannaí, fógraí dúchasacha agus bloic urraithe.
+• Scipeálann sé fógraí ar YouTube, VK Video agus RuTube.
+• Bánliosta do shuíomhanna a bhfuil muinín agat astu.
+• 44 teanga chomhéadain le cuardach agus bratacha.
+
+1. Cliceáil ar dheilbhín an tsínidh i mbarra uirlisí Chrome.
+2. Cuir an blocáil ar siúl nó as leis an lasc.
+3. Oscail na socruithe chun teanga a roghnú nó suíomh a chur leis an mbánliosta.
+
+Ní bhailítear ná ní tharchuirtear sonraí pearsanta. Stóráiltear socruithe go háitiúil agus scriostar iad leis an síneadh. Gan anailísíocht ná cód cianda.
+
+erst_dev@mail.ru

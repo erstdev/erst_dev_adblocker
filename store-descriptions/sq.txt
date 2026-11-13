@@ -1,0 +1,15 @@
+erst_dev_adblocker — Bllokues reklamash për Chrome: bllokon reklamat dhe gjurmuesit, fsheh elementët reklamues dhe kapërcen reklamat video. Ndërfaqja ofrohet në 44 gjuhë.
+
+• Bllokon kërkesat reklamuese dhe të gjurmimit në nivel rrjeti.
+• Fsheh bannerat, reklamat native dhe blloqet e sponsorizuara.
+• Kapërcen reklamat në YouTube, VK Video dhe RuTube.
+• Listë e bardhë për faqet që i besoni.
+• 44 gjuhë ndërfaqeje me kërkim dhe flamuj.
+
+1. Kliko ikonën e shtesës në shiritin e Chrome.
+2. Aktivizo ose çaktivizo bllokimin me çelësin.
+3. Hap cilësimet për të zgjedhur gjuhën ose për të shtuar faqen në listën e bardhë.
+
+Të dhënat personale nuk mblidhen dhe nuk transmetohen. Cilësimet ruhen lokalisht dhe fshihen me shtesën. Nuk ka analitikë dhe kod në distancë.
+
+erst_dev@mail.ru

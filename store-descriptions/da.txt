@@ -1,0 +1,15 @@
+erst_dev_adblocker — Annonceblokering til Chrome: blokerer annoncer og trackere, skjuler annonceelementer og springer videoannoncer over. Grænsefladen findes på 44 sprog.
+
+• Blokerer annonce- og sporingsanmodninger på netværksniveau.
+• Skjuler bannere, native annoncer og sponsorerede blokke.
+• Springer annoncer over på YouTube, VK Video og RuTube.
+• Hvidliste til websteder, du stoler på.
+• 44 grænsefladesprog med søgning og flag.
+
+1. Klik på udvidelsesikonet i Chromes værktøjslinje.
+2. Slå blokering til eller fra med kontakten.
+3. Åbn indstillingerne for at vælge sprog eller føje et websted til hvidlisten.
+
+Der indsamles eller sendes ingen personoplysninger. Indstillinger gemmes lokalt og slettes sammen med udvidelsen. Ingen analyser og ingen fjernkode.
+
+erst_dev@mail.ru

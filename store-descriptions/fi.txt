@@ -1,0 +1,15 @@
+erst_dev_adblocker — Mainostenesto Chrome-selaimeen: estää mainokset ja seuraimet, piilottaa mainoselementit ja ohittaa videomainokset. Käyttöliittymä on saatavilla 44 kielellä.
+
+• Estää mainos- ja seurantapyynnöt verkkotasolla.
+• Piilottaa bannerit, natiivimainokset ja sponsoroidut lohkot.
+• Ohittaa mainokset YouTubessa, VK Videossa ja RuTubessa.
+• Valkoinen lista luotettaville sivustoille.
+• 44 käyttöliittymän kieltä haulla ja lipuilla.
+
+1. Napsauta laajennuksen kuvaketta Chromen työkalurivillä.
+2. Kytke estäminen päälle tai pois kytkimellä.
+3. Avaa asetukset valitaksesi kielen tai lisätäksesi sivuston valkoiselle listalle.
+
+Henkilötietoja ei kerätä eikä lähetetä. Asetukset tallennetaan paikallisesti ja poistetaan laajennuksen mukana. Ei analytiikkaa eikä etäkoodia.
+
+erst_dev@mail.ru

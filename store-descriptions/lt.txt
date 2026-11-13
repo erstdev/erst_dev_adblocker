@@ -1,0 +1,15 @@
+erst_dev_adblocker — Reklamos blokavimo įrankis Chrome: blokuoja reklamas ir sekiklius, slepia reklamos elementus ir praleidžia vaizdo reklamas. Sąsaja veikia 44 kalbomis.
+
+• Blokuoja reklamos ir sekiklių užklausas tinklo lygiu.
+• Slepia reklaminius banerius, vietinę reklamą ir rėmėjų blokus.
+• Praleidžia reklamas YouTube, VK Video ir RuTube.
+• Baltasis sąrašas patikimoms svetainėms.
+• 44 sąsajos kalbos su paieška ir vėliavėlėmis.
+
+1. Spustelėkite plėtinio piktogramą Chrome įrankių juostoje.
+2. Įjunkite arba išjunkite blokavimą jungikliu.
+3. Atidarykite nustatymus, kad pasirinktumėte kalbą arba pridėtumėte svetainę į baltąjį sąrašą.
+
+Asmens duomenys nerenkami ir neperduodami. Nustatymai saugomi vietoje ir ištrinami kartu su plėtiniu. Analitikos ir nuotolinio kodo nėra.
+
+erst_dev@mail.ru

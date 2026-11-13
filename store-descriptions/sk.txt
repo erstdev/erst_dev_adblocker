@@ -1,0 +1,15 @@
+erst_dev_adblocker — Blokovač reklám pre Chrome: blokuje reklamy a trackery, skrýva reklamné prvky a preskakuje videoreklamy. Rozhranie je v 44 jazykoch.
+
+• Blokuje reklamné a sledovacie požiadavky na sieťovej úrovni.
+• Skrýva bannery, natívne reklamy a sponzorované bloky.
+• Preskakuje reklamy na YouTube, VK Video a RuTube.
+• Biely zoznam pre weby, ktorým dôverujete.
+• 44 jazykov rozhrania s vyhľadávaním a vlajkami.
+
+1. Kliknite na ikonu rozšírenia na paneli Chrome.
+2. Zapnite alebo vypnite blokovanie prepínačom.
+3. Otvorte nastavenia a vyberte jazyk alebo pridajte web do bieleho zoznamu.
+
+Osobné údaje sa nezhromažďujú ani neprenášajú. Nastavenia sa ukladajú lokálne a mažú sa s rozšírením. Bez analytiky a vzdialeného kódu.
+
+erst_dev@mail.ru

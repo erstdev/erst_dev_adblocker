@@ -1,0 +1,15 @@
+erst_dev_adblocker — Chrome uchun reklama bloklovchi: reklama va trekerlarni bloklaydi, reklama elementlarini yashiradi va video reklamalarni o‘tkazib yuboradi. Interfeys 44 tilda.
+
+• Reklama va treker so‘rovlarini tarmoq darajasida bloklaydi.
+• Bannerlar, mahalliy reklama va homiylik bloklarini yashiradi.
+• YouTube, VK Video va RuTube’dagi reklamalarni o‘tkazib yuboradi.
+• Ishonchli saytlar uchun oq ro‘yxat.
+• Qidiruv va bayroqlar bilan 44 interfeys tili.
+
+1. Chrome panelidagi kengaytma belgisini bosing.
+2. Bloklashni almashtirgich bilan yoqing yoki o‘chiring.
+3. Tilni tanlash yoki saytni oq ro‘yxatga qo‘shish uchun sozlamalarni oching.
+
+Shaxsiy ma’lumotlar to‘planmaydi va uzatilmaydi. Sozlamalar lokal saqlanadi va kengaytma bilan birga o‘chiriladi. Analitika va masofaviy kod yo‘q.
+
+erst_dev@mail.ru
