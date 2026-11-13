@@ -28,7 +28,7 @@
 - MutationObserver для динамической рекламы.
 - Text-based hiding (обычные маркеры + структурный детектор разбитого текста), с защитой от скрытия плеера, в том числе в shadow DOM.
 - Локализация интерфейса popup: 44 языка (24 языка ЕС, страны бывшего СССР, кроме украинского, и другие национальные языки Европы); выбор языка — searchable select с флагами в настройках, сохраняется в chrome.storage.local.
-- Локализация name/description через `_locales/` (`en`, `ru`, `hy`).
+- Локализация name/description через `_locales/` (45 локалей для 44 языков; `pt_BR`/`pt_PT`).
 - Кнопка «Перезагрузить страницу» в popup.
 - Обратная связь: «Сообщить о проблеме» (mailto), «Скопировать email».
 
@@ -67,7 +67,7 @@
 
 ### Локализация манифеста
 
-4. **`_locales/hy`.** Армянские name/description; `en` и `ru` уже были.
+4. **`_locales` для всех 45 локалей.** Генерируются из `shared/locales/descriptions.js` командой `npm run locales`: `appName` + `appDescription` для каждого языка; португальский — `pt_BR` и `pt_PT`.
 
 ## Изменения версии 1.1.5
 
@@ -232,7 +232,7 @@
 
 - **Content scripts** не работают в iframe (нет `all_frames: true`) — осознанное ограничение.
 - **Закрытый shadow root** (`attachShadow({ mode: "closed" })`) content script не видит: `<video>` и player-селекторы внутри него не обнаруживаются. Открытые shadow root (VKUI, VK Video) обходятся.
-- **Popup:** выбранный язык не меняет `name`/`description` в Chrome — они выбираются по языку браузера через `_locales`. Сейчас `_locales` есть для `en`, `ru`, `hy`; для остальных языков описание расширения — английский fallback.
+- **Popup:** выбранный язык не меняет `name`/`description` в Chrome — они выбираются по языку браузера через `_locales`. Для всех 45 локалей есть `appDescription`.
 - **Не поддерживается `:has-text(...)`** (uBlock) — 287 правил в EasyList.
 
 ## Ключевые архитектурные решения
@@ -355,8 +355,8 @@
 
 ### Локализация
 
-- `_locales/{en,ru,hy}/messages.json` — только `appName` и `appDescription`. Chrome выбирает локаль по языку интерфейса браузера, fallback — `default_locale: "en"`. Смена языка в popup на эти строки не влияет.
-- Popup — собственный каталог `shared/locales/`: `east.js`, `central.js`, `west.js`, `index.js`; 44 языка по 23 ключа. `chrome.i18n` не переключает язык на лету.
+- `_locales/{code}/messages.json` — 45 локалей: `appName` и `appDescription`. Генерируются из `shared/locales/descriptions.js` командой `npm run locales`. Chrome выбирает локаль по языку интерфейса браузера, fallback — `default_locale: "en"`. Смена языка в popup на эти строки не влияет.
+- Popup — собственный каталог `shared/locales/`: `east.js`, `central.js`, `west.js`, `index.js`, `descriptions.js`; 44 языка по 23 ключа. `chrome.i18n` не переключает язык на лету.
 - Выбранный язык хранится в `chrome.storage.local` (`language`: код из каталога). Если ключа нет, `detectLanguage()` берёт язык браузера (`chrome.i18n.getUILanguage()`), иначе английский.
 - Статические тексты размечены `data-i18n`, `data-i18n-title`, `data-i18n-aria-label`, `data-i18n-placeholder`; `applyI18n()` заполняет их и выставляет `<html lang>`.
 - Динамические тексты (лейбл тогла, кнопка добавления, title кнопок удаления, письмо) идут через `t(key, substitutions)`.

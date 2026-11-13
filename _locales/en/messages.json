@@ -4,7 +4,7 @@
     "description": "Extension name shown in Chrome and CWS."
   },
   "appDescription": {
-    "message": "Ad blocker for Chromium browsers. Network filtering, cosmetic rules, video ad skip, whitelist.",
+    "message": "Ad blocker for Chromium: network and cosmetic filtering, video ad skip, 44 languages.",
     "description": "Short description shown in CWS. Max 132 characters."
   }
 }

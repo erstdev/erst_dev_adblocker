@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Blocálaí fógraí do Chromium: scagadh líonra agus cosmaideach, scipeáil fógraí físe, 44 teanga.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

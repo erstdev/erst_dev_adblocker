@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Annonseblokkering for Chromium: nettverks- og kosmetisk filtrering, hopp over videoannonser, 44 språk.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

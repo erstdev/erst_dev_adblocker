@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Блоккунандаи реклама барои Chromium: филтри шабакавӣ ва косметикӣ, гузаштани рекламаи видео, 44 забон.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

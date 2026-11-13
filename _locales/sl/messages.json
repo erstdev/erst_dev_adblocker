@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Blokirnik oglasov za Chromium: omrežno in kozmetično filtriranje, preskok video oglasov, 44 jezikov.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

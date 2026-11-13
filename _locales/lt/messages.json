@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Reklamos blokavimo įrankis Chromium: tinklo ir kosmetinis filtravimas, vaizdo reklamos praleidimas, 44 kalbos.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

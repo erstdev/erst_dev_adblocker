@@ -24,6 +24,9 @@ npm run convert
 # Сгенерировать иконки (один раз, из исходников в корне)
 npm run icons
 
+# Сгенерировать _locales для всех языков
+npm run locales
+
 # Собрать ZIP для публикации
 npm run build
 ```
@@ -32,12 +35,13 @@ npm run build
 
 ## Порядок команд
 
-`convert` → `icons` → `build`. Первые две готовят артефакты (правила и иконки), третья упаковывает всё в ZIP. Если пропустить `convert` — в сборку попадут старые правила. Если пропустить `icons` — Chrome не установит расширение.
+`convert` → `icons` → `locales` → `build`. Первые три готовят артефакты (правила, иконки, локали), четвёртая упаковывает всё в ZIP. Если пропустить `convert` — в сборку попадут старые правила. Если пропустить `icons` — Chrome не установит расширение. Если пропустить `locales` — в `_locales` останутся старые описания.
 
 ## Скрипты
 
 - `npm run convert` — конвертирует EasyList и RU AdList в формат DNR (`rules/ads.json`, `rules/exceptions.json`), генерирует `content/cosmetic.css`, `rules/cosmetic-map.json` и `rules/cosmetic-exclude.json`.
 - `npm run icons` — нарезает иконки из `icon-source.png` и `icon-source-small.png` в `icons/` (16/32/48/128 + `store-icon-128`).
+- `npm run locales` — генерирует `_locales/<code>/messages.json` для 45 локалей из `shared/locales/descriptions.js`.
 - `npm run build` — собирает ZIP для Chrome Web Store через `jszip`. Кладёт ZIP в корень, распакованную сборку — в `dist/`.
 - `npm run screenshots` — ресайзит PNG из `store-assets/raw/` до 1280×800 и кладёт в `store-assets/`. Для Chrome Web Store.
 
@@ -52,7 +56,7 @@ npm run build
 
 ```
 manifest.json            — манифест MV3
-_locales/                — i18n: name и description (en, ru, hy)
+_locales/                — name/description для 45 локалей (44 языка; pt_BR/pt_PT)
 icons/                   — иконки (генерируются)
 store-assets/            — скриншоты и промо для CWS
 docs/                    — 11 глав документации: архитектура, код, решения
@@ -75,7 +79,7 @@ shared/                  — общий код
   messages.js            — типы сообщений
   storage.js             — chrome.storage + DNR-синхронизация
   i18n.js                — локализация popup (44 языка)
-  locales/               — каталог: east.js, central.js, west.js, index.js
+  locales/               — каталог: east.js, central.js, west.js, index.js, descriptions.js
   utils.js               — extractHostname
 
 rules/                   — DNR-правила и карты косметики
@@ -127,7 +131,7 @@ tools/                   — Node.js: конвертер, сборка, икон
 
 Расширение не собирает и не передаёт персональные данные. Все настройки хранятся локально в `chrome.storage.local`. Списки блокировки скачиваются один раз при сборке и упаковываются в архив — расширение не обращается к ним в интернете при работе.
 
-Подробности: [PRIVACY.md](PRIVACY.md) и https://erstdev.github.io/erst_dev_adblocker_privacy/.
+Подробности: [PRIVACY.md](PRIVACY.md).
 
 ## Лицензия
 

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Mainostenesto Chromiumille: verkko- ja kosmeettinen suodatus, videomainosten ohitus, 44 kieltä.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

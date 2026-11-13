@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Bllokues reklamash për Chromium: filtrimi i rrjetit dhe kozmetik, kapërcimi i reklamave video, 44 gjuhë.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

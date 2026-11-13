@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Bloker reklam dla Chromium: filtrowanie sieciowe i kosmetyczne, pomijanie reklam wideo, 44 języki.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

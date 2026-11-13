@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Auglýsingablokkur fyrir Chromium: net- og snyrtileg síun, sleppa myndbandsauglýsingum, 44 tungumál.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

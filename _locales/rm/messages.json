@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Bloccader da reclama per Chromium: filtrar da rait e cosmetic, siglir reclamas da video, 44 linguas.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

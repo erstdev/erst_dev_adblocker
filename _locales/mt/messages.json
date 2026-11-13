@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Blokkatur tar-reklami għal Chromium: filtru tan-netwerk u kosmetiku, qbiż tar-reklami tal-vidjow, 44 lingwa.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "erst_dev_adblocker",
+    "description": "Extension name shown in Chrome and CWS."
+  },
+  "appDescription": {
+    "message": "Reklámblokkoló Chromiumhoz: hálózati és kozmetikai szűrés, videóreklámok átugrása, 44 nyelv.",
+    "description": "Short description shown in CWS. Max 132 characters."
+  }
+}
