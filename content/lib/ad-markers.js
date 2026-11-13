@@ -105,6 +105,13 @@ function isTextHidingDisabled() {
 
 // Признаки контейнера рекламы.
 const AD_CONTAINER_SELECTORS = [
+    // AdFox: верхний баннер на выдаче Яндекса. Корень важнее
+    // внутреннего баннера: скрываем блок вместе с его отступами.
+    '[class*="AdfoxBanner_root"]',
+    '[class*="AdfoxBanner_banner"]',
+    '[id^="adfox-serp"]',
+    '[id^="adfox-"]',
+    '[id^="adfox_"]',
     '[id^="trg-b-"]',
     '[id^="b"][data-rendertype="native"]',
     '[id^="yandex_ad_R-"]',
@@ -578,8 +585,25 @@ function hideAdInElement(el, logPrefix) {
     if (marker && isStandaloneLabel(collapsed)) {
         // Самостоятельный лейбл: «Реклама», «Реклама 18+».
         if (!isVisibleElement(el)) return null;
-        const structural = findRotatedContainer(el);
-        target = structural !== null ? structural : findAdContainer(el);
+
+        // Сначала явный рекламный контейнер: у AdFox, РСЯ, Dzen и
+        // Mail.ru он размечен стабильными id/class. Generic-подъём
+        // по родителям на выдаче Яндекса уходит к контейнеру
+        // результатов поиска, а тот затем отбрасывается проверками
+        // isPageLevelElement / isContentContainer — в итоге не
+        // скрывалось ничего, включая сам баннер.
+        const explicit = findAdContainerStrict(el);
+        if (
+            explicit &&
+            explicit !== el &&
+            !isPageLevelElement(explicit) &&
+            !isContentContainer(explicit)
+        ) {
+            target = explicit;
+        } else {
+            const structural = findRotatedContainer(el);
+            target = structural !== null ? structural : findAdContainer(el);
+        }
     } else {
         if (!isVisibleElement(el)) return null;
 

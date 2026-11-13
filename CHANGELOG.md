@@ -5,6 +5,17 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
 Версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [1.1.5] — 2026-11-13
+
+### Fixed
+
+- **Яндекс.Поиск: верхний AdFox-баннер не скрывался.** Новый блок размечен CSS-modules-классами `AdfoxBanner_root__<hash>` / `AdfoxBanner_banner__<hash>` и слотом `id="adfox-serp-top-banner"`; подходящих якорей не было ни в `cosmetic-manual.css`, ни в `AD_CONTAINER_SELECTORS`. Лейбл «Реклама» стоит внутри ссылки баннера, а `findRotatedContainer` поднимался к контейнеру результатов поиска, который затем отбрасывался проверками `isPageLevelElement` / `isContentContainer`: не скрывалось ничего, включая сам баннер. Добавлены AdFox-селекторы в ручную косметику и `AD_CONTAINER_SELECTORS`; для самостоятельного лейбла сначала ищется явный рекламный контейнер (`findAdContainerStrict`), generic-подъём остался запасным вариантом.
+
+### Technical
+
+- **CONTEXT.md:** обновлены разделы про ручную косметику и детектор рекламы; добавлена запись о решённой проблеме.
+- **Версия:** 1.1.5 в `manifest.json`, `package.json`, `package-lock.json`.
+
 ## [1.1.4] — 2026-11-03
 
 ### Fixed

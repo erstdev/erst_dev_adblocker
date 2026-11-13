@@ -12,6 +12,16 @@ div[class*="fox-tail"] {
     display: none !important;
 }
 
+/* ---------- AdFox — верхний баннер на выдаче Яндекса ----------
+   CSS-modules: AdfoxBanner_root__<hash>, AdfoxBanner_banner__<hash>,
+   слот id="adfox-serp-top-banner". Хэш меняется при сборке,
+   префикс имени — нет. */
+[class*="AdfoxBanner_root"],
+[class*="AdfoxBanner_banner"],
+[id^="adfox-serp"] {
+    display: none !important;
+}
+
 /* ---------- Яндекс.Директ / РСЯ ---------- */
 div[id^="yandex_ad"],
 div[id^="yandex_rtb"],

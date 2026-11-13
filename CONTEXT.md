@@ -43,6 +43,26 @@
 9. Поддержка `:has-text(...)` (uBlock).
 10. Разделение DNR-набора на core/extra.
 
+## Изменения версии 1.1.5
+
+### Косметика
+
+1. **Яндекс.Поиск — верхний AdFox-баннер.**
+- в `cosmetic-manual.css` добавлены `[class*="AdfoxBanner_root"]`, `[class*="AdfoxBanner_banner"]`, `[id^="adfox-serp"]`;
+- блок размечен CSS-modules-классами `AdfoxBanner_root__<hash>` и `AdfoxBanner_banner__<hash>`, слот — `id="adfox-serp-top-banner"`;
+- хэш меняется при сборке Яндекса, префикс имени — нет.
+
+### Content scripts
+
+2. **`AD_CONTAINER_SELECTORS` — AdFox-якоря.**
+- добавлены `[class*="AdfoxBanner_root"]`, `[class*="AdfoxBanner_banner"]`, `[id^="adfox-serp"]`, `[id^="adfox-"]`, `[id^="adfox_"]`;
+- корень стоит первым: скрывается блок вместе с отступами.
+
+3. **Самостоятельный лейбл — сначала явный контейнер.**
+- `hideAdInElement` для `isStandaloneLabel` вызывает `findAdContainerStrict`;
+- generic-подъём (`findRotatedContainer`) — только если явного контейнера нет;
+- причина: generic-подъём на выдаче Яндекса уходил к контейнеру результатов поиска, который отбрасывался `isPageLevelElement` / `isContentContainer`.
+
 ## Изменения версии 1.1.4
 
 ### Content scripts
@@ -275,10 +295,20 @@
 
 Подъём к контейнеру:
 
+- Для самостоятельного лейбла («Реклама», «Реклама 18+») сначала
+  ищется явный рекламный контейнер (findAdContainerStrict), и только
+  если его нет — generic-подъём по родителям. Стабильные id/class
+  надёжнее: generic-подъём на выдаче Яндекса уходил к контейнеру
+  результатов поиска, который отбрасывался проверками
+  isPageLevelElement / isContentContainer.
+
 - findAdContainer(el):
   - по семантическим селекторам [id^="trg-b-"],
     [id^="b"][data-rendertype="native"], [id^="yandex_ad_R-"],
     [data-testid$="-ad"], [data-testid*="-ad-"];
+  - по AdFox-якорям [class*="AdfoxBanner_root"],
+    [class*="AdfoxBanner_banner"], [id^="adfox-serp"],
+    [id^="adfox-"], [id^="adfox_"];
   - по Dzen-якорям [data-new-adtune="true"],
     [data-cv3dnq1w-click="imageGallery"], [data-cv3dnq1w-click="title"];
   - по Mail.ru-классам .sc-1v5ykgi, .sc-1ymix5g;
@@ -380,6 +410,7 @@ resourceTypes: script, image, xmlhttprequest, sub_frame, media, ping, other (д�
 Не перезаписывается конвертером. Текущие блоки:
 
 - AdFox (Яндекс) — [data-role^="fox-tail"], [data-role^="fox::"], div.fox-tail, div[class*="fox-tail"].
+- AdFox — верхний баннер на выдаче Яндекса — [class*="AdfoxBanner_root"], [class*="AdfoxBanner_banner"], [id^="adfox-serp"].
 - Яндекс.Директ / РСЯ — div[id^="yandex_ad"], div[id^="yandex_rtb"], div[class^="yandex_ad"], [id^="ya_partner_R-A-"].
 - Яндекс — РСЯ (карты, поиск, сервисы) — [id*="R-I-"], [data-r-i].
 - Яндекс — РСЯ (гарантийные показы на поиске) — [data-layout-part="cr"], [id^="advRsyaReact_"], [id^="advRsyaReact_rsya-guarantee"].
@@ -463,6 +494,7 @@ MANUAL_ID_MAX = 199 — это запас, а не фактический раз
 - VK Video: пропадал <video> при играющем звуке — плеер в открытом shadow DOM, text-marker скрывал VKUI-обёртки до гидратации. Решено: рекурсивный обход shadow root, containsShadowHost, isPageLevelElement, hiddenByUs + unhideAncestorsOfPlayer.
 - Тогл не выключал text hiding — content scripts не проверяли enabled. Решено проверкой chrome.storage.local в domain-cosmetic.js.
 - refreshSelectors помечал URL обработанным до ответа service worker — при ошибке селекторы не запрашивались повторно. Решено: отметка после успеха + повтор через 1 с.
+- Яндекс.Поиск: верхний AdFox-баннер не скрывался. Лейбл «Реклама» стоит внутри ссылки баннера; findRotatedContainer поднимался к контейнеру выдачи, а тот отбрасывался проверками isPageLevelElement / isContentContainer — не скрывалось ничего, включая сам баннер. Решено: AdFox-селекторы в cosmetic-manual.css и AD_CONTAINER_SELECTORS, для самостоятельного лейбла сначала ищется явный контейнер.
 
 ### Отложено на 1.2.0
 
