@@ -1,7 +1,7 @@
 import { MSG } from "../shared/messages.js";
 import {
-    LANGUAGES,
-    LANGUAGE_LABELS,
+    LANGUAGE_CODES,
+    LANGUAGE_META,
     applyI18n,
     getCurrentLanguage,
     getLanguage,
@@ -24,6 +24,11 @@ let currentDomain = null;
 let currentUrl = null;
 let currentVersion = null;
 let currentWhitelist = [];
+
+// Состояние searchable-select.
+let languageQuery = "";
+let activeLanguageIndex = -1;
+let filteredLanguages = LANGUAGE_META;
 
 // ------------------------------------------------------------
 // Загрузка состояния
@@ -203,58 +208,188 @@ async function removeDomain(domain) {
 }
 
 // ------------------------------------------------------------
-// Язык интерфейса
+// Язык интерфейса: searchable select с флагами
 // ------------------------------------------------------------
 
-/**
- * Создаёт список языков в настройках. Названия нативные и не
- * зависят от текущего языка: «Русский», «English», «Հայերեն».
- */
-function renderLanguageOptions(selected) {
-    const container = getElementById("language-list");
-    container.innerHTML = "";
+function normalizeForSearch(value) {
+    return value
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
 
-    for (const language of LANGUAGES) {
-        const label = document.createElement("label");
-        label.className = "language-option";
+function matchesLanguage(meta, query) {
+    if (!query) return true;
+    const haystack = normalizeForSearch(
+        `${meta.label} ${meta.english} ${meta.code}`
+    );
+    return haystack.includes(query);
+}
 
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = "language";
-        input.value = language;
-        input.checked = language === selected;
-        input.addEventListener("change", onLanguageChange);
+function languageMeta(code) {
+    return LANGUAGE_META.find((meta) => meta.code === code) || LANGUAGE_META[0];
+}
 
-        const text = document.createElement("span");
-        text.textContent = LANGUAGE_LABELS[language];
+function renderLanguageTrigger(language) {
+    const meta = languageMeta(language);
+    const flag = getElementById("language-trigger-flag");
+    flag.src = `flags/${meta.flag}.svg`;
+    flag.alt = "";
+    getElementById("language-trigger-label").textContent = meta.label;
+}
 
-        label.appendChild(input);
-        label.appendChild(text);
-        container.appendChild(label);
+function renderLanguageOptions() {
+    const list = getElementById("language-options");
+    list.innerHTML = "";
+
+    filteredLanguages = languageQuery
+        ? LANGUAGE_META.filter((meta) => matchesLanguage(meta, languageQuery))
+        : LANGUAGE_META;
+
+    if (filteredLanguages.length === 0) {
+        activeLanguageIndex = -1;
+
+        const empty = document.createElement("li");
+        empty.className = "lang-empty";
+        empty.textContent = t("languageEmpty");
+        list.appendChild(empty);
+
+        updateActiveOption();
+        return;
+    }
+
+    if (activeLanguageIndex < 0 || activeLanguageIndex >= filteredLanguages.length) {
+        activeLanguageIndex = 0;
+    }
+
+    const selected = getCurrentLanguage();
+
+    filteredLanguages.forEach((meta, index) => {
+        const item = document.createElement("li");
+        item.className = "lang-option";
+        item.id = `lang-option-${meta.code}`;
+        item.dataset.code = meta.code;
+        item.setAttribute("role", "option");
+        item.setAttribute("aria-selected", String(meta.code === selected));
+        if (index === activeLanguageIndex) item.classList.add("active");
+
+        const flag = document.createElement("img");
+        flag.className = "lang-flag";
+        flag.src = `flags/${meta.flag}.svg`;
+        flag.alt = "";
+        flag.width = 20;
+        flag.height = 15;
+
+        const label = document.createElement("span");
+        label.className = "lang-option-label";
+        label.textContent = meta.label;
+
+        const code = document.createElement("span");
+        code.className = "lang-option-code";
+        code.textContent = meta.code;
+
+        item.appendChild(flag);
+        item.appendChild(label);
+        item.appendChild(code);
+        item.addEventListener("click", () => {
+            void selectLanguage(meta.code);
+        });
+
+        list.appendChild(item);
+    });
+
+    updateActiveOption();
+}
+
+function updateActiveOption() {
+    const list = getElementById("language-options");
+    const items = list.querySelectorAll(".lang-option");
+    for (let index = 0; index < items.length; index++) {
+        items[index].classList.toggle("active", index === activeLanguageIndex);
+    }
+
+    const search = getElementById("language-search");
+    const active = items[activeLanguageIndex];
+
+    if (active) {
+        search.setAttribute("aria-activedescendant", active.id);
+        active.scrollIntoView({ block: "nearest" });
+    } else {
+        search.removeAttribute("aria-activedescendant");
     }
 }
 
-/**
- * Обновляет только checked у радио, не пересоздавая DOM:
- * иначе теряется фокус после клика.
- */
-function syncLanguageOptions(language) {
-    const inputs = document.querySelectorAll('input[name="language"]');
-    for (const input of inputs) {
-        input.checked = input.value === language;
+function openLanguagePanel() {
+    const panel = getElementById("language-panel");
+    if (!panel.hidden) return;
+
+    languageQuery = "";
+    getElementById("language-search").value = "";
+    activeLanguageIndex = Math.max(
+        0,
+        LANGUAGE_META.findIndex((meta) => meta.code === getCurrentLanguage())
+    );
+
+    panel.hidden = false;
+    getElementById("language-trigger").setAttribute("aria-expanded", "true");
+
+    renderLanguageOptions();
+    getElementById("language-search").focus();
+}
+
+function closeLanguagePanel() {
+    const panel = getElementById("language-panel");
+    if (panel.hidden) return;
+
+    panel.hidden = true;
+    getElementById("language-trigger").setAttribute("aria-expanded", "false");
+    languageQuery = "";
+    activeLanguageIndex = -1;
+}
+
+function moveActiveOption(delta) {
+    if (filteredLanguages.length === 0) return;
+    activeLanguageIndex += delta;
+    if (activeLanguageIndex < 0) activeLanguageIndex = filteredLanguages.length - 1;
+    if (activeLanguageIndex >= filteredLanguages.length) activeLanguageIndex = 0;
+    updateActiveOption();
+}
+
+function onLanguageSearchInput(event) {
+    languageQuery = normalizeForSearch(event.target.value.trim());
+    activeLanguageIndex = 0;
+    renderLanguageOptions();
+}
+
+function onLanguageSearchKeyDown(event) {
+    if (event.key === "ArrowDown") {
+        event.preventDefault();
+        moveActiveOption(1);
+    } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        moveActiveOption(-1);
+    } else if (event.key === "Enter") {
+        event.preventDefault();
+        const meta = filteredLanguages[activeLanguageIndex];
+        if (meta) void selectLanguage(meta.code);
+    } else if (event.key === "Escape") {
+        event.preventDefault();
+        closeLanguagePanel();
+        getElementById("language-trigger").focus();
     }
 }
 
-async function onLanguageChange(event) {
-    const language = event.target.value;
-    if (!LANGUAGES.includes(language)) return;
+async function selectLanguage(language) {
+    if (!LANGUAGE_CODES.includes(language)) return;
 
     try {
         await setLanguage(language);
+        closeLanguagePanel();
         applyLanguage(language);
+        getElementById("language-trigger").focus();
     } catch (e) {
         console.error("changeLanguage failed:", e);
-        syncLanguageOptions(getCurrentLanguage());
+        renderLanguageTrigger(getCurrentLanguage());
     }
 }
 
@@ -269,7 +404,37 @@ function applyLanguage(language) {
     updateToggleLabel(getElementById("enabled-toggle").checked);
     renderWhitelist(currentWhitelist);
     updateAddButton(currentWhitelist);
-    syncLanguageOptions(language);
+    renderLanguageTrigger(language);
+
+    if (!getElementById("language-panel").hidden) {
+        renderLanguageOptions();
+    }
+}
+
+function setupLanguageSelect() {
+    const trigger = getElementById("language-trigger");
+
+    trigger.addEventListener("click", () => {
+        if (getElementById("language-panel").hidden) openLanguagePanel();
+        else closeLanguagePanel();
+    });
+
+    trigger.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            openLanguagePanel();
+        }
+    });
+
+    getElementById("language-search").addEventListener("input", onLanguageSearchInput);
+    getElementById("language-search").addEventListener("keydown", onLanguageSearchKeyDown);
+
+    document.addEventListener("click", (event) => {
+        if (getElementById("language-panel").hidden) return;
+        if (!getElementById("language-select").contains(event.target)) {
+            closeLanguagePanel();
+        }
+    });
 }
 
 // ------------------------------------------------------------
@@ -308,23 +473,10 @@ function buildMailtoLink(subject, body) {
 }
 
 function openBugReport() {
-    const body = [
-        t("mailGreeting"),
-        ``,
-        t("mailExtension", { version: currentVersion || "?" }),
-        t("mailPage", { url: currentUrl || t("mailNoPage") }),
-        ``,
-        t("mailWhat"),
-        t("mailDescribe"),
-        ``,
-        t("mailHow"),
-        `1. `,
-        `2. `,
-        `3. `,
-        ``,
-        t("mailExpected"),
-        t("mailExpectedValue")
-    ].join("\n");
+    const body = t("mailBody", {
+        version: currentVersion || "?",
+        url: currentUrl || t("mailNoPage")
+    });
 
     const link = buildMailtoLink(t("mailSubject"), body);
     window.location.href = link;
@@ -369,7 +521,8 @@ async function init() {
     const language = await getLanguage();
     setCurrentLanguage(language);
     applyI18n();
-    renderLanguageOptions(language);
+    renderLanguageTrigger(language);
+    setupLanguageSelect();
     loadVersion();
     await loadState();
 }

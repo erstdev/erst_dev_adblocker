@@ -50,12 +50,26 @@
             <span aria-hidden="true">←</span>
             <span data-i18n="back"></span>
         </button>
-        <h2 class="settings-title" data-i18n="settingsTitle"></h2>
+        <h2 class="settings-title" data-i18n="settings"></h2>
     </div>
 
     <div class="section">
         <div class="section-title" data-i18n="languageTitle"></div>
-        <div id="language-list" class="language-list"></div>
+        <div id="language-select" class="lang-select">
+            <button type="button" id="language-trigger" class="lang-trigger"
+                    aria-haspopup="listbox" aria-expanded="false"
+                    aria-controls="language-panel">
+                <img id="language-trigger-flag" class="lang-flag" alt="" width="20" height="15">
+                <span id="language-trigger-label" class="lang-trigger-label"></span>
+                <span class="lang-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div id="language-panel" class="lang-panel" hidden>
+                <input type="text" id="language-search" class="lang-search"
+                       autocomplete="off" spellcheck="false"
+                       data-i18n-placeholder="languageSearchPlaceholder">
+                <ul id="language-options" class="lang-options" role="listbox"></ul>
+            </div>
+        </div>
         <div class="note" data-i18n="languageNote"></div>
     </div>
 </section>

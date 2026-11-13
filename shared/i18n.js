@@ -7,44 +7,37 @@
    chrome.storage.local (ключ language) и применяется к DOM.
 
    Что экспортирует:
-   - LANGUAGES, LANGUAGE_LABELS — список и нативные названия языков
+   - LANGUAGE_META, LANGUAGE_CODES — список языков и их метаданные
    - detectLanguage()          — язык браузера, если поддерживается
    - getLanguage()             — сохранённый язык или язык браузера
    - setLanguage(code)         — сохранить выбор
    - setCurrentLanguage(code)  — применить язык в памяти
    - getCurrentLanguage()
    - t(key, substitutions)     — строка по ключу с {placeholder}
-   - applyI18n(root)           — заполнить [data-i18n] в DOM
+   - applyI18n(root)           — заполнить data-i18n* в DOM
 
    Разметка:
-   - data-i18n="key"             → textContent
-   - data-i18n-title="key"       → title
-   - data-i18n-aria-label="key"  → aria-label
+   - data-i18n="key"                    → textContent
+   - data-i18n-title="key"              → title
+   - data-i18n-aria-label="key"         → aria-label
+   - data-i18n-placeholder="key"        → placeholder
    ============================================================ */
 
-import { ru } from "./locales/ru.js";
-import { en } from "./locales/en.js";
-import { hy } from "./locales/hy.js";
+import {
+    DICTIONARIES,
+    LANGUAGE_CODES,
+    LANGUAGE_META
+} from "./locales/index.js";
+
+export { LANGUAGE_CODES, LANGUAGE_META };
 
 const STORAGE_KEY = "language";
 const DEFAULT_LANGUAGE = "en";
 
-const DICTIONARIES = { ru, en, hy };
-
-// Нативные названия не переводятся: пользователь должен узнать
-// свой язык в списке независимо от текущего языка интерфейса.
-export const LANGUAGE_LABELS = {
-    ru: "Русский",
-    en: "English",
-    hy: "Հայերեն"
-};
-
-export const LANGUAGES = Object.keys(LANGUAGE_LABELS);
-
 let currentLanguage = DEFAULT_LANGUAGE;
 
 export function isSupportedLanguage(value) {
-    return typeof value === "string" && LANGUAGES.includes(value);
+    return typeof value === "string" && Object.hasOwn(DICTIONARIES, value);
 }
 
 /**
@@ -114,7 +107,7 @@ export function t(key, substitutions) {
 
 /**
  * Заполняет статические тексты popup и выставляет lang у <html>.
- * Динамические строки (лейбл тогла, кнопка добавления) обновляет
+ * Динамические строки (лейбл тога, кнопка добавления) обновляет
  * popup.js через t() и повторный рендер.
  */
 export function applyI18n(root = document) {
@@ -130,6 +123,10 @@ export function applyI18n(root = document) {
 
     for (const el of root.querySelectorAll("[data-i18n-aria-label]")) {
         el.setAttribute("aria-label", t(el.dataset.i18nAriaLabel));
+    }
+
+    for (const el of root.querySelectorAll("[data-i18n-placeholder]")) {
+        el.placeholder = t(el.dataset.i18nPlaceholder);
     }
 
     document.documentElement.lang = currentLanguage;
