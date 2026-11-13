@@ -19,49 +19,49 @@ node store-descriptions/generate.js
 
 ## Соответствие
 
-| Файл | Язык | CWS locale |
-|---|---|---|
-| `en.txt` | English | `en` |
-| `ru.txt` | Русский | `ru` |
-| `hy.txt` | Հայերեն | `hy` |
-| `az.txt` | Azərbaycanca | `az` |
-| `be.txt` | Беларуская | `be` |
-| `et.txt` | Eesti | `et` |
-| `ka.txt` | ქართული | `ka` |
-| `kk.txt` | Қазақша | `kk` |
-| `ky.txt` | Кыргызча | `ky` |
-| `lv.txt` | Latviešu | `lv` |
-| `lt.txt` | Lietuvių | `lt` |
-| `ro.txt` | Română | `ro` |
-| `tg.txt` | Тоҷикӣ | `tg` |
-| `tk.txt` | Türkmençe | `tk` |
-| `uz.txt` | Oʻzbekcha | `uz` |
-| `bg.txt` | Български | `bg` |
-| `hr.txt` | Hrvatski | `hr` |
-| `cs.txt` | Čeština | `cs` |
-| `hu.txt` | Magyar | `hu` |
-| `pl.txt` | Polski | `pl` |
-| `sk.txt` | Slovenčina | `sk` |
-| `sl.txt` | Slovenščina | `sl` |
-| `sq.txt` | Shqip | `sq` |
-| `bs.txt` | Bosanski | `bs` |
-| `mk.txt` | Македонски | `mk` |
-| `sr.txt` | Српски | `sr` |
-| `tr.txt` | Türkçe | `tr` |
-| `da.txt` | Dansk | `da` |
-| `nl.txt` | Nederlands | `nl` |
-| `fi.txt` | Suomi | `fi` |
-| `fr.txt` | Français | `fr` |
-| `de.txt` | Deutsch | `de` |
-| `el.txt` | Ελληνικά | `el` |
-| `ga.txt` | Gaeilge | `ga` |
-| `it.txt` | Italiano | `it` |
-| `mt.txt` | Malti | `mt` |
-| `pt.txt` | Português | `pt_BR` / `pt_PT` |
-| `es.txt` | Español | `es` |
-| `sv.txt` | Svenska | `sv` |
-| `is.txt` | Íslenska | `is` |
-| `no.txt` | Norsk | `no` |
-| `lb.txt` | Lëtzebuergesch | `lb` |
-| `ca.txt` | Català | `ca` |
-| `rm.txt` | Rumantsch | `rm` |
+| Файл | Язык | По-русски | CWS locale |
+|---|---|---|---|
+| `en.txt` | English | английский | `en` |
+| `ru.txt` | Русский | русский | `ru` |
+| `hy.txt` | Հայերեն | армянский | `hy` |
+| `az.txt` | Azərbaycanca | азербайджанский | `az` |
+| `be.txt` | Беларуская | белорусский | `be` |
+| `et.txt` | Eesti | эстонский | `et` |
+| `ka.txt` | ქართული | грузинский | `ka` |
+| `kk.txt` | Қазақша | казахский | `kk` |
+| `ky.txt` | Кыргызча | киргизский | `ky` |
+| `lv.txt` | Latviešu | латышский | `lv` |
+| `lt.txt` | Lietuvių | литовский | `lt` |
+| `ro.txt` | Română | румынский | `ro` |
+| `tg.txt` | Тоҷикӣ | таджикский | `tg` |
+| `tk.txt` | Türkmençe | туркменский | `tk` |
+| `uz.txt` | Oʻzbekcha | узбекский | `uz` |
+| `bg.txt` | Български | болгарский | `bg` |
+| `hr.txt` | Hrvatski | хорватский | `hr` |
+| `cs.txt` | Čeština | чешский | `cs` |
+| `hu.txt` | Magyar | венгерский | `hu` |
+| `pl.txt` | Polski | польский | `pl` |
+| `sk.txt` | Slovenčina | словацкий | `sk` |
+| `sl.txt` | Slovenščina | словенский | `sl` |
+| `sq.txt` | Shqip | албанский | `sq` |
+| `bs.txt` | Bosanski | боснийский | `bs` |
+| `mk.txt` | Македонски | македонский | `mk` |
+| `sr.txt` | Српски | сербский | `sr` |
+| `tr.txt` | Türkçe | турецкий | `tr` |
+| `da.txt` | Dansk | датский | `da` |
+| `nl.txt` | Nederlands | нидерландский | `nl` |
+| `fi.txt` | Suomi | финский | `fi` |
+| `fr.txt` | Français | французский | `fr` |
+| `de.txt` | Deutsch | немецкий | `de` |
+| `el.txt` | Ελληνικά | греческий | `el` |
+| `ga.txt` | Gaeilge | ирландский | `ga` |
+| `it.txt` | Italiano | итальянский | `it` |
+| `mt.txt` | Malti | мальтийский | `mt` |
+| `pt.txt` | Português | португальский | `pt_BR` / `pt_PT` |
+| `es.txt` | Español | испанский | `es` |
+| `sv.txt` | Svenska | шведский | `sv` |
+| `is.txt` | Íslenska | исландский | `is` |
+| `no.txt` | Norsk | норвежский | `no` |
+| `lb.txt` | Lëtzebuergesch | люксембургский | `lb` |
+| `ca.txt` | Català | каталанский | `ca` |
+| `rm.txt` | Rumantsch | романшский | `rm` |
