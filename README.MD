@@ -52,7 +52,7 @@ npm run build
 
 ```
 manifest.json            — манифест MV3
-_locales/                — i18n: name и description (en, ru)
+_locales/                — i18n: name и description (en, ru, hy)
 icons/                   — иконки (генерируются)
 store-assets/            — скриншоты и промо для CWS
 docs/                    — 11 глав документации: архитектура, код, решения
@@ -73,6 +73,8 @@ popup/                   — popup (ESM)
 shared/                  — общий код
   messages.js            — типы сообщений
   storage.js             — chrome.storage + DNR-синхронизация
+  i18n.js                — локализация popup (выбор языка)
+  locales/               — словари ru / en / hy
   utils.js               — extractHostname
 
 rules/                   — DNR-правила и карты косметики
@@ -92,6 +94,7 @@ tools/                   — Node.js: конвертер, сборка, икон
 - **Косметика.** Общий CSS (14 116 селекторов) вставляется через `chrome.scripting.insertCSS` при навигации. Domain-specific селекторы (29 512 для 12 510 доменов) отдаются content script через сообщение по текущему домену.
 - **Исключения косметики (`#@#`).** Отдельный файл `rules/cosmetic-exclude.json` (706 доменов, 872 селектора). Content script вставляет второй `<style>` с `display: revert !important`, который перекрывает скрытие по правилам EasyList.
 - **Whitelist.** Список доменов, где блокировка не работает. Реализован через динамические правила `allowAllRequests` с priority 100. Управляется из popup.
+- **Локализация popup.** Русский, английский, армянский. Язык выбирается в настройках попапа (`#/settings`) и хранится в `chrome.storage.local`; `name` и `description` в Chrome выбираются по языку браузера через `_locales/`.
 - **Авто-скип видео.** Работает на YouTube (ускорение 16x + mute + клик + оверлей), VK Video (клик по кнопке «Пропустить»), RuTube (клик по кнопке + mute + ускорение рекламного `<video>`).
 - **Text-based hiding.** Скрытие рекламных блоков по текстовым маркерам («реклама», «реклам», «промо», «спонсор»), по структуре (разбитый лейбл Mail.ru) и по стабильным атрибутам рекламных площадок Dzen (`data-new-adtune`, `data-cv3dnq1w-click`). Не скрывает контейнеры с плеером и shadow host'ы.
 

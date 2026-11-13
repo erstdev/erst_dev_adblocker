@@ -1,7 +1,21 @@
 import { MSG } from "../shared/messages.js";
+import {
+    LANGUAGES,
+    LANGUAGE_LABELS,
+    applyI18n,
+    getCurrentLanguage,
+    getLanguage,
+    setCurrentLanguage,
+    setLanguage,
+    t
+} from "../shared/i18n.js";
 
 // Адрес для обратной связи
 const FEEDBACK_EMAIL = "erst_dev@mail.ru";
+
+// Хэш-роуты popup: главный экран и настройки.
+const ROUTE_MAIN = "#/";
+const ROUTE_SETTINGS = "#/settings";
 
 // Алиас для getElementById
 const getElementById = (id) => document.getElementById(id);
@@ -9,6 +23,7 @@ const getElementById = (id) => document.getElementById(id);
 let currentDomain = null;
 let currentUrl = null;
 let currentVersion = null;
+let currentWhitelist = [];
 
 // ------------------------------------------------------------
 // Загрузка состояния
@@ -28,12 +43,13 @@ async function loadState() {
 
         currentDomain = state.currentDomain;
         currentUrl = url;
+        currentWhitelist = Array.isArray(state.whitelist) ? state.whitelist : [];
 
         getElementById("enabled-toggle").checked = state.enabled;
-        getElementById("toggle-label").textContent = state.enabled ? "Включено" : "Выключено";
+        updateToggleLabel(state.enabled);
 
-        renderWhitelist(state.whitelist);
-        updateAddButton(state.whitelist);
+        renderWhitelist(currentWhitelist);
+        updateAddButton(currentWhitelist);
     } catch (e) {
         console.error("loadState failed:", e);
     }
@@ -48,6 +64,10 @@ function loadVersion() {
 // ------------------------------------------------------------
 // Белый список
 // ------------------------------------------------------------
+
+function updateToggleLabel(enabled) {
+    getElementById("toggle-label").textContent = t(enabled ? "toggleOn" : "toggleOff");
+}
 
 function renderWhitelist(list) {
     const ul = getElementById("whitelist");
@@ -67,8 +87,10 @@ function renderWhitelist(list) {
         span.textContent = domain;
 
         const btn = document.createElement("button");
+        btn.type = "button";
         btn.textContent = "×";
-        btn.title = "Удалить";
+        btn.title = t("remove");
+        btn.setAttribute("aria-label", t("remove"));
         btn.addEventListener("click", () => removeDomain(domain));
 
         li.appendChild(span);
@@ -82,16 +104,16 @@ function updateAddButton(whitelist) {
 
     if (!currentDomain) {
         btn.disabled = true;
-        btn.textContent = "Нет активной вкладки";
+        btn.textContent = t("noActiveTab");
         return;
     }
 
     if (whitelist.includes(currentDomain)) {
         btn.disabled = true;
-        btn.textContent = `${currentDomain} уже в списке`;
+        btn.textContent = t("alreadyInList", { domain: currentDomain });
     } else {
         btn.disabled = false;
-        btn.textContent = `+ Добавить ${currentDomain}`;
+        btn.textContent = t("addDomain", { domain: currentDomain });
     }
 }
 
@@ -121,7 +143,6 @@ async function reloadActiveTab() {
 
 async function toggleEnabled() {
     const toggle = getElementById("enabled-toggle");
-    const label = getElementById("toggle-label");
     const checked = toggle.checked;
 
     try {
@@ -134,7 +155,7 @@ async function toggleEnabled() {
             throw new Error("setEnabled returned not ok");
         }
 
-        label.textContent = checked ? "Включено" : "Выключено";
+        updateToggleLabel(checked);
         showReloadButton();
     } catch (e) {
         console.error("toggleEnabled failed:", e);
@@ -153,8 +174,9 @@ async function addCurrent() {
         });
 
         if (res?.ok) {
-            renderWhitelist(res.whitelist);
-            updateAddButton(res.whitelist);
+            currentWhitelist = Array.isArray(res.whitelist) ? res.whitelist : currentWhitelist;
+            renderWhitelist(currentWhitelist);
+            updateAddButton(currentWhitelist);
             showReloadButton();
         }
     } catch (e) {
@@ -170,13 +192,109 @@ async function removeDomain(domain) {
         });
 
         if (res?.ok) {
-            renderWhitelist(res.whitelist);
-            updateAddButton(res.whitelist);
+            currentWhitelist = Array.isArray(res.whitelist) ? res.whitelist : currentWhitelist;
+            renderWhitelist(currentWhitelist);
+            updateAddButton(currentWhitelist);
             showReloadButton();
         }
     } catch (e) {
         console.error("removeDomain failed:", e);
     }
+}
+
+// ------------------------------------------------------------
+// Язык интерфейса
+// ------------------------------------------------------------
+
+/**
+ * Создаёт список языков в настройках. Названия нативные и не
+ * зависят от текущего языка: «Русский», «English», «Հայերեն».
+ */
+function renderLanguageOptions(selected) {
+    const container = getElementById("language-list");
+    container.innerHTML = "";
+
+    for (const language of LANGUAGES) {
+        const label = document.createElement("label");
+        label.className = "language-option";
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "language";
+        input.value = language;
+        input.checked = language === selected;
+        input.addEventListener("change", onLanguageChange);
+
+        const text = document.createElement("span");
+        text.textContent = LANGUAGE_LABELS[language];
+
+        label.appendChild(input);
+        label.appendChild(text);
+        container.appendChild(label);
+    }
+}
+
+/**
+ * Обновляет только checked у радио, не пересоздавая DOM:
+ * иначе теряется фокус после клика.
+ */
+function syncLanguageOptions(language) {
+    const inputs = document.querySelectorAll('input[name="language"]');
+    for (const input of inputs) {
+        input.checked = input.value === language;
+    }
+}
+
+async function onLanguageChange(event) {
+    const language = event.target.value;
+    if (!LANGUAGES.includes(language)) return;
+
+    try {
+        await setLanguage(language);
+        applyLanguage(language);
+    } catch (e) {
+        console.error("changeLanguage failed:", e);
+        syncLanguageOptions(getCurrentLanguage());
+    }
+}
+
+/**
+ * Применяет язык ко всем статическим и динамическим текстам.
+ * Повторный рендер белого списка нужен из-за title/aria-label
+ * у кнопок удаления.
+ */
+function applyLanguage(language) {
+    setCurrentLanguage(language);
+    applyI18n();
+    updateToggleLabel(getElementById("enabled-toggle").checked);
+    renderWhitelist(currentWhitelist);
+    updateAddButton(currentWhitelist);
+    syncLanguageOptions(language);
+}
+
+// ------------------------------------------------------------
+// Роутинг popup (#/ и #/settings)
+// ------------------------------------------------------------
+
+function getRoute() {
+    return window.location.hash === ROUTE_SETTINGS ? ROUTE_SETTINGS : ROUTE_MAIN;
+}
+
+function showRoute(route) {
+    const isSettings = route === ROUTE_SETTINGS;
+    getElementById("view-main").hidden = isSettings;
+    getElementById("view-settings").hidden = !isSettings;
+}
+
+function setupRouter() {
+    getElementById("open-settings").addEventListener("click", () => {
+        window.location.hash = ROUTE_SETTINGS;
+    });
+    getElementById("close-settings").addEventListener("click", () => {
+        window.location.hash = ROUTE_MAIN;
+    });
+    window.addEventListener("hashchange", () => showRoute(getRoute()));
+    showRoute(getRoute());
 }
 
 // ------------------------------------------------------------
@@ -191,24 +309,24 @@ function buildMailtoLink(subject, body) {
 
 function openBugReport() {
     const body = [
-        `Привет!`,
+        t("mailGreeting"),
         ``,
-        `Расширение: erst_dev_adblocker v${currentVersion || "?"}`,
-        `Страница: ${currentUrl || "(нет)"}`,
+        t("mailExtension", { version: currentVersion || "?" }),
+        t("mailPage", { url: currentUrl || t("mailNoPage") }),
         ``,
-        `Что происходит:`,
-        `(опиши проблему)`,
+        t("mailWhat"),
+        t("mailDescribe"),
         ``,
-        `Как воспроизвести:`,
+        t("mailHow"),
         `1. `,
         `2. `,
         `3. `,
         ``,
-        `Ожидал:`,
-        `(что должно было быть)`
+        t("mailExpected"),
+        t("mailExpectedValue")
     ].join("\n");
 
-    const link = buildMailtoLink("erst_dev_adblocker — проблема", body);
+    const link = buildMailtoLink(t("mailSubject"), body);
     window.location.href = link;
 }
 
@@ -216,16 +334,15 @@ async function copyEmail(e) {
     e.preventDefault();
 
     const link = e.currentTarget;
-    const originalText = link.textContent;
 
     try {
         await navigator.clipboard.writeText(FEEDBACK_EMAIL);
 
-        link.textContent = "Скопировано";
+        link.textContent = t("copied");
         link.classList.add("copied");
 
         setTimeout(() => {
-            link.textContent = originalText;
+            link.textContent = t("copyEmail");
             link.classList.remove("copied");
         }, 1500);
     } catch (err) {
@@ -237,6 +354,8 @@ async function copyEmail(e) {
 // Инициализация
 // ------------------------------------------------------------
 
+setupRouter();
+
 getElementById("enabled-toggle").addEventListener("change", toggleEnabled);
 getElementById("add-current").addEventListener("click", addCurrent);
 getElementById("reload-page").addEventListener("click", reloadActiveTab);
@@ -246,5 +365,13 @@ getElementById("feedback-bug").addEventListener("click", (e) => {
 });
 getElementById("feedback-copy").addEventListener("click", copyEmail);
 
-loadVersion();
-void loadState();
+async function init() {
+    const language = await getLanguage();
+    setCurrentLanguage(language);
+    applyI18n();
+    renderLanguageOptions(language);
+    loadVersion();
+    await loadState();
+}
+
+void init();

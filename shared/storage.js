@@ -4,6 +4,7 @@
    Схема storage:
      enabled: boolean
      whitelist: string[]
+     language: "ru" | "en" | "hy"  (язык popup, см. shared/i18n.js)
 
    Диапазоны id (статический DNR + динамический DNR — Chrome
    использует единое пространство id для статических и

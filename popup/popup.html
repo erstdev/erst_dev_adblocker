@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>erst_dev_adblocker</title>
@@ -8,36 +8,57 @@
 <body>
 
 <div class="header">
-    <h1>erst_dev_adblocker</h1>
-    <!-- Версия подставляется из манифеста через loadVersion() в popup.js -->
-    <div class="version" id="version-label">v…</div>
+    <div class="header-brand">
+        <h1>erst_dev_adblocker</h1>
+        <!-- Версия подставляется из манифеста через loadVersion() в popup.js -->
+        <div class="version" id="version-label">v…</div>
+    </div>
+    <button type="button" id="open-settings" class="icon-btn"
+            title="Settings" aria-label="Settings"
+            data-i18n-title="settings" data-i18n-aria-label="settings">
+        <span aria-hidden="true">⚙</span>
+    </button>
 </div>
 
-<label class="toggle-switch">
-    <input type="checkbox" id="enabled-toggle">
-    <span class="toggle-slider"></span>
-    <span class="toggle-label" id="toggle-label">Включено</span>
-</label>
+<main id="view-main" class="view">
+    <label class="toggle-switch">
+        <input type="checkbox" id="enabled-toggle">
+        <span class="toggle-slider"></span>
+        <span class="toggle-label" id="toggle-label" data-i18n="toggleOn"></span>
+    </label>
 
-<div class="section">
-    <div class="section-title">Белый список</div>
-    <div id="whitelist-empty" class="empty">Список пуст</div>
-    <ul id="whitelist" class="whitelist"></ul>
-    <button id="add-current" class="btn-add">+ Добавить текущий сайт</button>
-</div>
+    <div class="section">
+        <div class="section-title" data-i18n="whitelistTitle"></div>
+        <div id="whitelist-empty" class="empty" data-i18n="whitelistEmpty"></div>
+        <ul id="whitelist" class="whitelist"></ul>
+        <button id="add-current" class="btn-add" data-i18n="addCurrent"></button>
+    </div>
 
-<div class="note">
-    На сайтах из белого списка реклама не блокируется.
-</div>
+    <div class="note" data-i18n="whitelistNote"></div>
 
-<button id="reload-page" class="btn-reload" style="display: none;">
-    Перезагрузить страницу
-</button>
+    <button id="reload-page" class="btn-reload" style="display: none;" data-i18n="reloadPage"></button>
 
-<div class="feedback">
-    <a href="#" id="feedback-bug" class="feedback-link">Сообщить о проблеме</a>
-    <a href="#" id="feedback-copy" class="feedback-link">Скопировать email</a>
-</div>
+    <div class="feedback">
+        <a href="#" id="feedback-bug" class="feedback-link" data-i18n="reportProblem"></a>
+        <a href="#" id="feedback-copy" class="feedback-link" data-i18n="copyEmail"></a>
+    </div>
+</main>
+
+<section id="view-settings" class="view" hidden>
+    <div class="settings-header">
+        <button type="button" id="close-settings" class="back-btn">
+            <span aria-hidden="true">←</span>
+            <span data-i18n="back"></span>
+        </button>
+        <h2 class="settings-title" data-i18n="settingsTitle"></h2>
+    </div>
+
+    <div class="section">
+        <div class="section-title" data-i18n="languageTitle"></div>
+        <div id="language-list" class="language-list"></div>
+        <div class="note" data-i18n="languageNote"></div>
+    </div>
+</section>
 
 <script type="module" src="popup.js"></script>
 </body>
