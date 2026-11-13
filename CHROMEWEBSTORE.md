@@ -6,6 +6,13 @@
 
 Этот файл — шпаргалка для формы Chrome Web Store. В ZIP он не входит.
 
+## Перед отправкой
+
+1. Обновить публичную страницу политики: сейчас на GitHub Pages версия от 15 октября 2026 года без языка интерфейса. Локальный `PRIVACY.md` обновлён 13 ноября 2026 года.
+2. Убрать из описания строку «Открытый исходный код» или сделать репозиторий публичным: `https://github.com/erstdev/erst_dev_adblocker` сейчас отдаёт 404.
+3. Добавить в описание 44 языка и выбор языка в настройках.
+4. Проверить скриншоты: в репозитории нет PNG 1280×800/640×400; если в листинге они уже есть, они сохраняются.
+
 ## Package
 
 - Загрузить `erst_dev_adblocker-1.2.0.zip`.
@@ -133,6 +140,7 @@ Version 1.2.0 — 44-language popup, searchable language picker with flags, comp
 
 - Does the extension collect user data? **No.**
 - Is data transmitted off-device? **No.** `chrome.storage.local` only; no `storage.sync`.
+- Local processing: URLs and page elements are processed in memory to block ads and hide ad elements; they are not stored or transmitted.
 - Remote code? **No.** All JS, rules, locale files, and flags are bundled in the ZIP.
 - Analytics / telemetry / external requests? **No.**
 - Data use certification: not sold, not used for unrelated purposes, not used for creditworthiness.
