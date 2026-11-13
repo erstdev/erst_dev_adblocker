@@ -5,9 +5,9 @@ import { east } from "./east.js";
 
 const ALL = [...east, ...central, ...west];
 
-// Английский, русский и армянский — в начале списка,
+// Русский, английский и армянский — в начале списка,
 // остальные по английскому названию.
-const PINNED = ["en", "ru", "hy"];
+const PINNED = ["ru", "en", "hy"];
 const BY_CODE = new Map(ALL.map((language) => [language.code, language]));
 
 export const LANGUAGE_META = [
