@@ -23,7 +23,9 @@ const DIST = path.join(ROOT, "dist");
 
 // Что включаем в сборку.
 // Это папки и файлы, которые Chrome реально читает.
-// Всё остальное (docs, lists, tools, node_modules) — dev-мусор.
+// Всё остальное (lists, tools, store-descriptions, node_modules) — dev-мусор.
+// THIRD-PARTY-NOTICES.md кладём в ZIP: это атрибуция EasyList и AdGuard,
+// из которых конвертируются rules/*.json.
 const INCLUDE = [
     "manifest.json",
     "icons",
@@ -32,7 +34,8 @@ const INCLUDE = [
     "popup",
     "shared",
     "rules",
-    "_locales"
+    "_locales",
+    "THIRD-PARTY-NOTICES.md"
 ];
 
 // Что ОБЯЗАТЕЛЬНО должно существовать до сборки.
@@ -55,6 +58,22 @@ const REQUIRED_FILES = [
     "content/cosmetic.css",
     "content/cosmetic-manual.css"
 ];
+
+// Что не нужно в ZIP, хотя лежит в копируемых папках.
+// icon64.png нигде не указан в манифесте, store-icon-128.png нужен
+// только для загрузки в CWS и не используется рантаймом.
+const EXCLUDE_FROM_DIST = new Set([
+    "icons/icon64.png",
+    "icons/store-icon-128.png"
+]);
+
+// Минимальные объёмы артефактов: защита от сборки «пустого» расширения.
+// Свежий клон без lists/ даёт пустые rules/*.json и пустой cosmetic.css,
+// но проверка существования файлов это пропускает.
+const MIN_BLOCKING_RULES = 1000;
+const MIN_ALLOW_RULES = 100;
+const MIN_COSMETIC_DOMAINS = 1000;
+const MIN_COSMETIC_CSS_BYTES = 100_000;
 
 // ------------------------------------------------------------
 // Проверка обязательных файлов
@@ -80,6 +99,83 @@ function checkRequiredFiles() {
 }
 
 // ------------------------------------------------------------
+// Проверки версии и содержимого артефактов
+// ------------------------------------------------------------
+
+function readJson(file) {
+    return JSON.parse(fs.readFileSync(path.join(ROOT, file), "utf8"));
+}
+
+function checkVersions(manifestVersion) {
+    const pkg = readJson("package.json");
+    const lock = readJson("package-lock.json");
+    const rootLockPkg = lock.packages && lock.packages[""];
+
+    const problems = [];
+
+    if (pkg.version !== manifestVersion) {
+        problems.push(`package.json: ${pkg.version}`);
+    }
+    if (lock.version && lock.version !== manifestVersion) {
+        problems.push(`package-lock.json: ${lock.version}`);
+    }
+    if (rootLockPkg && rootLockPkg.version && rootLockPkg.version !== manifestVersion) {
+        problems.push(`package-lock.json packages[""]: ${rootLockPkg.version}`);
+    }
+
+    if (problems.length > 0) {
+        console.error(`[build] FATAL: version mismatch, manifest.json says ${manifestVersion}`);
+        for (const problem of problems) {
+            console.error(`  - ${problem}`);
+        }
+        console.error("[build] bump the same version in manifest.json, package.json, package-lock.json");
+        process.exit(1);
+    }
+
+    console.log(`[build] version ${manifestVersion} matches package files`);
+}
+
+function checkArtifacts() {
+    const ads = readJson("rules/ads.json");
+    const exceptions = readJson("rules/exceptions.json");
+    const cosmeticMap = readJson("rules/cosmetic-map.json");
+    const cosmeticCss = fs.readFileSync(path.join(ROOT, "content/cosmetic.css"), "utf8");
+
+    const problems = [];
+
+    if (!Array.isArray(ads) || ads.length < MIN_BLOCKING_RULES) {
+        problems.push(`rules/ads.json: ${Array.isArray(ads) ? ads.length : "not an array"} blocking rules`);
+    }
+    if (!Array.isArray(exceptions) || exceptions.length < MIN_ALLOW_RULES) {
+        problems.push(`rules/exceptions.json: ${Array.isArray(exceptions) ? exceptions.length : "not an array"} allow rules`);
+    }
+    if (
+        !cosmeticMap ||
+        typeof cosmeticMap !== "object" ||
+        Object.keys(cosmeticMap).length < MIN_COSMETIC_DOMAINS
+    ) {
+        problems.push(`rules/cosmetic-map.json: ${cosmeticMap ? Object.keys(cosmeticMap).length : 0} domains`);
+    }
+    if (cosmeticCss.length < MIN_COSMETIC_CSS_BYTES) {
+        problems.push(`content/cosmetic.css: ${cosmeticCss.length} bytes`);
+    }
+
+    if (problems.length > 0) {
+        console.error("[build] FATAL: artifacts look broken (empty or truncated):");
+        for (const problem of problems) {
+            console.error(`  - ${problem}`);
+        }
+        console.error("[build] Refusing to pack a build without rules. Run: npm run convert");
+        process.exit(1);
+    }
+
+    console.log(
+        `[build] artifacts ok: ${ads.length} block + ${exceptions.length} allow, ` +
+        `${Object.keys(cosmeticMap).length} domains, ${cosmeticCss.length} bytes of CSS`
+    );
+}
+
+// ------------------------------------------------------------
 // Утилиты
 // ------------------------------------------------------------
 
@@ -95,12 +191,17 @@ function cleanDist() {
     fs.mkdirSync(DIST, { recursive: true });
 }
 
-function copyRecursive(src, dest) {
+function copyRecursive(src, dest, relPath) {
     const stat = fs.statSync(src);
     if (stat.isDirectory()) {
         fs.mkdirSync(dest, { recursive: true });
         for (const child of fs.readdirSync(src)) {
-            copyRecursive(path.join(src, child), path.join(dest, child));
+            const childRel = relPath ? `${relPath}/${child}` : child;
+            if (EXCLUDE_FROM_DIST.has(childRel)) {
+                console.log(`[build]   - ${childRel} (runtime does not use it)`);
+                continue;
+            }
+            copyRecursive(path.join(src, child), path.join(dest, child), childRel);
         }
     } else {
         fs.copyFileSync(src, dest);
@@ -123,7 +224,7 @@ function copyFiles() {
             continue;
         }
 
-        copyRecursive(src, dest);
+        copyRecursive(src, dest, item);
         console.log(`[build]   + ${item}`);
     }
 }
@@ -172,6 +273,9 @@ async function main() {
 
     const manifest = readManifest();
     console.log(`[build] building erst_dev_adblocker v${manifest.version}`);
+
+    checkVersions(manifest.version);
+    checkArtifacts();
 
     cleanDist();
     copyFiles();

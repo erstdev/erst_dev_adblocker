@@ -21,18 +21,29 @@ const __dirname = path.dirname(__filename);
  * Читает один файл и возвращает массив строк.
  *
  * Путь строится относительно КОРНЯ проекта (на 2 уровня выше lib/).
- * Если файла нет — предупреждение и пустой массив.
+ * Если файла нет — бросает ошибку: пустой результат молча
+ * превращался в пустые rules/*.json и нерабочую сборку.
  *
  * @param {string} file - путь к файлу относительно корня (например, "lists/easylist.txt")
  * @returns {string[]} массив строк
  */
 function readLines(file) {
     const fullPath = path.join(__dirname, "..", "..", file);
+
     if (!fs.existsSync(fullPath)) {
-        console.warn(`[skip] file not found: ${file}`);
-        return [];
+        throw new Error(
+            `file not found: ${file}. Списки не входят в git — ` +
+            `положи EasyList и RU AdList в lists/ (см. README → «Быстрый старт»).`
+        );
     }
-    return fs.readFileSync(fullPath, "utf8").split("\n");
+
+    const text = fs.readFileSync(fullPath, "utf8");
+
+    if (text.trim().length === 0) {
+        throw new Error(`file is empty: ${file}`);
+    }
+
+    return text.split("\n");
 }
 
 /**

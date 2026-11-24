@@ -157,6 +157,13 @@ async function refreshSelectors(url) {
         return;
     }
 
+    // URL изменился (SPA-переход): снимаем скрытия, которые больше
+    // не подтверждаются текстом. ad-markers.js подключён в манифесте
+    // позже, поэтому проверяем наличие функции.
+    if (typeof revalidateHidden === "function") {
+        revalidateHidden();
+    }
+
     state.currentUrl = url;
     state.currentSelectors = selectors;
     applySelectors(selectors);

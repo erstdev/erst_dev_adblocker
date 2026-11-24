@@ -43,9 +43,25 @@ import {
 import { applyQuotas } from "./lib/limiter.js";
 import { writeJson, writeCss } from "./lib/writer.js";
 
+// Защита от «пустого» прогона: если списки не скачаны или обрезаны,
+// конвертер раньше молча писал пустые rules/*.json, и сборка
+// упаковывала расширение без правил.
+const MIN_INPUT_LINES = 10_000;
+const MIN_BLOCKING_RULES = 1_000;
+const MIN_ALLOW_RULES = 100;
+const MIN_COSMETIC_DOMAINS = 1_000;
+const MIN_CSS_BYTES = 100_000;
+
 function main() {
     // 1. Читаем все списки
     const allLines = readAllLists(INPUT_FILES);
+
+    if (allLines.length < MIN_INPUT_LINES) {
+        throw new Error(
+            `too few lines in lists: ${allLines.length} < ${MIN_INPUT_LINES}. ` +
+            `Проверь lists/easylist.txt и lists/adguard-russian.txt`
+        );
+    }
 
     // 2. Классифицируем строки
     const classified = classifyLines(allLines);
@@ -77,15 +93,36 @@ function main() {
         exceptionDnr
     );
 
-    writeJson(OUT_RULES, ads);
-    writeJson(OUT_EXCEPTIONS, excs);
+    if (ads.length < MIN_BLOCKING_RULES) {
+        throw new Error(`refusing to write ${ads.length} blocking rules (min ${MIN_BLOCKING_RULES})`);
+    }
+    if (excs.length < MIN_ALLOW_RULES) {
+        throw new Error(`refusing to write ${excs.length} allow rules (min ${MIN_ALLOW_RULES})`);
+    }
 
     // 6. Косметика → CSS + domain-map + domain-exclude
     const cosmetic = selectCosmeticRules(classified.cosmetic);
     const { cssText, domainMap, domainExclude } = cosmeticRulesToCss(cosmetic);
+
+    if (Object.keys(domainMap).length < MIN_COSMETIC_DOMAINS) {
+        throw new Error(`refusing to write ${Object.keys(domainMap).length} cosmetic domains (min ${MIN_COSMETIC_DOMAINS})`);
+    }
+    if (!cssText || cssText.length < MIN_CSS_BYTES) {
+        throw new Error(`refusing to write ${cssText ? cssText.length : 0} bytes of cosmetic CSS (min ${MIN_CSS_BYTES})`);
+    }
+
+    // Пишем только после всех проверок: иначе при сбое на косметике
+    // rules/*.json уже были бы перезаписаны, а CSS остался старым.
+    writeJson(OUT_RULES, ads);
+    writeJson(OUT_EXCEPTIONS, excs);
     writeCss(OUT_CSS, cssText);
     writeJson(OUT_COSMETIC_MAP, domainMap);
     writeJson(OUT_COSMETIC_EXCLUDE, domainExclude);
 }
 
-main();
+try {
+    main();
+} catch (e) {
+    console.error(`[convert] failed: ${e.message}`);
+    process.exit(1);
+}

@@ -49,11 +49,10 @@ div[id^="gpt-passback"] {
     display: none !important;
 }
 
-/* ---------- Mail.ru — полноэкранные баннеры ---------- */
-[isfullscreen="true"],
-[id^="trg-b-"] {
-    display: none !important;
-}
+/* ---------- Mail.ru — полноэкранные баннеры ----------
+   [isfullscreen="true"] и [id^="trg-b-"] убраны отсюда: они слишком
+   широкие для всех сайтов. Живут в SITE_CSS — background/lib/
+   cosmetic-injector.js, где проверяется hostname. */
 
 /* ---------- Mail.ru — рекламные блоки через data-mnemo ---------- */
 [class*="widget__container"]:has([data-mnemo]),
@@ -95,10 +94,11 @@ a.yrw-url[href*="yandex.ru/an/count"] {
     display: none !important;
 }
 
-/* ---------- RuTube — реклама ---------- */
+/* ---------- RuTube — реклама ----------
+   [id^="ra_"] убран: широкий селектор для всех сайтов, живёт в
+   SITE_CSS (background/lib/cosmetic-injector.js) с проверкой hostname. */
 .wdp-feed-top-ad-module__ad-banner,
-.r-ad-sdk-adfox-wrapper,
-[id^="ra_"] {
+.r-ad-sdk-adfox-wrapper {
     display: none !important;
 }
 

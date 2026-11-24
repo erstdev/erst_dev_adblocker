@@ -26,6 +26,37 @@ const COSMETIC_CSS = [
     "content/cosmetic-manual.css"
 ];
 
+// Косметика, привязанная к конкретным сайтам.
+//
+// Эти селекторы нельзя держать в cosmetic-manual.css: файл вставляется
+// на всех страницах, а [isfullscreen="true"] и [id^="ra_"] слишком
+// широкие — на чужом сайте могут скрыть интерфейс. Проверяем hostname
+// и вставляем отдельным insertCSS (target без frameIds — все фреймы).
+const SITE_CSS = [
+    {
+        test: /(^|\.)mail\.ru$/,
+        css: '[isfullscreen="true"], [id^="trg-b-"] { display: none !important; }'
+    },
+    {
+        test: /(^|\.)rutube\.ru$/,
+        css: '[id^="ra_"] { display: none !important; }'
+    }
+];
+
+function siteCssFor(url) {
+    let hostname;
+    try {
+        hostname = new URL(url).hostname;
+    } catch {
+        return "";
+    }
+
+    return SITE_CSS
+        .filter((item) => item.test.test(hostname))
+        .map((item) => item.css)
+        .join("\n");
+}
+
 // Хосты, на которых insertCSS падает.
 // Chrome Web Store и Google extensions gallery запрещают
 // выполнение любых скриптов/стилей на своих страницах.
@@ -92,6 +123,14 @@ export async function handleCommitted(details) {
             target: { tabId: details.tabId },
             files: COSMETIC_CSS
         });
+
+        const siteCss = siteCssFor(details.url);
+        if (siteCss) {
+            await chrome.scripting.insertCSS({
+                target: { tabId: details.tabId },
+                css: siteCss
+            });
+        }
     } catch (e) {
         console.error(`[erst_dev_adblocker] insertCSS failed (tabId=${details.tabId}, url=${details.url}):`, e);
     }

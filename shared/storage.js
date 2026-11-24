@@ -235,28 +235,40 @@ async function syncWhitelistRules(enabled) {
 // Мьютекс: защита от параллельных вызовов syncDnrState.
 // ------------------------------------------------------------
 let syncInFlight = null;
+let syncQueued = false;
+
+async function applyDnrState() {
+    const enabled = await getEnabled();
+
+    if (!enabled) {
+        await setRulesetsEnabled(false);
+        await syncWhitelistRules(false);
+        console.log("[DNR] disabled");
+        return;
+    }
+
+    await setRulesetsEnabled(true);
+    await syncWhitelistRules(true);
+    console.log("[DNR] enabled");
+}
 
 export async function syncDnrState() {
     if (syncInFlight) {
+        // Изменение пришло во время синхронизации: после текущего
+        // прогона нужен ещё один, иначе состояние потеряется.
+        syncQueued = true;
         return syncInFlight;
     }
 
     syncInFlight = (async () => {
         try {
-            const enabled = await getEnabled();
-
-            if (!enabled) {
-                await setRulesetsEnabled(false);
-                await syncWhitelistRules(false);
-                console.log("[DNR] disabled");
-                return;
-            }
-
-            await setRulesetsEnabled(true);
-            await syncWhitelistRules(true);
-            console.log("[DNR] enabled");
+            do {
+                syncQueued = false;
+                await applyDnrState();
+            } while (syncQueued);
         } finally {
             syncInFlight = null;
+            syncQueued = false;
         }
     })();
 

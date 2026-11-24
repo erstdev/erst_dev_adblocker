@@ -263,7 +263,7 @@
 - Диапазон id динамических: 200..9999.
 - Удаление и добавление — двумя отдельными вызовами updateDynamicRules (Chrome не гарантирует порядок в одном вызове).
 - Удаляются только правила в диапазоне DYN_RULE_ID_BASE..DYN_RULE_ID_MAX.
-- Мьютекс в syncDnrState через syncInFlight — защита от параллельных вызовов.
+- Мьютекс в syncDnrState через syncInFlight — защита от параллельных вызовов. Второй вызов во время работы ставит syncQueued, после текущего прогона цикл повторяется: изменения, пришедшие во время синхронизации, не теряются.
 - syncDnrState вызывается только из service_worker.js (при старте и через storage.onChanged). НЕ вызывается из message-handler.
 
 ### Content scripts (не ESM)
@@ -293,10 +293,12 @@
 - MAX_CONTAINER_CHILDREN = 20 — findRotatedContainer не поднимается к layout-контейнерам с > 20 детей.
 - isPageLevelElement(el) — не скрываем элемент ≥ 80% высоты и ≥ 40% ширины окна (layout-обёртки).
 - isContentContainer(el) — не скрываем контейнеры с ≥ 8 ссылками или ≥ 4 картинками (навигация, рекомендации, сетки).
-- text-based hiding отключён на market.yandex.* и vkvideo.ru (TEXT_HIDING_DISABLED_HOSTS).
+- text-based hiding отключён на market.yandex.* (включая www) и vkvideo.ru (TEXT_HIDING_DISABLED_HOSTS).
 - findAdContainer и findRotatedContainer возвращают null, если не нашли подходящий контейнер.
 
 Скрытые элементы запоминаются в hiddenByUs. Если в shadow-хосте появляется <video>, unhideAncestorsOfPlayer снимает display со всех скрытых нами предков. MutationObserver не видит мутации внутри shadow root, поэтому раз в секунду выполняется scanForPlayerShadowHosts — только пока hiddenByUs не пуст.
+
+При смене URL (SPA-переход) content script вызывает revalidateHidden: узлы из hiddenByUs перепроверяются по тексту, и если маркер рекламы исчез, display снимается. Иначе ложные скрытия переезжали бы на новый экран. Мёртвые хосты из playerShadowHosts удаляются тем же интервалом.
 
 Два типа маркеров:
 
@@ -458,14 +460,15 @@ resourceTypes: script, image, xmlhttprequest, sub_frame, media, ping, other (д�
 - Яндекс — РСЯ (карты, поиск, сервисы) — [id*="R-I-"], [data-r-i].
 - Яндекс — РСЯ (гарантийные показы на поиске) — [data-layout-part="cr"], [id^="advRsyaReact_"], [id^="advRsyaReact_rsya-guarantee"].
 - Google Publisher Tag — div[id^="div-gpt-ad"], div[id^="gpt-passback"].
-- Mail.ru — [isfullscreen="true"], [id^="trg-b-"].
 - Mail.ru — рекламные блоки через data-mnemo.
 - Mail.ru VK Ads — [id*="R-I-"], [data-r-i].
 - Dzen — [data-testid$="-ad"], [data-testid*="-ad-"], [id^="auto-slide-ad"], [id*="-ad-item_"], [class*="auto-slide-ad"], [class*="dzen-desktop--auto-slide-ad"], a.yrw-url[href*="yandex.ru/an/count"].
 - ВК Видео — [class*="rb-adman-ad-actions"]. Контейнеры ad-container / ads-container через CSS не скрываются: плеер в shadow DOM, :has(video) его не видит, правило скрывало плеер вместе со звуком. Остатки рекламы режет DNR и авто-скип.
 - Яндекс.Погода — [class*="AppMoney_container"], [class*="AppMoney_wrap"], [class*="AppMoneySidebar"], [id^="money-main-"], [data-name="adWrapper"].
-- RuTube — .wdp-feed-top-ad-module__ad-banner, .r-ad-sdk-adfox-wrapper, [id^="ra_"].
+- RuTube — .wdp-feed-top-ad-module__ad-banner, .r-ad-sdk-adfox-wrapper.
 - RuTube — видео-реклама (AdFox SDK) — [data-testid="advert"], .advert-module__advert___tQh3l, .yandex-advert-module__SDKWrapper___WMfXh, [id="raichu_yasdk_container"], [data-testid="advert-video"], .raichu-adver-tag, .advert-timeline-module__timeline___banQn, .advert-skip-module__container___aDiIw.
+
+Не в файле: [isfullscreen="true"], [id^="trg-b-"] (Mail.ru) и [id^="ra_"] (RuTube) перенесены в SITE_CSS — background/lib/cosmetic-injector.js. В общем CSS они применялись на всех сайтах и могли скрыть чужой интерфейс; теперь вставляются только при совпадении hostname.
 
 ## Обратная связь (popup)
 

@@ -94,7 +94,7 @@ const TEXT_BLOCK_TAGS = new Set([
 // скрывается правая колонка с другими видео. Преролл режется DNR,
 // авто-скипом и manual CSS.
 const TEXT_HIDING_DISABLED_HOSTS = [
-    /^market\.yandex\./,
+    /(^|\.)market\.yandex\./,
     /(^|\.)vkvideo\.ru$/,
 ];
 
@@ -646,6 +646,48 @@ function hideAdInElement(el, logPrefix) {
     return marker;
 }
 
+/**
+ * Снимает скрытие с узлов, которые перестали быть рекламой.
+ *
+ * Скрытые по текстовым маркерам узлы переживают SPA-переход:
+ * observer умеет только скрывать, а hiddenByUs чистится лишь по
+ * isConnected. Если контейнер остался на странице, а лейбл из него
+ * убрали, он оставался скрытым навсегда. Здесь проверяем, что текст
+ * всё ещё похож на рекламный; если нет — возвращаем display.
+ *
+ * Вызывается при смене URL (inject-css.js refreshSelectors).
+ * CSS-скрытия по селекторам живут в <style>, их это не касается.
+ */
+function revalidateHidden() {
+    if (hiddenByUs.size === 0) return 0;
+
+    let restored = 0;
+
+    for (const el of hiddenByUs) {
+        if (!el.isConnected) {
+            hiddenByUs.delete(el);
+            continue;
+        }
+
+        const collapsed = collapseText(el.textContent);
+        const hasMarker = Boolean(matchMarker(collapsed));
+        const stillAdLabel = isRotatedAdLabel(el) ||
+            (collapsed.length <= ROTATED_LABEL_MAX_LENGTH && isJunkPrefixedLabel(collapsed));
+
+        if (hasMarker || stillAdLabel) continue;
+
+        el.style.removeProperty("display");
+        hiddenByUs.delete(el);
+        restored++;
+    }
+
+    if (restored > 0) {
+        console.log(`[erst_dev_adblocker] revalidated hidden: ${restored} restored`);
+    }
+
+    return restored;
+}
+
 function hideAdMarkers() {
     if (!document.body) return;
 
@@ -679,6 +721,12 @@ function startAdMarkerHiding() {
     // есть скрытые нами элементы — раз в секунду проверяем,
     // не появился ли в каком-нибудь shadow root <video>.
     setInterval(() => {
+        // Кэш shadow-хостов иначе растёт на долгих SPA-сессиях:
+        // Set хранит ссылки и не даёт detached-элементам уйти в GC.
+        for (const host of playerShadowHosts) {
+            if (!host.isConnected) playerShadowHosts.delete(host);
+        }
+
         let live = 0;
         for (const el of hiddenByUs) {
             if (!el.isConnected) hiddenByUs.delete(el);

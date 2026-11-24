@@ -51,8 +51,9 @@ async function processOne(file) {
 
 async function main() {
     if (!fs.existsSync(RAW_DIR)) {
-        console.error(`[screenshots] not found: ${RAW_DIR}`);
-        console.error(`[screenshots] create it and put PNG files inside`);
+        fs.mkdirSync(RAW_DIR, { recursive: true });
+        console.error(`[screenshots] created ${RAW_DIR}`);
+        console.error(`[screenshots] put PNG files there and rerun npm run screenshots`);
         process.exit(1);
     }
 
@@ -62,6 +63,8 @@ async function main() {
         console.error(`[screenshots] no PNG files in ${RAW_DIR}`);
         process.exit(1);
     }
+
+    fs.mkdirSync(OUT_DIR, { recursive: true });
 
     console.log(`[screenshots] processing ${files.length} file(s)`);
 

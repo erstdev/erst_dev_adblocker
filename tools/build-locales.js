@@ -56,4 +56,17 @@ for (const [code, description] of Object.entries(APP_DESCRIPTIONS)) {
     count++;
 }
 
+// Удаляем осиротевшие каталоги: локаль осталась в _locales, но её
+// больше нет в descriptions.js. Иначе удалённый язык продолжал бы
+// ехать в ZIP и путать Chrome.
+if (fs.existsSync(LOCALES_DIR)) {
+    for (const entry of fs.readdirSync(LOCALES_DIR, { withFileTypes: true })) {
+        if (!entry.isDirectory()) continue;
+        if (Object.hasOwn(APP_DESCRIPTIONS, entry.name)) continue;
+
+        fs.rmSync(path.join(LOCALES_DIR, entry.name), { recursive: true, force: true });
+        console.log(`[locales] removed orphan: ${entry.name}`);
+    }
+}
+
 console.log(`[locales] generated ${count} locales in _locales/`);

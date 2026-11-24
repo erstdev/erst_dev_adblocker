@@ -6,10 +6,14 @@
    - icon-source-small.png — упрощённая (только символ), для 16, 32, 48
 
    Размеры:
-   - icons/icon16.png       из icon-source-small.png
-   - icons/icon32.png       из icon-source-small.png
-   - icons/icon48.png       из icon-source-small.png
+   - icons/icon16.png       из малого исходника (fallback — полный)
+   - icons/icon32.png       из малого исходника (fallback — полный)
+   - icons/icon48.png       из малого исходника (fallback — полный)
    - icons/icon128.png      из icon-source.png
+
+   Если малого исходника нет или он совпадает с полным, скрипт
+   предупреждает и режет 16/32/48 из полного: результат тот же,
+   но без молчаливого расхождения с комментариями.
 
    Плюс отдельно для Chrome Web Store:
    - icons/store-icon-128.png — 128×128, из полного исходника,
@@ -18,6 +22,7 @@
    Запуск: npm run icons
    ============================================================ */
 
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,13 +36,12 @@ const OUT_DIR = path.join(ROOT, "icons");
 const SOURCE_FULL = path.join(ROOT, "icon-source.png");
 const SOURCE_SMALL = path.join(ROOT, "icon-source-small.png");
 
-// Размер → из какого исходника брать
-const SIZES = [
-    { size: 16, source: SOURCE_SMALL },
-    { size: 32, source: SOURCE_SMALL },
-    { size: 48, source: SOURCE_SMALL },
-    { size: 128, source: SOURCE_FULL }
-];
+// 16/32/48 берутся из «упрощённого» исходника, 128 — из полного.
+const SMALL_SIZES = [16, 32, 48];
+
+function sha256(file) {
+    return crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+}
 
 async function resizeTo(source, size, outPath) {
     await sharp(source)
@@ -54,9 +58,18 @@ async function main() {
         console.error(`[icons] not found: ${SOURCE_FULL}`);
         process.exit(1);
     }
+
+    // Малый исходник необязателен: если его нет, 16/32/48 режутся
+    // из полного. Если он совпадает с полным — предупреждаем, что
+    // «упрощённой» иконки фактически нет.
+    let smallSource = SOURCE_SMALL;
+
     if (!fs.existsSync(SOURCE_SMALL)) {
-        console.error(`[icons] not found: ${SOURCE_SMALL}`);
-        process.exit(1);
+        console.warn(`[icons] not found: ${SOURCE_SMALL}, using full source for 16/32/48`);
+        smallSource = SOURCE_FULL;
+    } else if (sha256(SOURCE_SMALL) === sha256(SOURCE_FULL)) {
+        console.warn("[icons] icon-source-small.png is identical to icon-source.png");
+        console.warn("[icons] 16/32/48 will be cut from the full icon; replace the small source to simplify them");
     }
 
     if (!fs.existsSync(OUT_DIR)) {
@@ -65,13 +78,18 @@ async function main() {
 
     console.log(`[icons] generating`);
 
-    // Обычные иконки
-    for (const { size, source } of SIZES) {
+    // Обычные иконки 16/32/48
+    for (const size of SMALL_SIZES) {
         const outPath = path.join(OUT_DIR, `icon${size}.png`);
-        await resizeTo(source, size, outPath);
-        const origin = path.basename(source);
+        await resizeTo(smallSource, size, outPath);
+        const origin = path.basename(smallSource);
         console.log(`[icons]   + icon${size}.png (from ${origin})`);
     }
+
+    // 128 — из полного исходника
+    const icon128Path = path.join(OUT_DIR, "icon128.png");
+    await resizeTo(SOURCE_FULL, 128, icon128Path);
+    console.log(`[icons]   + icon128.png (from ${path.basename(SOURCE_FULL)})`);
 
     // Store-иконка 128×128 с отступами 16px.
     // Внутренняя картинка 96×96 по центру на прозрачном холсте 128×128.

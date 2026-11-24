@@ -5,6 +5,36 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
 Версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [Unreleased]
+
+### Fixed
+
+- **`shared/storage.js`: `syncDnrState` терял изменения.** Второй вызов во время синхронизации возвращал текущий промис и не запускал повторный прогон: быстрое переключение тогла или добавление домена могли не примениться до следующего события. Добавлен `syncQueued` — после текущего прогона цикл повторяется.
+- **`auto-skip.js`: сбрасывались mute и скорость пользователя.** После рекламы на YouTube принудительно ставились `playbackRate = 1` и `muted = false`, даже если пользователь смотрел на 1.5x с выключенным звуком. Теперь состояние запоминается перед рекламой и возвращается после.
+- **`ad-markers.js`: text-hiding не отключался на `www.market.yandex.*`.** Регэксп `/^market\.yandex\./` не матчил www-поддомен; заменён на `/(^|\.)market\.yandex\./`.
+- **`ad-markers.js` + `inject-css.js`: «залипшие» скрытия при SPA-переходе.** Observer умеет только скрывать, поэтому узлы, переставшие быть рекламой, оставались скрытыми. При смене URL вызывается `revalidateHidden()`.
+- **`ad-markers.js`: кэш `playerShadowHosts` не чистился.** Set держал detached-элементы на долгих SPA-сессиях; мёртвые хосты удаляются раз в секунду.
+- **`tools/lib/reader.js` + `tools/convert.js`: пустой прогон конвертера.** Отсутствующий или пустой список теперь ошибка, а не пустые `rules/*.json`; добавлены пороги на число входных строк и сгенерированных правил.
+- **`tools/build-prod.js`: сборка пустого расширения.** Проверяются непустые `rules/*.json`, `content/cosmetic.css` и `rules/cosmetic-map.json`; при пустых или обрезанных артефактах сборка падает.
+- **`tools/resize-screenshots.js`: падал на отсутствующей `store-assets/raw/`.** Каталог создаётся, выводится инструкция; выходной каталог тоже создаётся.
+- **`tools/build-icons.js`: 16/32/48 резались из полной иконки.** `icon-source-small.png` совпадает с `icon-source.png`; скрипт предупреждает и использует полный исходник как fallback, если малого нет.
+
+### Changed
+
+- **`background/lib/cosmetic-injector.js`: косметика для конкретных сайтов.** `[isfullscreen="true"]`, `[id^="trg-b-"]` и `[id^="ra_"]` убраны из `cosmetic-manual.css` (применялись на всех сайтах) и вставляются отдельным `insertCSS` только на `mail.ru` и `rutube.ru` (`SITE_CSS`).
+- **`tools/build-prod.js`: из ZIP исключены `icons/icon64.png` и `icons/store-icon-128.png`** — рантайм их не использует.
+- **`tools/build-prod.js`: проверка версий.** `manifest.json`, `package.json` и `package-lock.json` должны совпадать, иначе сборка падает.
+- **`tools/build-locales.js`: удаляются осиротевшие каталоги `_locales/`**, которых нет в `descriptions.js`.
+
+### Removed
+
+- **Папка `docs/` (11 глав) удалена.** Актуальный контекст — `CONTEXT.md`, `PROMPT.md`, `README.MD`, `CHANGELOG.md`.
+
+### Technical
+
+- **`THIRD-PARTY-NOTICES.md`.** Атрибуция EasyList (CC BY-SA / GPL) и AdGuard Russian (GPLv3), MIT-флаги; файл попадает в ZIP.
+- **`PROMPT.md`.** Промпт для чата; ссылки на удалённую `docs/` убраны.
+
 ## [1.2.0] — 2026-11-13
 
 ### Added
@@ -77,6 +107,8 @@
 - **RuTube: кнопка «Отключить рекламу» больше не в SKIP_SELECTORS.** `[data-testid="disableAdsButton"]` — это кнопка подписки RuTube, а не «Пропустить». Клик по ней не выполнялся, но находился в списке.
 - **Dzen: рекламные карточки в ленте не скрывались.** Классы Dzen обфусцированы и меняются при каждом билде. Добавлены стабильные якоря в `AD_CONTAINER_SELECTORS`: `[data-new-adtune="true"]`, `[data-cv3dnq1w-click="imageGallery"]`, `[data-cv3dnq1w-click="title"]`.
 - **Mail.ru: нативная реклама с лейблом «реклам» + «а» ловилась не всегда.** В `AD_TEXT_MARKERS` добавлен маркер `реклам` (без окончания). Покрывает случай, когда `реклама` разбита на несколько `<div>`.
+- **`exceptions.js`: regexp-исключения отсеиваются до парсинга.** Правило `@@/regexp/$mods` больше не проходит в DNR как literal. Раньше `lastIndexOf("$")` мог найти `$` внутри самого регэкспа (например, `/foo$/`) и ошибочно принять его за модификаторы.
+- **`spa.js`: защита от повторной установки watcher'а.** Флаг `__erstUrlWatcherInstalled` не даёт дважды обернуть `history.pushState` / `replaceState`, если content script будет инжектирован повторно.
 
 ### Changed
 
@@ -92,11 +124,6 @@
 - **`auto-skip.js`: `muteAdVideos()` больше не вызывает `v.pause()`.** Оставлены только `muted = true` и `playbackRate = 16`. `pause()` мог останавливать основной плеер, если селектор случайно поймал его `<video>`.
 - **`ad-markers.js`: убрана проверка `target.style.display === "none"`.** Читала только inline-стиль (не computed), выигрыша не давала. `setProperty("display", "none", "important")` идемпотентна — повторная установка того же значения не меняет inline-стиль.
 - **`observer.js`: убрано условие `state.currentSelectors.length === 0 && typeof hideAdInElement === "undefined"`.** Вторая часть всегда false (`hideAdInElement` определена в `ad-markers.js`, который в manifest идёт раньше `observer.js`). Observer нужен для text-based hiding даже при пустом списке domain-селекторов, поэтому early-return убран целиком.
-
-### Fixed (продолжение)
-
-- **`exceptions.js`: regexp-исключения отсеиваются до парсинга.** Правило `@@/regexp/$mods` больше не проходит в DNR как literal. Раньше `lastIndexOf("$")` мог найти `$` внутри самого регэкспа (например, `/foo$/`) и ошибочно принять его за модификаторы.
-- **`spa.js`: защита от повторной установки watcher'а.** Флаг `__erstUrlWatcherInstalled` не даёт дважды обернуть `history.pushState` / `replaceState`, если content script будет инжектирован повторно.
 
 ### Technical
 

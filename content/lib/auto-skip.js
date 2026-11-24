@@ -94,6 +94,38 @@ function isRutubeHost() {
 }
 
 // ------------------------------------------------------------
+// Состояние плеера до рекламы.
+//
+// Реклама ускоряется и глушится, но после неё нельзя сбрасывать
+// пользовательские mute и скорость в 1x / unmuted: если он смотрел
+// на 1.5x с выключенным звуком, так и должно остаться. Запоминаем
+// значения перед первым вмешательством и возвращаем их в конце.
+// ------------------------------------------------------------
+
+let savedVideoState = null;
+
+function rememberVideoState(video) {
+    if (!video) return;
+    if (savedVideoState && savedVideoState.video === video) return;
+
+    savedVideoState = {
+        video,
+        muted: video.muted,
+        playbackRate: video.playbackRate
+    };
+}
+
+function restoreVideoState() {
+    const saved = savedVideoState;
+    savedVideoState = null;
+
+    if (!saved || !saved.video || !saved.video.isConnected) return;
+
+    saved.video.playbackRate = saved.playbackRate;
+    saved.video.muted = saved.muted;
+}
+
+// ------------------------------------------------------------
 // Оверлей «Пропуск рекламы»
 // ------------------------------------------------------------
 
@@ -224,9 +256,12 @@ function handleYoutubeAdStart() {
     if (!player) return;
 
     const video = player.querySelector("video");
-    if (video && video.playbackRate !== YT_SPEED) {
-        video.playbackRate = YT_SPEED;
-        video.muted = true;
+    if (video) {
+        rememberVideoState(video);
+        if (video.playbackRate !== YT_SPEED) {
+            video.playbackRate = YT_SPEED;
+            video.muted = true;
+        }
     }
 
     showAdOverlay();
@@ -237,12 +272,7 @@ function handleYoutubeAdEnd() {
     const player = getPlayer();
     if (!player) return;
 
-    const video = player.querySelector("video");
-    if (video) {
-        if (video.playbackRate !== 1) video.playbackRate = 1;
-        if (video.muted) video.muted = false;
-    }
-
+    restoreVideoState();
     hideAdOverlay();
     console.log(`${LOG} yt ad end`);
 }
@@ -325,9 +355,12 @@ function periodicCheck() {
 
     if (isAd) {
         const video = player.querySelector("video");
-        if (video && video.playbackRate !== YT_SPEED) {
-            video.playbackRate = YT_SPEED;
-            video.muted = true;
+        if (video) {
+            rememberVideoState(video);
+            if (video.playbackRate !== YT_SPEED) {
+                video.playbackRate = YT_SPEED;
+                video.muted = true;
+            }
         }
         if (!document.getElementById(OVERLAY_ID)) {
             showAdOverlay();
