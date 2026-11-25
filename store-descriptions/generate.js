@@ -14,7 +14,7 @@ const DESCRIPTIONS = { ...east, ...central, ...west };
 
 function buildText(item) {
     const lines = [
-        `erst_dev_adblocker — ${item.intro}`,
+        `erst_dev AdBlocker — ${item.intro}`,
         "",
         ...item.features.map((feature) => `• ${feature}`),
         "",
@@ -22,7 +22,8 @@ function buildText(item) {
         "",
         item.privacy,
         "",
-        "erst_dev@mail.ru"
+        "GitHub: https://github.com/erstdev/erst_dev_adblocker",
+        "Email: erst_dev@mail.ru"
     ];
     return lines.join("\n") + "\n";
 }

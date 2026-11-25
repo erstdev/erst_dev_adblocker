@@ -1,8 +1,8 @@
 /* Короткие описания расширения для _locales (name/description в Chrome).
    Максимум 132 символа. Ключ — код локали _locales. */
 export const APP_DESCRIPTIONS = {
-    ru: "Блокировщик рекламы для Chromium: сеть и косметика, авто-скип видео, 44 языка.",
-    en: "Ad blocker for Chromium: network and cosmetic filtering, video ad skip, 44 languages.",
+    ru: "Блокировщик рекламы для Chrome: сеть и косметика, авто-скип видео, 44 языка.",
+    en: "Ad blocker for Chrome: network and cosmetic filtering, video ad skip, 44 languages.",
     hy: "Գովազդի արգելափակիչ Chromium-ի համար՝ ցանցային և կոսմետիկ զտում, տեսագովազդի բացթողում, 44 լեզու։",
     az: "Chromium üçün reklam bloklayıcı: şəbəkə və kosmetik filtr, video reklamın atlanması, 44 dil.",
     be: "Блакіроўшчык рэкламы для Chromium: сеткавая і касметычная фільтрацыя, пропуск відэарэкламы, 44 мовы.",

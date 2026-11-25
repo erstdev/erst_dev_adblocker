@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "erst_dev_adblocker",
+    "message": "erst_dev AdBlocker",
     "description": "Extension name shown in Chrome and CWS."
   },
   "appDescription": {
-    "message": "Блокировщик рекламы для Chromium: сеть и косметика, авто-скип видео, 44 языка.",
+    "message": "Блокировщик рекламы для Chrome: сеть и косметика, авто-скип видео, 44 языка.",
     "description": "Short description shown in CWS. Max 132 characters."
   }
 }

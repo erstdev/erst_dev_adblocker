@@ -26,8 +26,8 @@ export const central = [
             addDomain: "+ Добавяне на {domain}",
             remove: "Премахване",
             copied: "Копирано",
-            mailSubject: "erst_dev_adblocker — проблем",
-            mailBody: "Здравейте!\n\nРазширение: erst_dev_adblocker v{version}\nСтраница: {url}\n\nКакво се случва:\n(опишете проблема)\n\nКак да възпроизведете:\n1. \n2. \n3. \n\nОчаквах:\n(какво е трябвало да се случи)",
+            mailSubject: "erst_dev AdBlocker — проблем",
+            mailBody: "Здравейте!\n\nРазширение: erst_dev AdBlocker v{version}\nСтраница: {url}\n\nКакво се случва:\n(опишете проблема)\n\nКак да възпроизведете:\n1. \n2. \n3. \n\nОчаквах:\n(какво е трябвало да се случи)",
             mailNoPage: "(няма)"
         }
     },
@@ -57,8 +57,8 @@ export const central = [
             addDomain: "+ Dodaj {domain}",
             remove: "Ukloni",
             copied: "Kopirano",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Bok!\n\nProširenje: erst_dev_adblocker v{version}\nStranica: {url}\n\nŠto se događa:\n(opišite problem)\n\nKako ponoviti:\n1. \n2. \n3. \n\nOčekivao sam:\n(što se trebalo dogoditi)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Bok!\n\nProširenje: erst_dev AdBlocker v{version}\nStranica: {url}\n\nŠto se događa:\n(opišite problem)\n\nKako ponoviti:\n1. \n2. \n3. \n\nOčekivao sam:\n(što se trebalo dogoditi)",
             mailNoPage: "(nema)"
         }
     },
@@ -88,8 +88,8 @@ export const central = [
             addDomain: "+ Přidat {domain}",
             remove: "Odebrat",
             copied: "Zkopírováno",
-            mailSubject: "erst_dev_adblocker — problém",
-            mailBody: "Dobrý den!\n\nRozšíření: erst_dev_adblocker v{version}\nStránka: {url}\n\nCo se děje:\n(popište problém)\n\nJak to zopakovat:\n1. \n2. \n3. \n\nOčekával jsem:\n(co se mělo stát)",
+            mailSubject: "erst_dev AdBlocker — problém",
+            mailBody: "Dobrý den!\n\nRozšíření: erst_dev AdBlocker v{version}\nStránka: {url}\n\nCo se děje:\n(popište problém)\n\nJak to zopakovat:\n1. \n2. \n3. \n\nOčekával jsem:\n(co se mělo stát)",
             mailNoPage: "(žádná)"
         }
     },
@@ -119,8 +119,8 @@ export const central = [
             addDomain: "+ {domain} hozzáadása",
             remove: "Eltávolítás",
             copied: "Másolva",
-            mailSubject: "erst_dev_adblocker — probléma",
-            mailBody: "Szia!\n\nKiterjesztés: erst_dev_adblocker v{version}\nOldal: {url}\n\nMi történik:\n(írd le a problémát)\n\nHogyan lehet újra létrehozni:\n1. \n2. \n3. \n\nEzt vártam:\n(mi történt volna)",
+            mailSubject: "erst_dev AdBlocker — probléma",
+            mailBody: "Szia!\n\nKiterjesztés: erst_dev AdBlocker v{version}\nOldal: {url}\n\nMi történik:\n(írd le a problémát)\n\nHogyan lehet újra létrehozni:\n1. \n2. \n3. \n\nEzt vártam:\n(mi történt volna)",
             mailNoPage: "(nincs)"
         }
     },
@@ -150,8 +150,8 @@ export const central = [
             addDomain: "+ Dodaj {domain}",
             remove: "Usuń",
             copied: "Skopiowano",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Cześć!\n\nRozszerzenie: erst_dev_adblocker v{version}\nStrona: {url}\n\nCo się dzieje:\n(opisz problem)\n\nJak odtworzyć:\n1. \n2. \n3. \n\nOczekiwałem:\n(co powinno się stać)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Cześć!\n\nRozszerzenie: erst_dev AdBlocker v{version}\nStrona: {url}\n\nCo się dzieje:\n(opisz problem)\n\nJak odtworzyć:\n1. \n2. \n3. \n\nOczekiwałem:\n(co powinno się stać)",
             mailNoPage: "(brak)"
         }
     },
@@ -181,8 +181,8 @@ export const central = [
             addDomain: "+ Pridať {domain}",
             remove: "Odstrániť",
             copied: "Skopírované",
-            mailSubject: "erst_dev_adblocker — problém",
-            mailBody: "Ahoj!\n\nRozšírenie: erst_dev_adblocker v{version}\nStránka: {url}\n\nČo sa deje:\n(opíšte problém)\n\nAko to zopakovať:\n1. \n2. \n3. \n\nOčakával som:\n(čo sa malo stať)",
+            mailSubject: "erst_dev AdBlocker — problém",
+            mailBody: "Ahoj!\n\nRozšírenie: erst_dev AdBlocker v{version}\nStránka: {url}\n\nČo sa deje:\n(opíšte problém)\n\nAko to zopakovať:\n1. \n2. \n3. \n\nOčakával som:\n(čo sa malo stať)",
             mailNoPage: "(žiadna)"
         }
     },
@@ -212,8 +212,8 @@ export const central = [
             addDomain: "+ Dodaj {domain}",
             remove: "Odstrani",
             copied: "Kopirano",
-            mailSubject: "erst_dev_adblocker — težava",
-            mailBody: "Pozdravljeni!\n\nRazširitev: erst_dev_adblocker v{version}\nStran: {url}\n\nKaj se dogaja:\n(opišite težavo)\n\nKako ponoviti:\n1. \n2. \n3. \n\nPričakoval sem:\n(kaj bi se moralo zgoditi)",
+            mailSubject: "erst_dev AdBlocker — težava",
+            mailBody: "Pozdravljeni!\n\nRazširitev: erst_dev AdBlocker v{version}\nStran: {url}\n\nKaj se dogaja:\n(opišite težavo)\n\nKako ponoviti:\n1. \n2. \n3. \n\nPričakoval sem:\n(kaj bi se moralo zgoditi)",
             mailNoPage: "(ni)"
         }
     },
@@ -243,8 +243,8 @@ export const central = [
             addDomain: "+ Shto {domain}",
             remove: "Hiq",
             copied: "U kopjua",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Përshëndetje!\n\nZgjerimi: erst_dev_adblocker v{version}\nFaqja: {url}\n\nÇfarë po ndodh:\n(përshkruaj problemin)\n\nSi të riprodhohet:\n1. \n2. \n3. \n\nPrisja:\n(çfarë duhej të ndodhte)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Përshëndetje!\n\nZgjerimi: erst_dev AdBlocker v{version}\nFaqja: {url}\n\nÇfarë po ndodh:\n(përshkruaj problemin)\n\nSi të riprodhohet:\n1. \n2. \n3. \n\nPrisja:\n(çfarë duhej të ndodhte)",
             mailNoPage: "(asnjë)"
         }
     },
@@ -274,8 +274,8 @@ export const central = [
             addDomain: "+ Dodaj {domain}",
             remove: "Ukloni",
             copied: "Kopirano",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Zdravo!\n\nEkstenzija: erst_dev_adblocker v{version}\nStranica: {url}\n\nŠta se dešava:\n(opišite problem)\n\nKako ponoviti:\n1. \n2. \n3. \n\nOčekivao sam:\n(šta je trebalo da se desi)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Zdravo!\n\nEkstenzija: erst_dev AdBlocker v{version}\nStranica: {url}\n\nŠta se dešava:\n(opišite problem)\n\nKako ponoviti:\n1. \n2. \n3. \n\nOčekivao sam:\n(šta je trebalo da se desi)",
             mailNoPage: "(nema)"
         }
     },
@@ -305,8 +305,8 @@ export const central = [
             addDomain: "+ Додај {domain}",
             remove: "Отстрани",
             copied: "Копирано",
-            mailSubject: "erst_dev_adblocker — проблем",
-            mailBody: "Здраво!\n\nПродолжување: erst_dev_adblocker v{version}\nСтраница: {url}\n\nШто се случува:\n(опишете го проблемот)\n\nКако да се повтори:\n1. \n2. \n3. \n\nОчекував:\n(што требаше да се случи)",
+            mailSubject: "erst_dev AdBlocker — проблем",
+            mailBody: "Здраво!\n\nПродолжување: erst_dev AdBlocker v{version}\nСтраница: {url}\n\nШто се случува:\n(опишете го проблемот)\n\nКако да се повтори:\n1. \n2. \n3. \n\nОчекував:\n(што требаше да се случи)",
             mailNoPage: "(нема)"
         }
     },
@@ -336,8 +336,8 @@ export const central = [
             addDomain: "+ Додај {domain}",
             remove: "Уклони",
             copied: "Копирано",
-            mailSubject: "erst_dev_adblocker — проблем",
-            mailBody: "Здраво!\n\nЕкстензија: erst_dev_adblocker v{version}\nСтраница: {url}\n\nШта се дешава:\n(опишите проблем)\n\nКако поновити:\n1. \n2. \n3. \n\nОчекивао сам:\n(шта је требало да се догоди)",
+            mailSubject: "erst_dev AdBlocker — проблем",
+            mailBody: "Здраво!\n\nЕкстензија: erst_dev AdBlocker v{version}\nСтраница: {url}\n\nШта се дешава:\n(опишите проблем)\n\nКако поновити:\n1. \n2. \n3. \n\nОчекивао сам:\n(шта је требало да се догоди)",
             mailNoPage: "(нема)"
         }
     },
@@ -367,8 +367,8 @@ export const central = [
             addDomain: "+ {domain} ekle",
             remove: "Kaldır",
             copied: "Kopyalandı",
-            mailSubject: "erst_dev_adblocker — sorun",
-            mailBody: "Merhaba!\n\nUzantı: erst_dev_adblocker v{version}\nSayfa: {url}\n\nNe oluyor:\n(sorunu açıklayın)\n\nNasıl yeniden oluşturulur:\n1. \n2. \n3. \n\nBeklediğim:\n(ne olması gerekiyordu)",
+            mailSubject: "erst_dev AdBlocker — sorun",
+            mailBody: "Merhaba!\n\nUzantı: erst_dev AdBlocker v{version}\nSayfa: {url}\n\nNe oluyor:\n(sorunu açıklayın)\n\nNasıl yeniden oluşturulur:\n1. \n2. \n3. \n\nBeklediğim:\n(ne olması gerekiyordu)",
             mailNoPage: "(yok)"
         }
     },
@@ -398,8 +398,8 @@ export const central = [
             addDomain: "+ Afegeix {domain}",
             remove: "Elimina",
             copied: "Copiat",
-            mailSubject: "erst_dev_adblocker — problema",
-            mailBody: "Hola!\n\nExtensió: erst_dev_adblocker v{version}\nPàgina: {url}\n\nQuè passa:\n(descriu el problema)\n\nCom reproduir-ho:\n1. \n2. \n3. \n\nEsperava:\n(què hauria d’haver passat)",
+            mailSubject: "erst_dev AdBlocker — problema",
+            mailBody: "Hola!\n\nExtensió: erst_dev AdBlocker v{version}\nPàgina: {url}\n\nQuè passa:\n(descriu el problema)\n\nCom reproduir-ho:\n1. \n2. \n3. \n\nEsperava:\n(què hauria d’haver passat)",
             mailNoPage: "(cap)"
         }
     },
@@ -429,8 +429,8 @@ export const central = [
             addDomain: "+ Agiuntar {domain}",
             remove: "Allontanar",
             copied: "Copià",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Allegra!\n\nExtensiun: erst_dev_adblocker v{version}\nPagina: {url}\n\nTge succeda:\n(descriva il problem)\n\nCo reproducer:\n1. \n2. \n3. \n\nJau spetgava:\n(tge duess esser succedì)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Allegra!\n\nExtensiun: erst_dev AdBlocker v{version}\nPagina: {url}\n\nTge succeda:\n(descriva il problem)\n\nCo reproducer:\n1. \n2. \n3. \n\nJau spetgava:\n(tge duess esser succedì)",
             mailNoPage: "(nagin)"
         }
     }

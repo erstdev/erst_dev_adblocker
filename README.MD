@@ -1,6 +1,22 @@
-# erst_dev_adblocker
+<p align="center">
+  <img src="banner.png" alt="erst_dev AdBlocker — блокировщик рекламы для Chromium" width="440">
+</p>
+
+# erst_dev AdBlocker
 
 Блокировщик рекламы для браузеров на Chromium (Chrome, Edge, Opera, Brave, Яндекс.Браузер, Vivaldi) на Manifest V3.
+
+**Установить: [Chrome Web Store](https://chromewebstore.google.com/detail/erstdevadblocker/lifalalbdjhnbpidiebnmjdcmpoalojm)** · [Политика конфиденциальности](https://erstdev.github.io/erst_dev_adblocker_privacy/) · [Changelog](CHANGELOG.md) · [Issues](https://github.com/erstdev/erst_dev_adblocker/issues) · [Лицензии фильтров](THIRD-PARTY-NOTICES.md) · [Ограничения](#известные-ограничения)
+
+## Коротко
+
+- **Сеть.** 27 000 блокирующих правил DNR и 1 034 исключения — режется сам запрос, а не только видимый баннер.
+- **Косметика.** 14 116 общих CSS-селекторов и 29 512 селекторов для 12 510 доменов.
+- **Видео.** Авто-скип рекламы на YouTube, VK Video и RuTube; громкость и скорость после рекламы возвращаются.
+- **Языки.** 44 языка интерфейса, выбор языка в настройках попапа.
+- **Приватность.** Данные не собираются, телеметрии нет, списки упакованы в архив.
+
+Исходный код открыт: [github.com/erstdev/erst_dev_adblocker](https://github.com/erstdev/erst_dev_adblocker).
 
 ## Что это
 
@@ -125,8 +141,6 @@ tools/                   — Node.js: конвертер, сборка, икон
 
 - `CHANGELOG.md` — история версий.
 - `PRIVACY.md` — приватная политика.
-- `CONTEXT.md` — контекст проекта для разработки.
-- `PROMPT.md` — промпт для чата: быстрый вход в проект с минимальным чтением файлов.
 - `THIRD-PARTY-NOTICES.md` — источники и лицензии фильтров и флагов.
 
 ## Приватность
@@ -137,4 +151,4 @@ tools/                   — Node.js: конвертер, сборка, икон
 
 ## Лицензия
 
-UNLICENSED. Приватный проект.
+Код — MIT, см. [LICENSE](LICENSE). Сгенерированные файлы (`rules/*.json`, `content/cosmetic.css`, карты косметики) производны от EasyList (CC BY-SA / GPL) и AdGuard Russian (GPLv3): их распространение регулируется лицензиями источников, см. [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

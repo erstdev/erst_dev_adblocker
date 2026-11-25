@@ -13,6 +13,12 @@ import {
 // Адрес для обратной связи
 const FEEDBACK_EMAIL = "erst_dev@mail.ru";
 
+// Публичный репозиторий проекта: открывается из попапа.
+const GITHUB_URL = "https://github.com/erstdev/erst_dev_adblocker";
+
+// Новое issue в публичном репозитории.
+const ISSUES_URL = "https://github.com/erstdev/erst_dev_adblocker/issues/new";
+
 // Хэш-роуты popup: главный экран и настройки.
 const ROUTE_MAIN = "#/";
 const ROUTE_SETTINGS = "#/settings";
@@ -472,6 +478,13 @@ function buildMailtoLink(subject, body) {
     return `mailto:${FEEDBACK_EMAIL}?subject=${encodedSubject}&body=${encodedBody}`;
 }
 
+// Внешние ссылки открываем в новой вкладке: в попапе target="_blank" закрывает
+// попап, а href="#" ещё и прыгает в hash-роут.
+function openExternal(e, url) {
+    e.preventDefault();
+    chrome.tabs.create({ url });
+}
+
 function openBugReport() {
     const body = t("mailBody", {
         version: currentVersion || "?",
@@ -516,6 +529,8 @@ getElementById("feedback-bug").addEventListener("click", (e) => {
     openBugReport();
 });
 getElementById("feedback-copy").addEventListener("click", copyEmail);
+getElementById("feedback-github").addEventListener("click", (e) => openExternal(e, GITHUB_URL));
+getElementById("feedback-issues").addEventListener("click", (e) => openExternal(e, ISSUES_URL));
 
 async function init() {
     const language = await getLanguage();

@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.join(__dirname, "..");
 const LOCALES_DIR = path.join(ROOT, "_locales");
 
-const APP_NAME = "erst_dev_adblocker";
+const APP_NAME = "erst_dev AdBlocker";
 const MAX_DESCRIPTION_LENGTH = 132;
 
 let count = 0;

@@ -23,3 +23,11 @@ dist/
 *.zip
 
 erst_dev_adblocker-*.zip
+
+# Внутренние документы: нужны локально, для публичного репозитория не годятся
+PROMPT.md
+CONTEXT.md
+CHROMEWEBSTORE.md
+
+# Тексты для CWS: генерируются из store-descriptions/source
+store-descriptions/*.txt

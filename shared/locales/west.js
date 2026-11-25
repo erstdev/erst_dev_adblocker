@@ -26,8 +26,8 @@ export const west = [
             addDomain: "+ Add {domain}",
             remove: "Remove",
             copied: "Copied",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Hello!\n\nExtension: erst_dev_adblocker v{version}\nPage: {url}\n\nWhat happens:\n(describe the problem)\n\nHow to reproduce:\n1. \n2. \n3. \n\nExpected:\n(what should have happened)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Hello!\n\nExtension: erst_dev AdBlocker v{version}\nPage: {url}\n\nWhat happens:\n(describe the problem)\n\nHow to reproduce:\n1. \n2. \n3. \n\nExpected:\n(what should have happened)",
             mailNoPage: "(none)"
         }
     },
@@ -57,8 +57,8 @@ export const west = [
             addDomain: "+ Tilføj {domain}",
             remove: "Fjern",
             copied: "Kopieret",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Hej!\n\nUdvidelse: erst_dev_adblocker v{version}\nSide: {url}\n\nHvad sker der:\n(beskriv problemet)\n\nSådan genskabes det:\n1. \n2. \n3. \n\nJeg forventede:\n(hvad der burde være sket)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Hej!\n\nUdvidelse: erst_dev AdBlocker v{version}\nSide: {url}\n\nHvad sker der:\n(beskriv problemet)\n\nSådan genskabes det:\n1. \n2. \n3. \n\nJeg forventede:\n(hvad der burde være sket)",
             mailNoPage: "(ingen)"
         }
     },
@@ -88,8 +88,8 @@ export const west = [
             addDomain: "+ {domain} toevoegen",
             remove: "Verwijderen",
             copied: "Gekopieerd",
-            mailSubject: "erst_dev_adblocker — probleem",
-            mailBody: "Hallo!\n\nExtensie: erst_dev_adblocker v{version}\nPagina: {url}\n\nWat gebeurt er:\n(beschrijf het probleem)\n\nHoe te reproduceren:\n1. \n2. \n3. \n\nIk verwachtte:\n(wat er had moeten gebeuren)",
+            mailSubject: "erst_dev AdBlocker — probleem",
+            mailBody: "Hallo!\n\nExtensie: erst_dev AdBlocker v{version}\nPagina: {url}\n\nWat gebeurt er:\n(beschrijf het probleem)\n\nHoe te reproduceren:\n1. \n2. \n3. \n\nIk verwachtte:\n(wat er had moeten gebeuren)",
             mailNoPage: "(geen)"
         }
     },
@@ -119,8 +119,8 @@ export const west = [
             addDomain: "+ Lisää {domain}",
             remove: "Poista",
             copied: "Kopioitu",
-            mailSubject: "erst_dev_adblocker — ongelma",
-            mailBody: "Hei!\n\nLaajennus: erst_dev_adblocker v{version}\nSivu: {url}\n\nMikä on ongelma:\n(kuvaile ongelma)\n\nMiten toistaa:\n1. \n2. \n3. \n\nOdotin:\n(mitä olisi pitänyt tapahtua)",
+            mailSubject: "erst_dev AdBlocker — ongelma",
+            mailBody: "Hei!\n\nLaajennus: erst_dev AdBlocker v{version}\nSivu: {url}\n\nMikä on ongelma:\n(kuvaile ongelma)\n\nMiten toistaa:\n1. \n2. \n3. \n\nOdotin:\n(mitä olisi pitänyt tapahtua)",
             mailNoPage: "(ei mitään)"
         }
     },
@@ -150,8 +150,8 @@ export const west = [
             addDomain: "+ Ajouter {domain}",
             remove: "Supprimer",
             copied: "Copié",
-            mailSubject: "erst_dev_adblocker — problème",
-            mailBody: "Bonjour !\n\nExtension : erst_dev_adblocker v{version}\nPage : {url}\n\nCe qui se passe :\n(décrivez le problème)\n\nComment reproduire :\n1. \n2. \n3. \n\nJe m’attendais à :\n(ce qui aurait dû se passer)",
+            mailSubject: "erst_dev AdBlocker — problème",
+            mailBody: "Bonjour !\n\nExtension : erst_dev AdBlocker v{version}\nPage : {url}\n\nCe qui se passe :\n(décrivez le problème)\n\nComment reproduire :\n1. \n2. \n3. \n\nJe m’attendais à :\n(ce qui aurait dû se passer)",
             mailNoPage: "(aucune)"
         }
     },
@@ -181,8 +181,8 @@ export const west = [
             addDomain: "+ {domain} hinzufügen",
             remove: "Entfernen",
             copied: "Kopiert",
-            mailSubject: "erst_dev_adblocker — Problem",
-            mailBody: "Hallo!\n\nErweiterung: erst_dev_adblocker v{version}\nSeite: {url}\n\nWas passiert:\n(beschreiben Sie das Problem)\n\nWie man es reproduziert:\n1. \n2. \n3. \n\nErwartet:\n(was hätte passieren sollen)",
+            mailSubject: "erst_dev AdBlocker — Problem",
+            mailBody: "Hallo!\n\nErweiterung: erst_dev AdBlocker v{version}\nSeite: {url}\n\nWas passiert:\n(beschreiben Sie das Problem)\n\nWie man es reproduziert:\n1. \n2. \n3. \n\nErwartet:\n(was hätte passieren sollen)",
             mailNoPage: "(keine)"
         }
     },
@@ -212,8 +212,8 @@ export const west = [
             addDomain: "+ Προσθήκη {domain}",
             remove: "Αφαίρεση",
             copied: "Αντιγράφηκε",
-            mailSubject: "erst_dev_adblocker — πρόβλημα",
-            mailBody: "Γεια σας!\n\nΕπέκταση: erst_dev_adblocker v{version}\nΣελίδα: {url}\n\nΤι συμβαίνει:\n(περιγράψτε το πρόβλημα)\n\nΠώς να το αναπαράγετε:\n1. \n2. \n3. \n\nΠερίμενα:\n(τι θα έπρεπε να συμβεί)",
+            mailSubject: "erst_dev AdBlocker — πρόβλημα",
+            mailBody: "Γεια σας!\n\nΕπέκταση: erst_dev AdBlocker v{version}\nΣελίδα: {url}\n\nΤι συμβαίνει:\n(περιγράψτε το πρόβλημα)\n\nΠώς να το αναπαράγετε:\n1. \n2. \n3. \n\nΠερίμενα:\n(τι θα έπρεπε να συμβεί)",
             mailNoPage: "(κανένα)"
         }
     },
@@ -243,8 +243,8 @@ export const west = [
             addDomain: "+ Cuir {domain} leis",
             remove: "Bain",
             copied: "Cóipeáilte",
-            mailSubject: "erst_dev_adblocker — fadhb",
-            mailBody: "Dia dhuit!\n\nSíneadh: erst_dev_adblocker v{version}\nLeathanach: {url}\n\nCad atá ag tarlú:\n(Cur síos ar an bhfadhb)\n\nConas a atáirgeadh:\n1. \n2. \n3. \n\nBhí súil agam:\n(cad a ba chóir a tharlú)",
+            mailSubject: "erst_dev AdBlocker — fadhb",
+            mailBody: "Dia dhuit!\n\nSíneadh: erst_dev AdBlocker v{version}\nLeathanach: {url}\n\nCad atá ag tarlú:\n(Cur síos ar an bhfadhb)\n\nConas a atáirgeadh:\n1. \n2. \n3. \n\nBhí súil agam:\n(cad a ba chóir a tharlú)",
             mailNoPage: "(níl aon cheann)"
         }
     },
@@ -274,8 +274,8 @@ export const west = [
             addDomain: "+ Aggiungi {domain}",
             remove: "Rimuovi",
             copied: "Copiato",
-            mailSubject: "erst_dev_adblocker — problema",
-            mailBody: "Ciao!\n\nEstensione: erst_dev_adblocker v{version}\nPagina: {url}\n\nCosa succede:\n(descrivi il problema)\n\nCome riprodurlo:\n1. \n2. \n3. \n\nMi aspettavo:\n(cosa sarebbe dovuto succedere)",
+            mailSubject: "erst_dev AdBlocker — problema",
+            mailBody: "Ciao!\n\nEstensione: erst_dev AdBlocker v{version}\nPagina: {url}\n\nCosa succede:\n(descrivi il problema)\n\nCome riprodurlo:\n1. \n2. \n3. \n\nMi aspettavo:\n(cosa sarebbe dovuto succedere)",
             mailNoPage: "(nessuna)"
         }
     },
@@ -305,8 +305,8 @@ export const west = [
             addDomain: "+ Żid {domain}",
             remove: "Neħħi",
             copied: "Ikkupjat",
-            mailSubject: "erst_dev_adblocker — problema",
-            mailBody: "Bongu!\n\nEstensjoni: erst_dev_adblocker v{version}\nPaġna: {url}\n\nX’qed jiġri:\n(iddeskrivi l-problema)\n\nKif tirriproduċi:\n1. \n2. \n3. \n\nKont qed nistenna:\n(x’kellu jiġri)",
+            mailSubject: "erst_dev AdBlocker — problema",
+            mailBody: "Bongu!\n\nEstensjoni: erst_dev AdBlocker v{version}\nPaġna: {url}\n\nX’qed jiġri:\n(iddeskrivi l-problema)\n\nKif tirriproduċi:\n1. \n2. \n3. \n\nKont qed nistenna:\n(x’kellu jiġri)",
             mailNoPage: "(xejn)"
         }
     },
@@ -336,8 +336,8 @@ export const west = [
             addDomain: "+ Adicionar {domain}",
             remove: "Remover",
             copied: "Copiado",
-            mailSubject: "erst_dev_adblocker — problema",
-            mailBody: "Olá!\n\nExtensão: erst_dev_adblocker v{version}\nPágina: {url}\n\nO que acontece:\n(descreva o problema)\n\nComo reproduzir:\n1. \n2. \n3. \n\nEsperava:\n(o que deveria ter acontecido)",
+            mailSubject: "erst_dev AdBlocker — problema",
+            mailBody: "Olá!\n\nExtensão: erst_dev AdBlocker v{version}\nPágina: {url}\n\nO que acontece:\n(descreva o problema)\n\nComo reproduzir:\n1. \n2. \n3. \n\nEsperava:\n(o que deveria ter acontecido)",
             mailNoPage: "(nenhum)"
         }
     },
@@ -367,8 +367,8 @@ export const west = [
             addDomain: "+ Añadir {domain}",
             remove: "Eliminar",
             copied: "Copiado",
-            mailSubject: "erst_dev_adblocker — problema",
-            mailBody: "¡Hola!\n\nExtensión: erst_dev_adblocker v{version}\nPágina: {url}\n\nQué ocurre:\n(describe el problema)\n\nCómo reproducirlo:\n1. \n2. \n3. \n\nEsperaba:\n(qué debería haber pasado)",
+            mailSubject: "erst_dev AdBlocker — problema",
+            mailBody: "¡Hola!\n\nExtensión: erst_dev AdBlocker v{version}\nPágina: {url}\n\nQué ocurre:\n(describe el problema)\n\nCómo reproducirlo:\n1. \n2. \n3. \n\nEsperaba:\n(qué debería haber pasado)",
             mailNoPage: "(ninguna)"
         }
     },
@@ -398,8 +398,8 @@ export const west = [
             addDomain: "+ Lägg till {domain}",
             remove: "Ta bort",
             copied: "Kopierat",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Hej!\n\nTillägg: erst_dev_adblocker v{version}\nSida: {url}\n\nVad händer:\n(beskriv problemet)\n\nSå återskapar du det:\n1. \n2. \n3. \n\nJag förväntade mig:\n(vad som borde ha hänt)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Hej!\n\nTillägg: erst_dev AdBlocker v{version}\nSida: {url}\n\nVad händer:\n(beskriv problemet)\n\nSå återskapar du det:\n1. \n2. \n3. \n\nJag förväntade mig:\n(vad som borde ha hänt)",
             mailNoPage: "(ingen)"
         }
     },
@@ -429,8 +429,8 @@ export const west = [
             addDomain: "+ Bæta við {domain}",
             remove: "Fjarlægja",
             copied: "Afritað",
-            mailSubject: "erst_dev_adblocker — vandamál",
-            mailBody: "Halló!\n\nViðbót: erst_dev_adblocker v{version}\nSíða: {url}\n\nHvað er að gerast:\n(lýstu vandamálinu)\n\nHvernig á að endurgera:\n1. \n2. \n3. \n\nÉg bjóst við:\n(hvað hefði átt að gerast)",
+            mailSubject: "erst_dev AdBlocker — vandamál",
+            mailBody: "Halló!\n\nViðbót: erst_dev AdBlocker v{version}\nSíða: {url}\n\nHvað er að gerast:\n(lýstu vandamálinu)\n\nHvernig á að endurgera:\n1. \n2. \n3. \n\nÉg bjóst við:\n(hvað hefði átt að gerast)",
             mailNoPage: "(ekkert)"
         }
     },
@@ -460,8 +460,8 @@ export const west = [
             addDomain: "+ Legg til {domain}",
             remove: "Fjern",
             copied: "Kopiert",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Hei!\n\nUtvidelse: erst_dev_adblocker v{version}\nSide: {url}\n\nHva skjer:\n(beskriv problemet)\n\nSlik gjenskaper du det:\n1. \n2. \n3. \n\nJeg forventet:\n(hva som burde ha skjedd)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Hei!\n\nUtvidelse: erst_dev AdBlocker v{version}\nSide: {url}\n\nHva skjer:\n(beskriv problemet)\n\nSlik gjenskaper du det:\n1. \n2. \n3. \n\nJeg forventet:\n(hva som burde ha skjedd)",
             mailNoPage: "(ingen)"
         }
     },
@@ -491,8 +491,8 @@ export const west = [
             addDomain: "+ {domain} derbäisetzen",
             remove: "Ewechhuelen",
             copied: "Kopéiert",
-            mailSubject: "erst_dev_adblocker — Problem",
-            mailBody: "Moien!\n\nErweiderung: erst_dev_adblocker v{version}\nSäit: {url}\n\nWat geschitt:\n(beschreift de Problem)\n\nWéi et reproduzéiert gëtt:\n1. \n2. \n3. \n\nEch hunn erwaart:\n(waat sollt geschéien)",
+            mailSubject: "erst_dev AdBlocker — Problem",
+            mailBody: "Moien!\n\nErweiderung: erst_dev AdBlocker v{version}\nSäit: {url}\n\nWat geschitt:\n(beschreift de Problem)\n\nWéi et reproduzéiert gëtt:\n1. \n2. \n3. \n\nEch hunn erwaart:\n(waat sollt geschéien)",
             mailNoPage: "(keng)"
         }
     }

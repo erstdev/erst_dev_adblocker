@@ -21,6 +21,15 @@
 
 ### Changed
 
+- **Имя расширения: `erst_dev_adblocker` → `erst_dev AdBlocker`.** Отображаемое имя в Chrome и CWS теперь с пробелом и заглавными: источник — `APP_NAME` в `tools/build-locales.js`, оттуда 45 `_locales`. Обновлены `manifest.json` → `action.default_title`, `<title>` и `<h1>` попапа, 44 текста в `store-descriptions/`, шаблоны письма обратной связи на 44 языках, `PRIVACY.md`, `CHROMEWEBSTORE.md`, `PROMPT.md`. Технические имена не менялись: репозиторий, `package.json`, ZIP, префикс логов `[erst_dev_adblocker]`, URL политики.
+- **Короткие описания RU и EN в `_locales`: «Chromium» → «Chrome».** В описаниях появилось слово, по которому ищут в CWS; остальные 42 языка пока говорят «Chromium».
+- **`PRIVACY.md` и публичная страница политики.** Дата — 25 ноября 2026; добавлен абзац о кнопке обратной связи (в письмо подставляются адрес страницы и версия, отправляет пользователь); две копии текста синхронизированы — язык интерфейса, аналитика, словари и флаги, `lists/*.txt`.
+- **`README.MD`: первый экран под установку из стора.** Баннер, строка «Установить: Chrome Web Store», блок «Коротко» с цифрами, ссылки на политику, changelog, лицензии фильтров и ограничения. Репозиторий стал публичным, поэтому блок «Лицензия» больше не называет проект приватным.
+- **`popup`: ссылка на GitHub.** Третья ссылка в блоке обратной связи, открывается в новой вкладке через `chrome.tabs.create`. Адрес аккаунта разработчика CWS убран из публичных `CONTEXT.md` и `CHROMEWEBSTORE.md`.
+- **`store-descriptions`: ссылка на GitHub в 44 текстах.** Генератор добавляет язык-нейтральные строки `GitHub: https://github.com/erstdev/erst_dev_adblocker` и `Email: erst_dev@mail.ru`; переводить их не нужно.
+- **`popup`: кнопка «Назад» и ссылка на Issues.** «Назад» больше не серая плашка, а текстовая ссылка в стиле `.feedback-link` (серый → зелёный при наведении). В блок обратной связи добавлена `Issues` — открывается в новой вкладке через общий `openExternal()`.
+- **Лицензия MIT.** Добавлен `LICENSE`, в `package.json` `"license": "MIT"`. Сгенерированные правила остаются под лицензиями источников (EasyList, AdGuard), это записано в `THIRD-PARTY-NOTICES.md`.
+- **`social-preview.png`.** Превью 1280×640 для GitHub Social preview; в README не используется, отдельно от `banner.png` (440×280).
 - **`background/lib/cosmetic-injector.js`: косметика для конкретных сайтов.** `[isfullscreen="true"]`, `[id^="trg-b-"]` и `[id^="ra_"]` убраны из `cosmetic-manual.css` (применялись на всех сайтах) и вставляются отдельным `insertCSS` только на `mail.ru` и `rutube.ru` (`SITE_CSS`).
 - **`tools/build-prod.js`: из ZIP исключены `icons/icon64.png` и `icons/store-icon-128.png`** — рантайм их не использует.
 - **`tools/build-prod.js`: проверка версий.** `manifest.json`, `package.json` и `package-lock.json` должны совпадать, иначе сборка падает.
@@ -28,7 +37,8 @@
 
 ### Removed
 
-- **Папка `docs/` (11 глав) удалена.** Актуальный контекст — `CONTEXT.md`, `PROMPT.md`, `README.MD`, `CHANGELOG.md`.
+- **Папка `docs/` (11 глав) удалена.** Актуальный контекст — `README.MD` и `CHANGELOG.md`.
+- **Из репозитория убраны внутренние документы и сгенерированные тексты.** `PROMPT.md`, `CONTEXT.md`, `CHROMEWEBSTORE.md` и 44 файла `store-descriptions/*.txt` больше не отслеживаются и добавлены в `.gitignore`: локально они остаются, для публичного репозитория не нужны. Тексты для стора восстанавливаются через `npm run descriptions` из `store-descriptions/source/`.
 
 ### Technical
 

@@ -26,8 +26,8 @@ export const east = [
             addDomain: "+ Добавить {domain}",
             remove: "Удалить",
             copied: "Скопировано",
-            mailSubject: "erst_dev_adblocker — проблема",
-            mailBody: "Привет!\n\nРасширение: erst_dev_adblocker v{version}\nСтраница: {url}\n\nЧто происходит:\n(опиши проблему)\n\nКак воспроизвести:\n1. \n2. \n3. \n\nОжидал:\n(что должно было быть)",
+            mailSubject: "erst_dev AdBlocker — проблема",
+            mailBody: "Привет!\n\nРасширение: erst_dev AdBlocker v{version}\nСтраница: {url}\n\nЧто происходит:\n(опиши проблему)\n\nКак воспроизвести:\n1. \n2. \n3. \n\nОжидал:\n(что должно было быть)",
             mailNoPage: "(нет)"
         }
     },
@@ -57,8 +57,8 @@ export const east = [
             addDomain: "+ Ավելացնել {domain}",
             remove: "Հեռացնել",
             copied: "Պատճենված է",
-            mailSubject: "erst_dev_adblocker — խնդիր",
-            mailBody: "Ողջույն։\n\nԸնդլայնում՝ erst_dev_adblocker v{version}\nԷջ՝ {url}\n\nԻնչ է կատարվում.\n(նկարագրեք խնդիրը)\n\nԻնչպես վերարտադրել.\n1. \n2. \n3. \n\nՍպասում էի.\n(ինչ պետք է լիներ)",
+            mailSubject: "erst_dev AdBlocker — խնդիր",
+            mailBody: "Ողջույն։\n\nԸնդլայնում՝ erst_dev AdBlocker v{version}\nԷջ՝ {url}\n\nԻնչ է կատարվում.\n(նկարագրեք խնդիրը)\n\nԻնչպես վերարտադրել.\n1. \n2. \n3. \n\nՍպասում էի.\n(ինչ պետք է լիներ)",
             mailNoPage: "(չկա)"
         }
     },
@@ -88,8 +88,8 @@ export const east = [
             addDomain: "+ {domain} əlavə et",
             remove: "Sil",
             copied: "Kopyalandı",
-            mailSubject: "erst_dev_adblocker — problem",
-            mailBody: "Salam!\n\nUzantı: erst_dev_adblocker v{version}\nSəhifə: {url}\n\nNə baş verir:\n(problemi təsvir edin)\n\nNecə təkrarlamaq olar:\n1. \n2. \n3. \n\nGözlənilən:\n(nə olmalı idi)",
+            mailSubject: "erst_dev AdBlocker — problem",
+            mailBody: "Salam!\n\nUzantı: erst_dev AdBlocker v{version}\nSəhifə: {url}\n\nNə baş verir:\n(problemi təsvir edin)\n\nNecə təkrarlamaq olar:\n1. \n2. \n3. \n\nGözlənilən:\n(nə olmalı idi)",
             mailNoPage: "(yoxdur)"
         }
     },
@@ -119,8 +119,8 @@ export const east = [
             addDomain: "+ Дадаць {domain}",
             remove: "Выдаліць",
             copied: "Скапіравана",
-            mailSubject: "erst_dev_adblocker — праблема",
-            mailBody: "Прывітанне!\n\nПашырэнне: erst_dev_adblocker v{version}\nСтаронка: {url}\n\nШто адбываецца:\n(апішыце праблему)\n\nЯк аднавіць:\n1. \n2. \n3. \n\nЧакаў:\n(што павінна было быць)",
+            mailSubject: "erst_dev AdBlocker — праблема",
+            mailBody: "Прывітанне!\n\nПашырэнне: erst_dev AdBlocker v{version}\nСтаронка: {url}\n\nШто адбываецца:\n(апішыце праблему)\n\nЯк аднавіць:\n1. \n2. \n3. \n\nЧакаў:\n(што павінна было быць)",
             mailNoPage: "(няма)"
         }
     },
@@ -150,8 +150,8 @@ export const east = [
             addDomain: "+ Lisa {domain}",
             remove: "Eemalda",
             copied: "Kopeeritud",
-            mailSubject: "erst_dev_adblocker — probleem",
-            mailBody: "Tere!\n\nLaiendus: erst_dev_adblocker v{version}\nLeht: {url}\n\nMis juhtub:\n(kirjelda probleemi)\n\nKuidas korrata:\n1. \n2. \n3. \n\nOotasin:\n(mis oleks pidanud juhtuma)",
+            mailSubject: "erst_dev AdBlocker — probleem",
+            mailBody: "Tere!\n\nLaiendus: erst_dev AdBlocker v{version}\nLeht: {url}\n\nMis juhtub:\n(kirjelda probleemi)\n\nKuidas korrata:\n1. \n2. \n3. \n\nOotasin:\n(mis oleks pidanud juhtuma)",
             mailNoPage: "(puudub)"
         }
     },
@@ -181,8 +181,8 @@ export const east = [
             addDomain: "+ {domain}-ის დამატება",
             remove: "წაშლა",
             copied: "დაკოპირებულია",
-            mailSubject: "erst_dev_adblocker — პრობლემა",
-            mailBody: "გამარჯობა!\n\nგაფართოება: erst_dev_adblocker v{version}\nგვერდი: {url}\n\nრა ხდება:\n(აღწერეთ პრობლემა)\n\nროგორ გავამეოროთ:\n1. \n2. \n3. \n\nველოდი:\n(რა უნდა მომხდარიყო)",
+            mailSubject: "erst_dev AdBlocker — პრობლემა",
+            mailBody: "გამარჯობა!\n\nგაფართოება: erst_dev AdBlocker v{version}\nგვერდი: {url}\n\nრა ხდება:\n(აღწერეთ პრობლემა)\n\nროგორ გავამეოროთ:\n1. \n2. \n3. \n\nველოდი:\n(რა უნდა მომხდარიყო)",
             mailNoPage: "(არ არის)"
         }
     },
@@ -212,8 +212,8 @@ export const east = [
             addDomain: "+ {domain} қосу",
             remove: "Жою",
             copied: "Көшірілді",
-            mailSubject: "erst_dev_adblocker — мәселе",
-            mailBody: "Сәлеметсіз бе!\n\nКеңейтім: erst_dev_adblocker v{version}\nБет: {url}\n\nНе болып жатыр:\n(мәселені сипаттаңыз)\n\nҚалай қайталауға болады:\n1. \n2. \n3. \n\nКүткенім:\n(не болуы керек еді)",
+            mailSubject: "erst_dev AdBlocker — мәселе",
+            mailBody: "Сәлеметсіз бе!\n\nКеңейтім: erst_dev AdBlocker v{version}\nБет: {url}\n\nНе болып жатыр:\n(мәселені сипаттаңыз)\n\nҚалай қайталауға болады:\n1. \n2. \n3. \n\nКүткенім:\n(не болуы керек еді)",
             mailNoPage: "(жоқ)"
         }
     },
@@ -243,8 +243,8 @@ export const east = [
             addDomain: "+ {domain} кошуу",
             remove: "Өчүрүү",
             copied: "Көчүрүлдү",
-            mailSubject: "erst_dev_adblocker — көйгөй",
-            mailBody: "Салам!\n\nКеңейтүү: erst_dev_adblocker v{version}\nБарак: {url}\n\nЭмне болуп жатат:\n(көйгөйдү сүрөттөңүз)\n\nКантип кайталоо керек:\n1. \n2. \n3. \n\nКүткөнүм:\n(эмне болушу керек эле)",
+            mailSubject: "erst_dev AdBlocker — көйгөй",
+            mailBody: "Салам!\n\nКеңейтүү: erst_dev AdBlocker v{version}\nБарак: {url}\n\nЭмне болуп жатат:\n(көйгөйдү сүрөттөңүз)\n\nКантип кайталоо керек:\n1. \n2. \n3. \n\nКүткөнүм:\n(эмне болушу керек эле)",
             mailNoPage: "(жок)"
         }
     },
@@ -274,8 +274,8 @@ export const east = [
             addDomain: "+ Pievienot {domain}",
             remove: "Noņemt",
             copied: "Kopēts",
-            mailSubject: "erst_dev_adblocker — problēma",
-            mailBody: "Sveiki!\n\nPaplašinājums: erst_dev_adblocker v{version}\nLapa: {url}\n\nKas notiek:\n(aprakstiet problēmu)\n\nKā atkārtot:\n1. \n2. \n3. \n\nGaidīju:\n(kam vajadzēja notikt)",
+            mailSubject: "erst_dev AdBlocker — problēma",
+            mailBody: "Sveiki!\n\nPaplašinājums: erst_dev AdBlocker v{version}\nLapa: {url}\n\nKas notiek:\n(aprakstiet problēmu)\n\nKā atkārtot:\n1. \n2. \n3. \n\nGaidīju:\n(kam vajadzēja notikt)",
             mailNoPage: "(nav)"
         }
     },
@@ -305,8 +305,8 @@ export const east = [
             addDomain: "+ Pridėti {domain}",
             remove: "Pašalinti",
             copied: "Nukopijuota",
-            mailSubject: "erst_dev_adblocker — problema",
-            mailBody: "Sveiki!\n\nPlėtinys: erst_dev_adblocker v{version}\nPuslapis: {url}\n\nKas vyksta:\n(aprašykite problemą)\n\nKaip atkartoti:\n1. \n2. \n3. \n\nTikėjausi:\n(kas turėjo būti)",
+            mailSubject: "erst_dev AdBlocker — problema",
+            mailBody: "Sveiki!\n\nPlėtinys: erst_dev AdBlocker v{version}\nPuslapis: {url}\n\nKas vyksta:\n(aprašykite problemą)\n\nKaip atkartoti:\n1. \n2. \n3. \n\nTikėjausi:\n(kas turėjo būti)",
             mailNoPage: "(nėra)"
         }
     },
@@ -336,8 +336,8 @@ export const east = [
             addDomain: "+ Adaugă {domain}",
             remove: "Elimină",
             copied: "Copiat",
-            mailSubject: "erst_dev_adblocker — problemă",
-            mailBody: "Salut!\n\nExtensie: erst_dev_adblocker v{version}\nPagină: {url}\n\nCe se întâmplă:\n(descrie problema)\n\nCum se reproduce:\n1. \n2. \n3. \n\nMă așteptam:\n(ce ar fi trebuit să se întâmple)",
+            mailSubject: "erst_dev AdBlocker — problemă",
+            mailBody: "Salut!\n\nExtensie: erst_dev AdBlocker v{version}\nPagină: {url}\n\nCe se întâmplă:\n(descrie problema)\n\nCum se reproduce:\n1. \n2. \n3. \n\nMă așteptam:\n(ce ar fi trebuit să se întâmple)",
             mailNoPage: "(niciuna)"
         }
     },
@@ -367,8 +367,8 @@ export const east = [
             addDomain: "+ Илова кардани {domain}",
             remove: "Нест кардан",
             copied: "Нусхабардорӣ шуд",
-            mailSubject: "erst_dev_adblocker — мушкилот",
-            mailBody: "Салом!\n\nВасеъшавӣ: erst_dev_adblocker v{version}\nСаҳифа: {url}\n\nЧӣ рӯй медиҳад:\n(мушкилотро тавсиф кунед)\n\nЧӣ тавр такрор кардан:\n1. \n2. \n3. \n\nМан интизор будам:\n(чӣ бояд мешуд)",
+            mailSubject: "erst_dev AdBlocker — мушкилот",
+            mailBody: "Салом!\n\nВасеъшавӣ: erst_dev AdBlocker v{version}\nСаҳифа: {url}\n\nЧӣ рӯй медиҳад:\n(мушкилотро тавсиф кунед)\n\nЧӣ тавр такрор кардан:\n1. \n2. \n3. \n\nМан интизор будам:\n(чӣ бояд мешуд)",
             mailNoPage: "(нест)"
         }
     },
@@ -398,8 +398,8 @@ export const east = [
             addDomain: "+ {domain} goş",
             remove: "Aýyr",
             copied: "Göçürildi",
-            mailSubject: "erst_dev_adblocker — mesele",
-            mailBody: "Salam!\n\nGiňeltme: erst_dev_adblocker v{version}\nSahypa: {url}\n\nNäme bolýar:\n(meseläni beýan ediň)\n\nNädip gaýtalamaly:\n1. \n2. \n3. \n\nMen garaşdym:\n(näme bolmalydy)",
+            mailSubject: "erst_dev AdBlocker — mesele",
+            mailBody: "Salam!\n\nGiňeltme: erst_dev AdBlocker v{version}\nSahypa: {url}\n\nNäme bolýar:\n(meseläni beýan ediň)\n\nNädip gaýtalamaly:\n1. \n2. \n3. \n\nMen garaşdym:\n(näme bolmalydy)",
             mailNoPage: "(ýok)"
         }
     },
@@ -429,8 +429,8 @@ export const east = [
             addDomain: "+ {domain} qoʻshish",
             remove: "Oʻchirish",
             copied: "Nusxalandi",
-            mailSubject: "erst_dev_adblocker — muammo",
-            mailBody: "Salom!\n\nKengaytma: erst_dev_adblocker v{version}\nSahifa: {url}\n\nNima boʻlyapti:\n(muammoni tavsiflang)\n\nQanday takrorlash mumkin:\n1. \n2. \n3. \n\nKutgan edim:\n(nima boʻlishi kerak edi)",
+            mailSubject: "erst_dev AdBlocker — muammo",
+            mailBody: "Salom!\n\nKengaytma: erst_dev AdBlocker v{version}\nSahifa: {url}\n\nNima boʻlyapti:\n(muammoni tavsiflang)\n\nQanday takrorlash mumkin:\n1. \n2. \n3. \n\nKutgan edim:\n(nima boʻlishi kerak edi)",
             mailNoPage: "(yoʻq)"
         }
     }
