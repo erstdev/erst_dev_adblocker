@@ -26,6 +26,8 @@ const DIST = path.join(ROOT, "dist");
 // Всё остальное (lists, tools, store-descriptions, node_modules) — dev-мусор.
 // THIRD-PARTY-NOTICES.md кладём в ZIP: это атрибуция EasyList и AdGuard,
 // из которых конвертируются rules/*.json.
+// LICENSE кладём в ZIP: MIT требует, чтобы текст лицензии и копирайт
+// ехали вместе с каждой копией кода.
 const INCLUDE = [
     "manifest.json",
     "icons",
@@ -35,7 +37,8 @@ const INCLUDE = [
     "shared",
     "rules",
     "_locales",
-    "THIRD-PARTY-NOTICES.md"
+    "THIRD-PARTY-NOTICES.md",
+    "LICENSE"
 ];
 
 // Что ОБЯЗАТЕЛЬНО должно существовать до сборки.
@@ -56,7 +59,8 @@ const REQUIRED_FILES = [
     "rules/cosmetic-map.json",
     "rules/cosmetic-exclude.json",
     "content/cosmetic.css",
-    "content/cosmetic-manual.css"
+    "content/cosmetic-manual.css",
+    "LICENSE"
 ];
 
 // Что не нужно в ZIP, хотя лежит в копируемых папках.

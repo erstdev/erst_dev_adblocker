@@ -31,3 +31,6 @@ CHROMEWEBSTORE.md
 
 # Тексты для CWS: генерируются из store-descriptions/source
 store-descriptions/*.txt
+
+# Временные файлы сообщений коммита
+.git-msg-*
