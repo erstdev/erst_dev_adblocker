@@ -22,23 +22,33 @@ function buildText(item) {
         "",
         item.privacy,
         "",
-        "GitHub: https://github.com/erstdev/erst_dev_adblocker",
+        "GitHub (open source, MIT): https://github.com/erstdev/erst_dev_adblocker",
         "Email: erst_dev@mail.ru"
     ];
     return lines.join("\n") + "\n";
 }
 
 let count = 0;
+const blocks = [];
+
 for (const [code, item] of Object.entries(DESCRIPTIONS)) {
+    const text = buildText(item);
+
     fs.writeFileSync(
         path.join(__dirname, `${code}.txt`),
-        buildText(item),
+        text,
         "utf8"
     );
+
+    blocks.push(`===== ${code} =====\n${text}`);
     count++;
 }
 
-console.log(`[store-descriptions] generated ${count} files`);
+// Сводный файл для кабинета CWS: все 44 текста подряд, чтобы не открывать
+// их по одному. В git не входит (gitignore на store-descriptions/*.txt).
+fs.writeFileSync(path.join(__dirname, "ALL.txt"), blocks.join("\n"), "utf8");
+
+console.log(`[store-descriptions] generated ${count} files + ALL.txt`);
 if (count !== 44) {
     console.error(`[store-descriptions] expected 44 files, got ${count}`);
     process.exit(1);
